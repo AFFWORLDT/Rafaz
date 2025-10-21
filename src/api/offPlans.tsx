@@ -5,13 +5,15 @@ export const getAllProperties = async (querry?:string) => {
      console.log("Fetching properties with query:", querry);
      console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
      
-     // Try different possible endpoints
-     const endpoints = [
-       `/properties/projects${querry ? `?${querry}` : ''}`,
-       `/api/properties/projects${querry ? `?${querry}` : ''}`,
-       `/properties${querry ? `?${querry}` : ''}`,
-       `/api/properties${querry ? `?${querry}` : ''}`
-     ];
+    // Try different possible endpoints
+    const endpoints = [
+      `/properties/all-data${querry ? `?${querry}` : ''}`,
+      `/api/properties/all-data${querry ? `?${querry}` : ''}`,
+      `/properties/projects${querry ? `?${querry}` : ''}`,
+      `/api/properties/projects${querry ? `?${querry}` : ''}`,
+      `/properties${querry ? `?${querry}` : ''}`,
+      `/api/properties${querry ? `?${querry}` : ''}`
+    ];
      
      let lastError;
      for (const endpoint of endpoints) {
@@ -82,13 +84,15 @@ export const getPropertyById = async (id:string) => {
    try {
      console.log("Fetching property by ID:", id);
      
-     // Try different possible endpoints
-     const endpoints = [
-       `/properties/projects?project_id=${id}`,
-       `/api/properties/projects?project_id=${id}`,
-       `/properties/${id}`,
-       `/api/properties/${id}`
-     ];
+    // Try different possible endpoints
+    const endpoints = [
+      `/properties/all-data/${id}`,
+      `/api/properties/all-data/${id}`,
+      `/properties/projects?project_id=${id}`,
+      `/api/properties/projects?project_id=${id}`,
+      `/properties/${id}`,
+      `/api/properties/${id}`
+    ];
      
      let lastError;
      for (const endpoint of endpoints) {

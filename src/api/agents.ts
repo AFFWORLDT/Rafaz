@@ -1,16 +1,7 @@
-import axios from 'axios';
+import { api, handleApiError } from '@/src/lib/axios';
 
-const API_BASE_URL = 'https://therafaz-api.propfusion.io';
-const BEARER_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjAzNSwicm9sZV9pZHMiOlsxMDBdLCJ0eXBlIjoiYWdlbnQiLCJleHAiOjE5MTQ3MDYyODB9.HomftCQdlLSR1LLuageO1uo_iJTYw59pktyFQ_cuK0I';
-
-// Create axios instance with default config
-const apiClient = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    'Authorization': `Bearer ${BEARER_TOKEN}`,
-    'Content-Type': 'application/json',
-  },
-});
+// Get API base URL from environment with fallback
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000/api';
 
 export interface Agent {
   id: number;
@@ -59,21 +50,21 @@ export const getAllAgents = async (): Promise<Agent[]> => {
     
     // Try different possible endpoints for team/agents
     const endpoints = [
-      '/agent/all',
-      '/api/agent/all',
+      '/properties/all-data',
+      '/api/properties/all-data',
       '/agents',
       '/api/agents',
       '/team',
       '/api/team',
-      '/team/all',
-      '/api/team/all'
+      '/agent/all',
+      '/api/agent/all'
     ];
     
     let lastError;
     for (const endpoint of endpoints) {
       try {
         console.log("Trying endpoint:", `${API_BASE_URL}${endpoint}`);
-        const response = await apiClient.get(endpoint);
+        const response = await api.get(endpoint);
         console.log("API Response:", response.data);
         
         // Handle different response structures
@@ -178,6 +169,8 @@ export const getAgentById = async (id: number): Promise<Agent> => {
     
     // Try different possible endpoints
     const endpoints = [
+      `/properties/all-data/${id}`,
+      `/api/properties/all-data/${id}`,
       `/agent/${id}`,
       `/api/agent/${id}`,
       `/agents/${id}`,
@@ -190,7 +183,7 @@ export const getAgentById = async (id: number): Promise<Agent> => {
     for (const endpoint of endpoints) {
       try {
         console.log("Trying endpoint:", `${API_BASE_URL}${endpoint}`);
-        const response = await apiClient.get(endpoint);
+        const response = await api.get(endpoint);
         console.log("API Response:", response.data);
         
         // Handle different response structures
@@ -247,21 +240,21 @@ export const getFeaturedAgents = async (): Promise<Agent[]> => {
     
     // Try different possible endpoints
     const endpoints = [
+      '/properties/all-data?featured=true',
+      '/api/properties/all-data?featured=true',
       '/agent/featured',
       '/api/agent/featured',
       '/agents/featured',
       '/api/agents/featured',
       '/team/featured',
-      '/api/team/featured',
-      '/team/top',
-      '/api/team/top'
+      '/api/team/featured'
     ];
     
     let lastError;
     for (const endpoint of endpoints) {
       try {
         console.log("Trying endpoint:", `${API_BASE_URL}${endpoint}`);
-        const response = await apiClient.get(endpoint);
+        const response = await api.get(endpoint);
         console.log("API Response:", response.data);
         
         // Handle different response structures

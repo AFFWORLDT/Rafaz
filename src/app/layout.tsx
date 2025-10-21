@@ -62,6 +62,11 @@ export default function RootLayout({
           async 
           defer
         ></script>
+        <script 
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuk4slyXMzBAh1XocahaRnpkp_2sueWas&libraries=places" 
+          async 
+          defer
+        ></script>
       </head>
       <body className="luxury-bg">
         <LanguageProvider>

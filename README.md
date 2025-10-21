@@ -30,14 +30,38 @@ npm install
 pnpm install
 ```
 
-2. Run the development server:
+2. Set up environment variables:
+Create a `.env.local` file in the root directory with the following variables:
+
+```env
+# API Configuration
+NEXT_PUBLIC_API_BASE_URL=https://therafaz-api.propfusion.io
+NEXT_PUBLIC_API_BEARER_TOKEN=your_api_bearer_token_here
+
+# Site Configuration
+NEXT_PUBLIC_SITE_URL=https://therafaz.ae
+
+# reCAPTCHA Configuration
+NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your_recaptcha_site_key_here
+RECAPTCHA_SECRET_KEY=your_recaptcha_secret_key_here
+
+# Email Configuration
+EMAIL_FROM_ADDRESS=noreply@therafaz.ae
+EMAIL_TO_ADDRESS=leads@therafaz.ae
+EMAIL_SERVICE_API_KEY=your_email_service_api_key_here
+
+# Database Configuration
+DATABASE_URL=your_database_url_here
+```
+
+3. Run the development server:
 ```bash
 npm run dev
 # or
 pnpm dev
 ```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Project Structure
 

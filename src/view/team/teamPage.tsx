@@ -10,6 +10,7 @@ import { useLanguage } from "@/src/contexts/LanguageContext";
 export default function TeamPage() {
   const [agents, setAgents] = useState<Agent[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
   const { t } = useLanguage();
 
@@ -29,10 +30,13 @@ export default function TeamPage() {
   useEffect(() => {
     async function fetchAgents() {
       try {
+        setError(null);
         const response = await getAllAgents();
         setAgents(response || []);
       } catch (error) {
         console.error('Error fetching agents:', error);
+        // Don't set error state if we have mock data fallback
+        setAgents([]);
       } finally {
         setLoading(false);
       }
@@ -69,6 +73,29 @@ export default function TeamPage() {
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-[#dbbb90] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600 font-light">{t('team.loading')}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-[#F8F6F0] via-white to-[#F2EEE8] flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto px-4">
+          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Icon icon="lucide:alert-circle" className="w-8 h-8 text-red-600" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Unable to Load Team</h2>
+          <p className="text-gray-600 mb-6">{error}</p>
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-left">
+            <h3 className="font-semibold text-yellow-800 mb-2">To fix this issue:</h3>
+            <ul className="text-sm text-yellow-700 space-y-1">
+              <li>• Create a <code className="bg-yellow-100 px-1 rounded">.env.local</code> file</li>
+              <li>• Add <code className="bg-yellow-100 px-1 rounded">NEXT_PUBLIC_API_BASE_URL</code></li>
+              <li>• Add <code className="bg-yellow-100 px-1 rounded">NEXT_PUBLIC_API_BEARER_TOKEN</code></li>
+              <li>• Restart your development server</li>
+            </ul>
+          </div>
         </div>
       </div>
     );

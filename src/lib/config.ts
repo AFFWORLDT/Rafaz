@@ -23,6 +23,12 @@ export const config = {
   database: {
     url: process.env.DATABASE_URL || '',
   },
+  
+  // API Configuration
+  api: {
+    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || 'https://therafaz-api.propfusion.io',
+    bearerToken: process.env.NEXT_PUBLIC_API_BEARER_TOKEN || '',
+  },
 };
 
 // Validation function to check if required environment variables are set

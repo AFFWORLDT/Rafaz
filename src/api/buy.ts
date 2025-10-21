@@ -7,6 +7,8 @@ export const getAllBuyProperties = async (query?: string) => {
     
     // Try different possible endpoints
     const endpoints = [
+      `/properties/all-data${query ? `?${query}` : ''}`,
+      `/api/properties/all-data${query ? `?${query}` : ''}`,
       `/properties/get_properties_for_main_site${query ? `?${query}` : ''}`,
       `/api/properties/get_properties_for_main_site${query ? `?${query}` : ''}`,
       `/properties${query ? `?${query}` : ''}`,
@@ -75,6 +77,8 @@ export const getAllBuyPropertiesById = async (id: string) => {
     
     // Try different possible endpoints
     const endpoints = [
+      `/properties/all-data/${id}`,
+      `/api/properties/all-data/${id}`,
       `/properties/get_properties_for_main_site?property_id=${id}`,
       `/api/properties/get_properties_for_main_site?property_id=${id}`,
       `/properties/${id}`,

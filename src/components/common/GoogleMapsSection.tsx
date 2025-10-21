@@ -24,30 +24,32 @@ export default function GoogleMapsSection() {
   const [hasError, setHasError] = useState(false);
   const { t } = useLanguage();
 
-  // Load Google Maps script
+  // Check if Google Maps is loaded
   useEffect(() => {
-    const loadGoogleMaps = () => {
+    const checkGoogleMaps = () => {
       if (window.google && window.google.maps) {
         setIsLoaded(true);
         return;
       }
-
-      const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCuk4slyXMzBAh1XocahaRnpkp_2sueWas&libraries=places`;
-      script.async = true;
-      script.defer = true;
-      script.onload = () => {
-        console.log('Google Maps loaded successfully');
-        setIsLoaded(true);
-      };
-      script.onerror = () => {
-        console.error('Failed to load Google Maps');
-        setHasError(true);
-      };
-      document.head.appendChild(script);
+      
+      // Wait for Google Maps to load from global script
+      const checkInterval = setInterval(() => {
+        if (window.google && window.google.maps) {
+          setIsLoaded(true);
+          clearInterval(checkInterval);
+        }
+      }, 100);
+      
+      // Clear interval after 10 seconds
+      setTimeout(() => {
+        clearInterval(checkInterval);
+        if (!window.google || !window.google.maps) {
+          setHasError(true);
+        }
+      }, 10000);
     };
 
-    loadGoogleMaps();
+    checkGoogleMaps();
   }, []);
 
   // Initialize map when Google Maps is loaded

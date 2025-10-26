@@ -103,77 +103,73 @@ export default function TeamPage() {
 
   return (
     <div className="min-h-screen luxury-bg">
-      {/* Hero Section */}
-      <section className="relative pt-32 md:pt-40 lg:pt-48 pb-16 md:pb-24 lg:pb-32 px-4 md:px-6 lg:px-8 overflow-hidden">
+      {/* Hero Section - Compact */}
+      <section className="relative pt-12 md:pt-16 pb-10 md:pb-12 px-4 md:px-6 lg:px-8 overflow-hidden">
         {/* Background Elements */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#F8F6F0] via-white to-[#F2EEE8]"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/3 via-transparent to-black/3"></div>
         
-        {/* Decorative Elements */}
-        <div className="absolute top-20 left-10 w-32 h-32 bg-[#dbbb90]/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-40 h-40 bg-[#dbbb90]/8 rounded-full blur-3xl"></div>
-        
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="text-center mb-12 md:mb-20"
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-center mb-8 md:mb-10"
           >
-            {/* Main Title */}
+            {/* Main Title - Compact */}
             <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light text-gray-800 mb-6 md:mb-8 leading-[0.9] tracking-tight font-serif"
+              transition={{ duration: 0.6 }}
+              className="text-2xl sm:text-3xl md:text-4xl font-light text-gray-800 mb-3 md:mb-4 leading-tight tracking-tight font-serif"
             >
-              {t('team.title')} <span className="text-[#dbbb90] font-normal relative">
+              {t('team.title')} <span className="text-[#dbbb90] font-normal relative inline-block">
                 {t('team.titleHighlight')}
                 <motion.div
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
-                  transition={{ duration: 1, delay: 0.8 }}
-                  className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-[#dbbb90] to-[#C2A17B] rounded-full"
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-[#dbbb90] to-[#C2A17B] rounded-full"
                 />
               </span> {t('team.titleSuffix')}
             </motion.h1>
             
-            {/* Subtitle */}
+            {/* Subtitle - Compact */}
             <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-600 font-light max-w-5xl mx-auto leading-relaxed px-4 font-serif"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-sm sm:text-base md:text-lg text-gray-600 font-light max-w-3xl mx-auto leading-relaxed px-4"
             >
               {t('team.subtitle')} {t('team.location')}
             </motion.p>
             
-            {/* Decorative Line */}
+            {/* Decorative Line - Compact */}
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              transition={{ duration: 1.2, delay: 0.6 }}
-              className="w-24 h-0.5 bg-gradient-to-r from-transparent via-[#dbbb90] to-transparent mx-auto mt-8 md:mt-12"
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#dbbb90] to-transparent mx-auto mt-4 md:mt-6"
             />
           </motion.div>
         </div>
       </section>
 
-      {/* Team Grid */}
-      <section className="py-12 md:py-20 lg:py-24 px-4 md:px-6 lg:px-8">
+      {/* Team Grid - Compact */}
+      <section className="py-6 md:py-10 lg:py-14 px-4 md:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
+          {/* Section Header - Compact */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-12 md:mb-16"
+            className="text-center mb-8 md:mb-10"
           >
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-light text-gray-700 mb-4">
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-light text-gray-700 mb-2">
               {t('team.meetExperts')} <span className="text-[#dbbb90] font-normal">{t('team.meetExpertsHighlight')}</span>
             </h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">
+            <p className="text-sm md:text-base text-gray-500 max-w-2xl mx-auto">
               {t('team.expertsDescription')}
             </p>
           </motion.div>

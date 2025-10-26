@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { SEO_KEYWORDS } from '@/src/lib/seo'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://therafaz.ae'
+  const baseUrl = 'https://rafazproperties.ae'
   
   // Static pages
   const staticPages = [

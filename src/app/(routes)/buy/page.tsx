@@ -1,5 +1,61 @@
 "use client";
 import { getAllBuyProperties } from "@/src/api/buy";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Properties for Sale in Dubai | Luxury Apartments, Villas & Penthouses | Rafaz Properties",
+  description: "Explore premium properties for sale in Dubai. Luxury apartments, villas, penthouses, and townhouses in Dubai Marina, Downtown Dubai, Palm Jumeirah, and Business Bay. Find your dream home with Rafaz Properties.",
+  keywords: [
+    "properties for sale Dubai",
+    "apartments for sale Dubai", 
+    "villas for sale Dubai",
+    "penthouses Dubai",
+    "luxury properties Dubai",
+    "Dubai Marina apartments",
+    "Downtown Dubai properties",
+    "Palm Jumeirah villas",
+    "Business Bay real estate",
+    "property investment Dubai",
+    "real estate Dubai",
+    "luxury apartments Dubai",
+    "villas for sale Dubai",
+    "penthouses Dubai",
+    "property management Dubai",
+    "mortgages Dubai",
+    "conveyancing Dubai",
+    "short term rentals Dubai",
+    "Rafaz Properties",
+    "Dubai property market",
+    "real estate investment UAE",
+    "luxury living Dubai"
+  ],
+  openGraph: {
+    title: "Properties for Sale in Dubai | Luxury Apartments, Villas & Penthouses | Rafaz Properties",
+    description: "Explore premium properties for sale in Dubai. Luxury apartments, villas, penthouses, and townhouses in Dubai Marina, Downtown Dubai, Palm Jumeirah, and Business Bay.",
+    url: "https://rafazproperties.ae/buy",
+    siteName: "Rafaz Properties",
+    images: [
+      {
+        url: "/images/buy-properties-og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Properties for Sale in Dubai - Rafaz Properties",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Properties for Sale in Dubai | Rafaz Properties",
+    description: "Explore premium properties for sale in Dubai. Luxury apartments, villas, penthouses, and townhouses in prime locations.",
+    images: ["/images/buy-properties-twitter.jpg"],
+    creator: "@rafazproperties",
+  },
+  alternates: {
+    canonical: "https://rafazproperties.ae/buy",
+  },
+};
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import {
@@ -358,8 +414,70 @@ function Buy() {
   }, [filters.min_price, filters.max_price, handleFilterChange]);
 
   return (
-    <div>
-      <section className="luxury-bg px-4 lg:h-72 h-auto flex justify-center items-end lg:py-16 py-6">
+    <>
+      {/* Structured Data for Buy Page */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Properties for Sale in Dubai | Rafaz Properties",
+            "description": "Explore premium properties for sale in Dubai. Luxury apartments, villas, penthouses, and townhouses in Dubai Marina, Downtown Dubai, Palm Jumeirah, and Business Bay.",
+            "url": "https://rafazproperties.ae/buy",
+            "mainEntity": {
+              "@type": "ItemList",
+              "name": "Properties for Sale in Dubai",
+              "description": "Luxury properties for sale in Dubai",
+              "numberOfItems": totalProperties,
+              "itemListElement": property.slice(0, 10).map((prop: any, index: number) => ({
+                "@type": "ListItem",
+                "position": index + 1,
+                "item": {
+                  "@type": "RealEstateListing",
+                  "name": prop.title || "Luxury Property",
+                  "description": `Luxury ${prop.property_type?.toLowerCase() || 'property'} for sale in ${prop.location}`,
+                  "url": `https://rafazproperties.ae/buy/details/${prop.id}`,
+                  "image": prop.photos?.[0] || "/images/building.jpg",
+                  "price": prop.price ? `AED ${prop.price.toLocaleString()}` : "Price on request",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": prop.location || "Dubai",
+                    "addressCountry": "AE"
+                  },
+                  "numberOfRooms": prop.bedrooms || 0,
+                  "numberOfBathroomsTotal": prop.bathrooms || 0,
+                  "floorSize": {
+                    "@type": "QuantitativeValue",
+                    "value": prop.area || 0,
+                    "unitCode": "SQF"
+                  }
+                }
+              }))
+            },
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://rafazproperties.ae"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Properties for Sale",
+                  "item": "https://rafazproperties.ae/buy"
+                }
+              ]
+            }
+          })
+        }}
+      />
+      
+      <div>
+        <section className="luxury-bg px-4 lg:h-72 h-auto flex justify-center items-end lg:py-16 py-6">
         <div className="container mx-auto ">
           {FilterButton}
 
@@ -852,7 +970,8 @@ function Buy() {
           /> */}
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }
 

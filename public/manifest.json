@@ -1,36 +1,112 @@
 {
-  "name": "Rafaz Real Estate - Premium Properties in Dubai",
-  "short_name": "Rafaz Real Estate",
-  "description": "Discover luxury properties, off-plan projects, and premium real estate solutions in Dubai with Rafaz Real Estate.",
+  "name": "Rafaz Properties - Dubai's Premier Real Estate",
+  "short_name": "Rafaz Properties",
+  "description": "Dubai's premier luxury real estate agency specializing in premium properties, off-plan projects, and investment opportunities.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#D4AF37",
+  "theme_color": "#dbbb90",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["business", "lifestyle", "shopping"],
   "icons": [
     {
       "src": "/favicon-16x16.png",
       "sizes": "16x16",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "/favicon-32x32.png",
+      "src": "/favicon-32x32.png", 
       "sizes": "32x32",
-      "type": "image/png"
-    },
-    {
-      "src": "/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/favicon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "sizes": "192x192", 
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/favicon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
     }
-  ]
+  ],
+  "screenshots": [
+    {
+      "src": "/images/screenshot-mobile.jpg",
+      "sizes": "390x844",
+      "type": "image/jpeg",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/images/screenshot-desktop.jpg", 
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Properties for Sale",
+      "short_name": "Buy",
+      "description": "Browse luxury properties for sale in Dubai",
+      "url": "/buy",
+      "icons": [
+        {
+          "src": "/favicon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Properties for Rent", 
+      "short_name": "Rent",
+      "description": "Find rental properties in Dubai",
+      "url": "/rent",
+      "icons": [
+        {
+          "src": "/favicon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Off-Plan Projects",
+      "short_name": "Off-Plan", 
+      "description": "Explore off-plan developments in Dubai",
+      "url": "/offPlans",
+      "icons": [
+        {
+          "src": "/favicon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Contact Us",
+      "short_name": "Contact",
+      "description": "Get in touch with our team",
+      "url": "/contactUs",
+      "icons": [
+        {
+          "src": "/favicon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "related_apps": [],
+  "prefer_related_apps": false
 }

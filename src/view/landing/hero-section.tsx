@@ -96,22 +96,21 @@ export default function HeroSection() {
 
       {/* Hero Video Background - Mobile Optimized */}
       <div className="absolute inset-0 w-full h-full z-0">
-        {!isMobile ? (
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover"
-            poster="/images/building.jpg"
-            preload="metadata"
-          >
-            <source src="/herooo.mp4" type="video/mp4" />
-            {/* Fallback for browsers that don't support video */}
-            <div className="w-full h-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"></div>
-          </video>
-        ) : (
-          /* Mobile fallback - static image for better performance */
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover"
+          poster="/images/building.jpg"
+          preload={isMobile ? "none" : "metadata"}
+          style={{
+            // Mobile optimization: reduce quality for better performance
+            filter: isMobile ? "brightness(0.8) contrast(1.1)" : "none"
+          }}
+        >
+          <source src="/herooo.mp4" type="video/mp4" />
+          {/* Fallback for browsers that don't support video */}
           <div 
             className="w-full h-full bg-cover bg-center bg-no-repeat"
             style={{
@@ -120,7 +119,7 @@ export default function HeroSection() {
               backgroundPosition: "center"
             }}
           />
-        )}
+        </video>
       </div>
 
       {/* Ultra-Luxury Gradient Overlays */}
@@ -179,131 +178,127 @@ export default function HeroSection() {
       </div>
 
 
-      {/* Ultra-Luxury Search Form - Bottom */}
-      <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-20 text-white px-4 sm:px-6 lg:px-8 container w-full max-w-6xl">
+      {/* Compact Search Form - Bottom */}
+      <div className="absolute bottom-3 sm:bottom-4 left-1/2 transform -translate-x-1/2 z-20 text-white px-2 sm:px-3 w-full max-w-4xl">
         <motion.div
-          initial={{ opacity: 0, y: 50, scale: 0.9 }}
+          initial={{ opacity: 0, y: 20, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut", delay: 0.8 }}
-          className="luxury-hover"
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.5 }}
         >
-        <div className="w-full">
-          {/* Compact Luxury Form Container */}
-          <div className="relative luxury-glass-gold rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-[#D4AF37]/30 shadow-xl overflow-hidden">
-            {/* Minimalist Background Pattern */}
-            <div className="absolute inset-0 luxury-bg-pattern opacity-5"></div>
-            <div className="absolute top-0 right-0 w-16 h-16 luxury-bg-radial rounded-full blur-2xl opacity-15 animate-luxuryBreathe"></div>
-            <div className="absolute bottom-0 left-0 w-12 h-12 luxury-bg-gold rounded-full blur-xl opacity-10 animate-luxuryPulse"></div>
-            
-            {/* Compact Form Grid */}
-            <div className="relative z-10 grid grid-cols-2 lg:grid-cols-5 gap-2 sm:gap-3">
-            {/* Listing Type */}
-            <div className="lg:col-span-1 relative">
-              <div className="absolute top-2 left-2.5 z-10">
-                <Search className="w-3.5 h-3.5 text-[#D4AF37]" />
+          {/* Compact Form Container */}
+          <div className="relative bg-white rounded-xl p-3 sm:p-4 shadow-2xl border border-gray-100">
+            {/* Form Layout */}
+            <div className="space-y-3">
+              {/* Search Fields Row */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                {/* Search Type */}
+                <div className="relative">
+                  <div className="absolute top-2.5 left-2.5 z-10">
+                    <Search className="w-3.5 h-3.5 text-[#dbbb90]" />
+                  </div>
+                  <Select value={searchForm.listingType} onValueChange={(value) => handleFieldChange('listingType', value)}>
+                    <SelectTrigger className="w-full h-9 bg-white border border-gray-200 rounded-lg pl-8 text-xs font-medium text-gray-600 hover:border-[#dbbb90] focus:border-[#dbbb90]">
+                      <SelectValue placeholder="Search For" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white text-gray-900">
+                      <SelectItem value="buy">Buy</SelectItem>
+                      <SelectItem value="rent">Rent</SelectItem>
+                      <SelectItem value="projects">Projects</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Location */}
+                <div className="relative">
+                  <div className="absolute top-2.5 left-2.5 z-10">
+                    <MapPin className="w-3.5 h-3.5 text-[#dbbb90]" />
+                  </div>
+                  <Select value={searchForm.location} onValueChange={(value) => handleFieldChange('location', value)}>
+                    <SelectTrigger className="w-full h-9 bg-white border border-gray-200 rounded-lg pl-8 text-xs font-medium text-gray-600 hover:border-[#dbbb90] focus:border-[#dbbb90]">
+                      <SelectValue placeholder="Location" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white text-gray-900">
+                      <SelectItem value="any">Any Location</SelectItem>
+                      <SelectItem value="dubai-marina">Dubai Marina</SelectItem>
+                      <SelectItem value="downtown-dubai">Downtown Dubai</SelectItem>
+                      <SelectItem value="palm-jumeirah">Palm Jumeirah</SelectItem>
+                      <SelectItem value="business-bay">Business Bay</SelectItem>
+                      <SelectItem value="jlt">JLT</SelectItem>
+                      <SelectItem value="deira">Deira</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Property Type */}
+                <div className="relative">
+                  <div className="absolute top-2.5 left-2.5 z-10">
+                    <Home className="w-3.5 h-3.5 text-[#dbbb90]" />
+                  </div>
+                  <Select value={searchForm.propertyType} onValueChange={(value) => handleFieldChange('propertyType', value)}>
+                    <SelectTrigger className="w-full h-9 bg-white border border-gray-200 rounded-lg pl-8 text-xs font-medium text-gray-600 hover:border-[#dbbb90] focus:border-[#dbbb90]">
+                      <SelectValue placeholder="Type" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white text-gray-900">
+                      <SelectItem value="any">Any Type</SelectItem>
+                      <SelectItem value="apartment">Apartment</SelectItem>
+                      <SelectItem value="villa">Villa</SelectItem>
+                      <SelectItem value="penthouse">Penthouse</SelectItem>
+                      <SelectItem value="townhouse">Townhouse</SelectItem>
+                      <SelectItem value="studio">Studio</SelectItem>
+                      <SelectItem value="plot">Plot</SelectItem>
+                      <SelectItem value="office">Office</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Bedrooms */}
+                <div className="relative">
+                  <div className="absolute top-2.5 left-2.5 z-10">
+                    <Bed className="w-3.5 h-3.5 text-[#dbbb90]" />
+                  </div>
+                  <Select value={searchForm.bedrooms} onValueChange={(value) => handleFieldChange('bedrooms', value)}>
+                    <SelectTrigger className="w-full h-9 bg-white border border-gray-200 rounded-lg pl-8 text-xs font-medium text-gray-600 hover:border-[#dbbb90] focus:border-[#dbbb90]">
+                      <SelectValue placeholder="Bedrooms" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white text-gray-900">
+                      <SelectItem value="any">Any Bedrooms</SelectItem>
+                      <SelectItem value="studio">Studio</SelectItem>
+                      <SelectItem value="1">1 Bedroom</SelectItem>
+                      <SelectItem value="2">2 Bedrooms</SelectItem>
+                      <SelectItem value="3">3 Bedrooms</SelectItem>
+                      <SelectItem value="4">4 Bedrooms</SelectItem>
+                      <SelectItem value="5">5 Bedrooms</SelectItem>
+                      <SelectItem value="6+">6+ Bedrooms</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
-              <Select value={searchForm.listingType} onValueChange={(value) => handleFieldChange('listingType', value)}>
-                <SelectTrigger className="w-full h-7 sm:h-8 text-white max-sm:text-black focus:ring-offset-0 focus:ring-transparent bg-white/10 max-sm:bg-white border border-white/30 max-sm:border-gray-300 rounded-lg pl-9 hover:border-[#dbbb90]/50 transition-colors text-sm">
-                  <SelectValue placeholder="Search For" className="max-sm:hidden" />
-                </SelectTrigger>
-                <SelectContent className="bg-white text-gray-900">
-                  <SelectItem value="buy">Buy</SelectItem>
-                  <SelectItem value="rent">Rent</SelectItem>
-                  <SelectItem value="projects">Projects</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
 
-            {/* Location */}
-            <div className="lg:col-span-1 relative">
-              <div className="absolute top-2 left-2.5 z-10">
-                <MapPin className="w-3.5 h-3.5 text-[#D4AF37]" />
+              {/* Action Buttons Row */}
+              <div className="flex gap-2">
+                {/* Search Button */}
+                <Button 
+                  onClick={handleSearch}
+                  className="flex-1 h-9 bg-gradient-to-r from-[#dbbb90] to-[#C2A17B] hover:from-[#C2A17B] hover:to-[#dbbb90] text-white font-semibold rounded-lg text-xs flex items-center justify-center gap-1.5"
+                >
+                  <Search className="w-3.5 h-3.5" />
+                  Search
+                </Button>
+                
+                {/* Consultation Button */}
+                <LeadFormButton 
+                  variant="compact" 
+                  source="Hero Section"
+                  className="flex-1 h-9 bg-white text-[#dbbb90] border border-[#dbbb90] hover:bg-[#dbbb90] hover:text-white font-semibold rounded-lg text-xs transition-all duration-300 flex items-center justify-center gap-1.5"
+                >
+                  <div className="w-3.5 h-3.5 rounded-full bg-[#dbbb90] flex items-center justify-center">
+                    <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                  </div>
+                  Consultation
+                </LeadFormButton>
               </div>
-              <Select value={searchForm.location} onValueChange={(value) => handleFieldChange('location', value)}>
-                <SelectTrigger className="w-full h-7 sm:h-8 text-white max-sm:text-black focus:ring-offset-0 focus:ring-transparent bg-white/10 max-sm:bg-white border border-white/30 max-sm:border-gray-300 rounded-lg pl-9 hover:border-[#dbbb90]/50 transition-colors text-sm">
-                  <SelectValue placeholder={t('search.location')} className="max-sm:hidden" />
-                </SelectTrigger>
-                <SelectContent className="bg-white text-gray-900">
-                  <SelectItem value="any">Any</SelectItem>
-                  <SelectItem value="dubai-marina">Dubai Marina</SelectItem>
-                  <SelectItem value="downtown-dubai">Downtown Dubai</SelectItem>
-                  <SelectItem value="palm-jumeirah">Palm Jumeirah</SelectItem>
-                  <SelectItem value="business-bay">Business Bay</SelectItem>
-                  <SelectItem value="jlt">JLT</SelectItem>
-                  <SelectItem value="deira">Deira</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* Type */}
-            <div className="lg:col-span-1 relative">
-              <div className="absolute top-2 left-2.5 z-10">
-                <Home className="w-3.5 h-3.5 text-[#D4AF37]" />
-              </div>
-              <Select value={searchForm.propertyType} onValueChange={(value) => handleFieldChange('propertyType', value)}>
-                <SelectTrigger className="w-full h-7 sm:h-8 text-white max-sm:text-black bg-white/10 max-sm:bg-white border border-white/30 max-sm:border-gray-300 rounded-lg focus:ring-offset-0 focus:ring-transparent pl-9 text-sm">
-                  <SelectValue placeholder={t('search.type')} className="max-sm:hidden" />
-                </SelectTrigger>
-                <SelectContent className="bg-white text-gray-900">
-                  <SelectItem value="any">Any</SelectItem>
-                  <SelectItem value="apartment">Apartment</SelectItem>
-                  <SelectItem value="villa">Villa</SelectItem>
-                  <SelectItem value="penthouse">Penthouse</SelectItem>
-                  <SelectItem value="townhouse">Townhouse</SelectItem>
-                  <SelectItem value="studio">Studio</SelectItem>
-                  <SelectItem value="Plot">Plot</SelectItem>
-                  <SelectItem value="Office">Office</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-
-            {/* Bedrooms */}
-            <div className="lg:col-span-1 relative">
-              <div className="absolute top-2 left-2.5 z-10">
-                <Bed className="w-3.5 h-3.5 text-[#D4AF37]" />
-              </div>
-              <Select value={searchForm.bedrooms} onValueChange={(value) => handleFieldChange('bedrooms', value)}>
-                <SelectTrigger className="w-full h-7 sm:h-8 text-white max-sm:text-black bg-white/10 max-sm:bg-white border max-sm:border-gray-300 border-white/30 rounded-lg focus:ring-offset-0 focus:ring-transparent pl-9 text-sm">
-                  <SelectValue placeholder={t('search.bedrooms')} className="max-sm:hidden" />
-                </SelectTrigger>
-                <SelectContent className="bg-white text-gray-900">
-                  <SelectItem value="any">Any</SelectItem>
-                  <SelectItem value="studio">Studio</SelectItem>
-                  <SelectItem value="1">1</SelectItem>
-                  <SelectItem value="2">2</SelectItem>
-                  <SelectItem value="3">3</SelectItem>
-                  <SelectItem value="4">4</SelectItem>
-                  <SelectItem value="5">5</SelectItem>
-                  <SelectItem value="6+">6+</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-
-            {/* Compact Search Button */}
-            <div className="lg:col-span-1 col-span-1 flex justify-center">
-              <Button 
-                onClick={handleSearch}
-                className="w-12 h-7 sm:w-14 sm:h-8 luxury-button font-semibold tracking-[0.1em] animate-luxuryGlow shadow-xl hover:shadow-[#D4AF37]/25 hover:shadow-2xl transform hover:scale-102 transition-all duration-300 flex items-center justify-center rounded-lg cursor-pointer"
-              >
-                <Search className="w-1.5 h-1.5 text-white cursor-pointer" />
-              </Button>
-            </div>
-            
-            {/* Lead Form Button */}
-            <div className="lg:col-span-1 col-span-1 flex justify-center mt-2">
-              <LeadFormButton 
-                variant="compact" 
-                source="Hero Section"
-                className="w-full h-7 sm:h-8 text-xs sm:text-sm"
-              >
-                Get Consultation
-              </LeadFormButton>
-            </div>
             </div>
           </div>
-        </div>
         </motion.div>
       </div>
 

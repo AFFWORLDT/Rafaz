@@ -9,16 +9,17 @@ import {
 } from "@/src/components/ui/select";
 import { Input } from "@/src/components/ui/input";
 import { Button } from "@/src/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Home, Bed, Search } from "lucide-react";
 import { useLanguage } from "@/src/contexts/LanguageContext";
 import { useRouter } from "next/navigation";
-import { BackgroundImageSlider } from "@/src/components/ui/background-image-slider";
+// Removed BackgroundImageSlider import - using video instead
 
 export default function HeroSection() {
   const { t } = useLanguage();
   const router = useRouter();
+  const [isMobile, setIsMobile] = useState(false);
   
   // Search form state
   const [searchForm, setSearchForm] = useState({
@@ -27,6 +28,18 @@ export default function HeroSection() {
     propertyType: "",
     bedrooms: ""
   });
+
+  // Check if device is mobile for video optimization
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Handle search form submission
   const handleSearch = () => {
@@ -67,7 +80,9 @@ export default function HeroSection() {
 
   return (
     <section 
-      className="relative h-screen md:h-[115vh] w-full flex items-center justify-center text-center luxury-bg overflow-hidden"
+      className={`relative w-full flex items-center justify-center text-center luxury-bg overflow-hidden ${
+        isMobile ? 'h-screen' : 'h-screen md:h-[115vh]'
+      }`}
     >
       {/* Ultra-Luxury Background Effects */}
       <div className="absolute inset-0 luxury-bg-pattern opacity-20"></div>
@@ -78,8 +93,34 @@ export default function HeroSection() {
       <div className="absolute bottom-20 left-20 w-28 h-28 luxury-bg-bronze rounded-full animate-luxuryPulse opacity-25 blur-xl"></div>
       <div className="absolute bottom-10 right-10 w-36 h-36 luxury-bg-radial rounded-full animate-luxuryFloat opacity-20 blur-2xl"></div>
 
-      {/* Property Images Background */}
-      <BackgroundImageSlider className="z-0" />
+      {/* Hero Video Background - Mobile Optimized */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        {!isMobile ? (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+            poster="/images/building.jpg"
+            preload="metadata"
+          >
+            <source src="/herooo.mp4" type="video/mp4" />
+            {/* Fallback for browsers that don't support video */}
+            <div className="w-full h-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"></div>
+          </video>
+        ) : (
+          /* Mobile fallback - static image for better performance */
+          <div 
+            className="w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: "url('/images/building.jpg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center"
+            }}
+          />
+        )}
+      </div>
 
       {/* Ultra-Luxury Gradient Overlays */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10" />
@@ -102,7 +143,11 @@ export default function HeroSection() {
             <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-2 h-2 luxury-bg-gold rounded-full animate-luxurySparkle"></div>
           </div>
           
-          <h1 className="text-4xl sm:text-5xl lg:text-7xl xl:text-8xl font-light mb-6 sm:mb-8 text-white font-serif tracking-wider leading-tight">
+          <h1 className={`font-light mb-6 sm:mb-8 text-white font-serif tracking-wider leading-tight ${
+            isMobile 
+              ? 'text-3xl sm:text-4xl' 
+              : 'text-4xl sm:text-5xl lg:text-7xl xl:text-8xl'
+          }`}>
             <span className="luxury-text-shadow">{t('hero.title')}</span>
             <br />
             <span className="luxury-text inline-block animate-luxuryGoldFlow">{t('hero.subtitle')}</span>

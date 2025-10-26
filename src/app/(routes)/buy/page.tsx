@@ -17,7 +17,7 @@ import {
 } from "@/src/components/ui/dialog";
 import { CustomPagination } from "@/src/components/ui/custom-pagination";
 import { cn } from "@/src/lib/utils";
-import { BuyCard } from "@/src/view/buy/buyCard";
+import { PropertyCard } from "@/src/components/common/card";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Loader, Filter, X, Search } from "lucide-react";
 import PropertyCardSkeleton from "@/src/components/common/property-card-skeleton";
@@ -26,7 +26,6 @@ import { api } from "@/src/lib/axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 // import LeadCaptureForm from "@/src/components/common/LeadCaptureForm";
-import OptimizedPropertyGrid from "@/src/components/common/OptimizedPropertyGrid";
 
 // Constants
 const COMPLETION_STATUS_OPTIONS = [
@@ -813,12 +812,21 @@ function Buy() {
           ))}
         </div>
       ) : (
-        <div className="px-4 container my-4 mx-auto">
-          <OptimizedPropertyGrid
-            properties={property}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-            itemsPerPage={24}
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 container my-4 mx-auto">
+          {property.map((obj: any, i: number) => (
+            <PropertyCard
+              key={obj.id || i}
+              photos={obj?.photos?.[0] || "/images/building.jpg"}
+              title={obj?.title || "Luxury Property"}
+              location={obj?.location || "Dubai, UAE"}
+              price={obj?.price ? `AED ${obj.price.toLocaleString()}` : "Price on request"}
+              bedrooms={obj?.bedrooms || 0}
+              bathrooms={obj?.bathrooms || 0}
+              area={obj?.area ? `${obj.area} sq ft` : "N/A"}
+              propertyId={obj?.id?.toString() || i.toString()}
+              onClick={() => router.push(`/buy/details/${obj.id}`)}
+            />
+          ))}
         </div>
       )}
 

@@ -103,25 +103,24 @@ export default function TeamPage() {
 
   return (
     <div className="min-h-screen luxury-bg">
-      {/* Hero Section - Compact */}
-      <section className="relative pt-12 md:pt-16 pb-10 md:pb-12 px-4 md:px-6 lg:px-8 overflow-hidden">
+      {/* Hero Section - Ultra Compact */}
+      <section className="relative pt-8 md:pt-10 pb-6 md:pb-8 px-4 md:px-6 lg:px-8">
         {/* Background Elements */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#F8F6F0] via-white to-[#F2EEE8]"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/3 via-transparent to-black/3"></div>
         
-        <div className="max-w-7xl mx-auto relative z-10">
+        <div className="max-w-6xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center mb-8 md:mb-10"
+            className="text-center mb-6 md:mb-8"
           >
-            {/* Main Title - Compact */}
+            {/* Main Title - Ultra Compact */}
             <motion.h1 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-2xl sm:text-3xl md:text-4xl font-light text-gray-800 mb-3 md:mb-4 leading-tight tracking-tight font-serif"
+              className="text-xl sm:text-2xl md:text-3xl font-light text-gray-800 mb-2 md:mb-3 leading-tight tracking-tight font-serif"
             >
               {t('team.title')} <span className="text-[#dbbb90] font-normal relative inline-block">
                 {t('team.titleHighlight')}
@@ -134,42 +133,42 @@ export default function TeamPage() {
               </span> {t('team.titleSuffix')}
             </motion.h1>
             
-            {/* Subtitle - Compact */}
+            {/* Subtitle - Ultra Compact */}
             <motion.p 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-sm sm:text-base md:text-lg text-gray-600 font-light max-w-3xl mx-auto leading-relaxed px-4"
+              className="text-sm md:text-base text-gray-600 font-light max-w-2xl mx-auto leading-relaxed"
             >
               {t('team.subtitle')} {t('team.location')}
             </motion.p>
             
-            {/* Decorative Line - Compact */}
+            {/* Decorative Line - Ultra Compact */}
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#dbbb90] to-transparent mx-auto mt-4 md:mt-6"
+              className="w-12 h-0.5 bg-gradient-to-r from-transparent via-[#dbbb90] to-transparent mx-auto mt-3 md:mt-4"
             />
           </motion.div>
         </div>
       </section>
 
-      {/* Team Grid - Compact */}
-      <section className="py-6 md:py-10 lg:py-14 px-4 md:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          {/* Section Header - Compact */}
+      {/* Team Grid - Ultra Compact */}
+      <section className="py-4 md:py-6 lg:py-8 px-4 md:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          {/* Section Header - Ultra Compact */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-8 md:mb-10"
+            className="text-center mb-6 md:mb-8"
           >
-            <h2 className="text-xl md:text-2xl lg:text-3xl font-light text-gray-700 mb-2">
+            <h2 className="text-lg md:text-xl lg:text-2xl font-light text-gray-700 mb-2">
               {t('team.meetExperts')} <span className="text-[#dbbb90] font-normal">{t('team.meetExpertsHighlight')}</span>
             </h2>
-            <p className="text-sm md:text-base text-gray-500 max-w-2xl mx-auto">
+            <p className="text-sm md:text-base text-gray-500 max-w-xl mx-auto">
               {t('team.expertsDescription')}
             </p>
           </motion.div>
@@ -179,7 +178,7 @@ export default function TeamPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 lg:gap-10"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8"
           >
             <AnimatePresence>
               {agents.map((agent) => (
@@ -190,57 +189,57 @@ export default function TeamPage() {
                   className="group cursor-pointer"
                   onClick={() => setSelectedAgent(agent)}
                 >
-                  <div className="bg-white/90 backdrop-blur-sm rounded-2xl md:rounded-3xl p-5 md:p-7 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-white/60 hover:border-[#dbbb90]/30 group h-full flex flex-col">
-                    {/* Agent Avatar */}
-                    <div className="relative mb-4 md:mb-6">
-                      <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 mx-auto rounded-full overflow-hidden border-3 md:border-4 border-[#dbbb90] shadow-lg group-hover:shadow-xl group-hover:border-[#C2A17B] transition-all duration-300 relative">
+                  <div className="bg-white/90 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-5 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-white/60 hover:border-[#dbbb90]/30 group h-full flex flex-col">
+                    {/* Agent Avatar - Compact */}
+                    <div className="relative mb-3 md:mb-4">
+                      <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-24 lg:h-24 mx-auto rounded-full overflow-hidden border-2 md:border-3 border-[#dbbb90] shadow-md group-hover:shadow-lg group-hover:border-[#C2A17B] transition-all duration-300 relative">
                         {/* Hover Overlay */}
                         <div className="absolute inset-0 bg-gradient-to-br from-[#dbbb90]/20 to-[#C2A17B]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                         {agent.avatar ? (
                           <Image
                             src={agent.avatar}
                             alt={agent.name}
-                            width={128}
-                            height={128}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 relative z-0"
+                            width={96}
+                            height={96}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300 relative z-0"
                           />
                         ) : (
                           <div className="w-full h-full bg-gradient-to-br from-[#dbbb90] to-[#C2A17B] flex items-center justify-center relative z-0">
-                            <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+                            <span className="text-lg sm:text-xl md:text-2xl font-bold text-white">
                               {agent.name?.charAt(0) || 'A'}
                             </span>
                           </div>
                         )}
                       </div>
-                      <div className="absolute -bottom-1 -right-1 md:-bottom-2 md:-right-2 w-6 h-6 md:w-8 md:h-8 bg-green-500 rounded-full border-2 md:border-4 border-white flex items-center justify-center">
-                        <div className="w-2 h-2 md:w-3 md:h-3 bg-white rounded-full"></div>
+                      <div className="absolute -bottom-1 -right-1 w-4 h-4 md:w-5 md:h-5 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
+                        <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white rounded-full"></div>
                       </div>
                     </div>
 
-                    {/* Agent Info */}
-                    <div className="text-center mb-4 md:mb-6 flex-1">
-                      <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 leading-tight">
+                    {/* Agent Info - Compact */}
+                    <div className="text-center mb-3 md:mb-4 flex-1">
+                      <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-1 leading-tight">
                         {agent.name}
                       </h3>
-                      <p className="text-[#dbbb90] font-medium text-sm sm:text-base uppercase tracking-wider mb-2 md:mb-3">
+                      <p className="text-[#dbbb90] font-medium text-xs sm:text-sm uppercase tracking-wider mb-1">
                         {agent.role_name || agent.role || 'Real Estate Agent'}
                       </p>
                       {agent.team_name && agent.team_name !== 'No team assigned' && (
-                        <p className="text-[#dbbb90] font-medium text-xs sm:text-sm uppercase tracking-wider mb-2 md:mb-3">
+                        <p className="text-[#dbbb90] font-medium text-xs uppercase tracking-wider mb-1">
                           {agent.team_name}
                         </p>
                       )}
                       {agent.experience_years && (
-                        <p className="text-gray-600 text-xs sm:text-sm">
+                        <p className="text-gray-600 text-xs">
                           {agent.experience_years} Years Experience
                         </p>
                       )}
                     </div>
 
-                    {/* Stats */}
-                    <div className="grid grid-cols-2 gap-2 md:gap-4 mb-4 md:mb-6">
+                    {/* Stats - Compact */}
+                    <div className="grid grid-cols-2 gap-2 mb-3 md:mb-4">
                       <div className="text-center">
-                        <div className="text-lg sm:text-xl md:text-2xl font-bold text-[#dbbb90]">
+                        <div className="text-sm sm:text-base md:text-lg font-bold text-[#dbbb90]">
                           {agent.experience_years || 1}+
                         </div>
                         <div className="text-xs text-gray-600 uppercase tracking-wider">
@@ -248,7 +247,7 @@ export default function TeamPage() {
                         </div>
                       </div>
                       <div className="text-center">
-                        <div className="text-lg sm:text-xl md:text-2xl font-bold text-[#dbbb90]">
+                        <div className="text-sm sm:text-base md:text-lg font-bold text-[#dbbb90]">
                           {agent.specialities?.length || 1}
                         </div>
                         <div className="text-xs text-gray-600 uppercase tracking-wider">
@@ -257,30 +256,30 @@ export default function TeamPage() {
                       </div>
                     </div>
 
-                    {/* Contact Buttons */}
-                    <div className="flex justify-center gap-3 md:gap-4 mt-auto">
+                    {/* Contact Buttons - Compact */}
+                    <div className="flex justify-center gap-2 md:gap-3 mt-auto">
                       <a
                         href={`https://wa.me/${agent.phone?.replace(/[^0-9]/g, '')}?text=Hi ${agent.name}, I'm interested in luxury properties in Dubai`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105"
+                        className="w-8 h-8 sm:w-9 sm:h-9 bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 rounded-full flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 hover:scale-105"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <Icon icon="iconoir:whatsapp-solid" className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                        <Icon icon="iconoir:whatsapp-solid" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                       </a>
                       <a
                         href={`tel:${agent.phone}`}
-                        className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 bg-gradient-to-br from-[#dbbb90] to-[#C2A17B] hover:from-[#C2A17B] hover:to-[#B8956A] rounded-full flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105"
+                        className="w-8 h-8 sm:w-9 sm:h-9 bg-gradient-to-br from-[#dbbb90] to-[#C2A17B] hover:from-[#C2A17B] hover:to-[#B8956A] rounded-full flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 hover:scale-105"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <Icon icon="line-md:phone-call-filled" className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                        <Icon icon="line-md:phone-call-filled" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                       </a>
                       <a
                         href={`mailto:${agent.email}?subject=Luxury Property Inquiry`}
-                        className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 bg-gradient-to-br from-gray-700 to-gray-800 hover:from-gray-800 hover:to-gray-900 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105"
+                        className="w-8 h-8 sm:w-9 sm:h-9 bg-gradient-to-br from-gray-700 to-gray-800 hover:from-gray-800 hover:to-gray-900 rounded-full flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 hover:scale-105"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <Icon icon="material-symbols:mail-outline" className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                        <Icon icon="material-symbols:mail-outline" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                       </a>
                     </div>
                   </div>
@@ -291,31 +290,31 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* Call to Action Section */}
-      <section className="py-16 md:py-20 lg:py-24 px-4 md:px-6 lg:px-8 bg-gradient-to-br from-[#F8F6F0] to-[#F2EEE8]">
-        <div className="max-w-4xl mx-auto text-center">
+      {/* Call to Action Section - Compact */}
+      <section className="py-8 md:py-12 lg:py-16 px-4 md:px-6 lg:px-8 bg-gradient-to-br from-[#F8F6F0] to-[#F2EEE8]">
+        <div className="max-w-3xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-gray-800 mb-6">
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-light text-gray-800 mb-4">
               {t('team.ctaTitle')} <span className="text-[#dbbb90] font-normal">{t('team.ctaTitleHighlight')}</span>{t('team.ctaTitleSuffix')}
             </h2>
-            <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            <p className="text-sm md:text-base text-gray-600 mb-6 max-w-xl mx-auto">
               {t('team.ctaDescription')}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
                 href="/contactUs"
-                className="inline-flex items-center justify-center px-8 py-4 bg-[#dbbb90] hover:bg-[#C2A17B] text-white font-medium rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                className="inline-flex items-center justify-center px-6 py-3 bg-[#dbbb90] hover:bg-[#C2A17B] text-white font-medium rounded-full transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 text-sm"
               >
                 {t('team.getInTouch')}
               </a>
               <a
                 href="/buy"
-                className="inline-flex items-center justify-center px-8 py-4 border-2 border-[#dbbb90] text-[#dbbb90] hover:bg-[#dbbb90] hover:text-white font-medium rounded-full transition-all duration-300"
+                className="inline-flex items-center justify-center px-6 py-3 border-2 border-[#dbbb90] text-[#dbbb90] hover:bg-[#dbbb90] hover:text-white font-medium rounded-full transition-all duration-300 text-sm"
               >
                 {t('team.browseProperties')}
               </a>

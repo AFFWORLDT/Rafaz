@@ -14,6 +14,7 @@ interface PropertyCardProps {
   bathrooms: number;
   area: string;
   propertyId: string;
+  onClick?: () => void;
 }
 
 export function PropertyCard({
@@ -25,9 +26,13 @@ export function PropertyCard({
   bathrooms,
   area,
   propertyId,
+  onClick,
 }: PropertyCardProps) {
   return (
-    <Card className="relative overflow-hidden rounded-lg shadow-sm bg-white p-0 border">
+    <Card 
+      className="relative overflow-hidden rounded-lg shadow-sm bg-white p-0 border cursor-pointer hover:shadow-lg transition-shadow duration-300" 
+      onClick={onClick}
+    >
       <div className="relative w-full h-80">
         <Image
           src={photos}

@@ -279,16 +279,29 @@ export default function Header() {
         <div className="absolute top-0 left-0 w-full h-1 luxury-bg-gold animate-luxuryShimmer"></div>
         
         <div className="flex items-center justify-between p-6 border-b-2 border-[#D4AF37]/20 relative z-10" style={{ backgroundColor: '#ffffff' }}>
-          <div className="flex items-center">
+          <div className="flex items-center space-x-3">
+            {/* Circular Logo with Building Icon */}
             <div className="relative">
-              <Image
-                src="/images/logo.png"
-                alt="Rafaz Real Estate Logo"
-                width={160}
-                height={50}
-                className="object-contain w-40 h-12"
-              />
+              <div className="w-12 h-12 bg-gradient-to-br from-[#dbbb90] to-[#C2A17B] rounded-full flex items-center justify-center shadow-lg">
+                <Image
+                  src="/favicon.png"
+                  alt="Rafaz Properties Logo"
+                  width={24}
+                  height={24}
+                  className="object-contain"
+                />
+              </div>
               <div className="absolute -top-1 -right-1 w-2 h-2 luxury-bg-gold rounded-full animate-luxurySparkle"></div>
+            </div>
+            
+            {/* Company Name */}
+            <div className="flex flex-col">
+              <span className="text-[#dbbb90] font-serif text-lg font-semibold tracking-wider">
+                Rafaz
+              </span>
+              <span className="text-gray-600 text-xs font-medium tracking-wide">
+                PROPERTIES
+              </span>
             </div>
           </div>
           <button
@@ -374,21 +387,29 @@ export default function Header() {
         {/* Luxury Footer Section */}
         <div className="absolute bottom-0 left-0 right-0 p-6 border-t-2 border-[#D4AF37]/20 relative z-10" style={{ backgroundColor: '#ffffff' }}>
           <div className="text-center">
-            <div className="flex items-center justify-center space-x-2 mb-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-[#D4AF37] to-[#C2A17B] rounded-full flex items-center justify-center">
+            <div className="flex items-center justify-center space-x-3 mb-3">
+              {/* Circular Logo */}
+              <div className="w-10 h-10 bg-gradient-to-br from-[#dbbb90] to-[#C2A17B] rounded-full flex items-center justify-center shadow-lg">
                 <Image
-                  src="/images/logo.png"
-                  alt="Logo"
+                  src="/favicon.png"
+                  alt="Rafaz Properties Logo"
                   width={20}
                   height={20}
                   className="object-contain"
                 />
               </div>
-              <span className="luxury-text-static font-serif text-sm font-semibold tracking-wider">
-                Rafaz
-              </span>
+              
+              {/* Company Name */}
+              <div className="flex flex-col items-start">
+                <span className="text-[#dbbb90] font-serif text-sm font-semibold tracking-wider">
+                  Rafaz
+                </span>
+                <span className="text-gray-600 text-xs font-medium tracking-wide">
+                  PROPERTIES
+                </span>
+              </div>
             </div>
-            <p className="text-[#D4AF37] font-medium text-xs tracking-wider font-serif mb-4">
+            <p className="text-[#dbbb90] font-medium text-xs tracking-wider font-serif mb-4">
               Dubai's NO 1 Luxury Real Estate
             </p>
             <button

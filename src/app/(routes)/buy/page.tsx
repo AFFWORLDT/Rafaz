@@ -133,11 +133,34 @@ function Buy() {
     
     try {
       const res = await getAllBuyProperties(queryParams.toString());
-      setProperty(res?.properties || []);
-      setTotalPages(Math.ceil((res?.total || 0) / 9));
-      setTotalProperties(res?.total || 0);
+      console.log("API Response:", res);
+      
+      // Handle the new API response structure
+      const properties = res?.properties || [];
+      
+      // Transform the properties to match OptimizedPropertyGrid expectations
+      const transformedProperties = properties.map((prop: any) => ({
+        id: prop.id?.toString() || prop.propertyId,
+        title: prop.title,
+        location: prop.location ? 
+          `${prop.location.community || ''}, ${prop.location.city || 'Dubai'}`.replace(/^,\s*|,\s*$/g, '') :
+          prop.location || 'Dubai, UAE',
+        price: prop.price || 0,
+        bedrooms: parseInt(prop.bedRooms || prop.bedrooms || 0),
+        bathrooms: parseInt(prop.bathrooms || 0),
+        area: prop.size || prop.area || 0,
+        property_type: prop.property_type,
+        photos: prop.photos || [],
+        developer: prop.developer?.name,
+        status: prop.status
+      }));
+      
+      setProperty(transformedProperties);
+      setTotalPages(Math.ceil((res?.totalProperties || res?.total || 0) / 9));
+      setTotalProperties(res?.totalProperties || res?.total || 0);
     } catch (error) {
       console.error("Error fetching properties:", error);
+      setProperty([]);
     } finally {
       setLoading(false);
     }

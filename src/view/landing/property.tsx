@@ -20,16 +20,72 @@ export default function Property() {
       console.log("Received buy properties data:", res);
       
       // Handle different response structures
+      let propertiesArray: any[] = [];
+      
       if (res?.properties && Array.isArray(res.properties) && res.properties.length > 0) {
-        setProperty(res.properties);
+        // Transform the location object to string for each property
+        propertiesArray = res.properties.map((prop: any) => ({
+          ...prop,
+          location: typeof prop.location === 'object' && prop.location !== null
+            ? `${prop.location.community || ''}, ${prop.location.city || 'Dubai'}`.replace(/^,\s*|,\s*$/g, '')
+            : prop.location || 'Dubai, UAE'
+        }));
         console.log("Set buy properties:", res.properties.length);
       } else if (Array.isArray(res) && res.length > 0) {
-        setProperty(res);
+        propertiesArray = res.map((prop: any) => ({
+          ...prop,
+          location: typeof prop.location === 'object' && prop.location !== null
+            ? `${prop.location.community || ''}, ${prop.location.city || 'Dubai'}`.replace(/^,\s*|,\s*$/g, '')
+            : prop.location || 'Dubai, UAE'
+        }));
         console.log("Set buy properties from array:", res.length);
+      } else if (res?.data && Array.isArray(res.data) && res.data.length > 0) {
+        propertiesArray = res.data.map((prop: any) => ({
+          ...prop,
+          location: typeof prop.location === 'object' && prop.location !== null
+            ? `${prop.location.community || ''}, ${prop.location.city || 'Dubai'}`.replace(/^,\s*|,\s*$/g, '')
+            : prop.location || 'Dubai, UAE'
+        }));
+        console.log("Set buy properties from res.data:", res.data.length);
+      } else if (res?.results && Array.isArray(res.results) && res.results.length > 0) {
+        propertiesArray = res.results.map((prop: any) => ({
+          ...prop,
+          location: typeof prop.location === 'object' && prop.location !== null
+            ? `${prop.location.community || ''}, ${prop.location.city || 'Dubai'}`.replace(/^,\s*|,\s*$/g, '')
+            : prop.location || 'Dubai, UAE'
+        }));
+        console.log("Set buy properties from res.results:", res.results.length);
+      } else if (res && typeof res === 'object' && !Array.isArray(res)) {
+        // If it's a single object, check if it has property structure
+        console.log("Received single object, checking structure:", res);
+        
+        // Check if this is a single property object with keys like id, property_name, etc.
+        if (res.hasOwnProperty('id') || res.hasOwnProperty('property_name') || res.hasOwnProperty('city')) {
+          // Transform single property object to array format
+          const transformedProperty = {
+            id: res.id,
+            title: res.property_name || res.title || res.name,
+            location: typeof res.location === 'object' && res.location !== null
+              ? `${res.location.community || ''}, ${res.location.city || 'Dubai'}`.replace(/^,\s*|,\s*$/g, '')
+              : res.community ? `${res.community}, ${res.city || 'Dubai'}` : 'Dubai, UAE',
+            price: res.price || res.price_display || "2,500,000",
+            bedrooms: res.bedrooms || res.bedroom_count || 2,
+            bathrooms: res.bathrooms || res.bathroom_count || 2,
+            area: res.area || res.size || res.square_feet || "1,200 sq ft",
+            photos: res.photos || res.images || [res.photo] || ["/images/building.jpg"]
+          };
+          propertiesArray = [transformedProperty];
+          console.log("Transformed single property object to array");
+        } else {
+          console.warn("Single object doesn't match expected structure, skipping");
+          propertiesArray = [];
+        }
       } else {
         console.warn("No buy properties found in response:", res);
-        setProperty([]);
+        propertiesArray = [];
       }
+      
+      setProperty(propertiesArray);
     } catch (error) {
       console.error("Error fetching buy properties:", error);
       // Set empty array on error to prevent crashes
@@ -64,19 +120,29 @@ export default function Property() {
         </section>
 
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {property?.map((obj:any,i) => (
-            <PropertyCard
-              photos={obj?.photos?.[0] || "/images/building.jpg"}
-              title={obj?.title || "Luxury Property"}
-              location={obj?.location || "Dubai, UAE"}
-              price={obj?.price || "2,500,000"}
-              bedrooms={obj?.bedrooms || 2}
-              bathrooms={obj?.bathrooms || 2}
-              area={obj?.area || "1,200 sq ft"}
-              propertyId={obj?.id?.toString() || "1"}
-              key={i}
-            />
-          ))}
+          {loading ? (
+            <div className="col-span-full text-center py-8">
+              <p className="text-gray-600">Loading properties...</p>
+            </div>
+          ) : Array.isArray(property) && property.length > 0 ? (
+            property.map((obj: any, i: number) => (
+              <PropertyCard
+                photos={obj?.photos?.[0] || "/images/building.jpg"}
+                title={obj?.title || "Luxury Property"}
+                location={obj?.location || "Dubai, UAE"}
+                price={obj?.price || "2,500,000"}
+                bedrooms={obj?.bedrooms || 2}
+                bathrooms={obj?.bathrooms || 2}
+                area={obj?.area || "1,200 sq ft"}
+                propertyId={obj?.id?.toString() || "1"}
+                key={i}
+              />
+            ))
+          ) : (
+            <div className="col-span-full text-center py-8">
+              <p className="text-gray-600">No properties available</p>
+            </div>
+          )}
         </section>
 
         <div className="text-center">

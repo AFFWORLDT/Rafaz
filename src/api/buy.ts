@@ -3,34 +3,17 @@ import { api, handleApiError } from "@/src/lib/axios";
 export const getAllBuyProperties = async (query?: string) => {
   try {
     console.log("Fetching buy properties with query:", query);
-    console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
     
-    // Try different possible endpoints
-    const endpoints = [
-      `/properties/all-data${query ? `?${query}` : ''}`,
-      `/api/properties/all-data${query ? `?${query}` : ''}`,
-      `/properties/get_properties_for_main_site${query ? `?${query}` : ''}`,
-      `/api/properties/get_properties_for_main_site${query ? `?${query}` : ''}`,
-      `/properties${query ? `?${query}` : ''}`,
-      `/api/properties${query ? `?${query}` : ''}`
-    ];
+    const endpoint = `/properties/get_properties_for_main_site${query ? `?${query}` : ''}`;
+    console.log("API endpoint:", endpoint);
     
-    let lastError;
-    for (const endpoint of endpoints) {
-      try {
-        console.log("Trying endpoint:", endpoint);
-        const res = await api.get(endpoint);
-        console.log("API Response:", res.data);
-        return res.data;
-      } catch (error) {
-        console.log(`Endpoint ${endpoint} failed:`, error.response?.status);
-        lastError = error;
-        continue;
-      }
-    }
-    
-    // If all endpoints fail, return mock data as fallback
-    console.warn("All API endpoints failed, returning mock data for buy properties");
+    const res = await api.get(endpoint);
+    console.log("API Response:", res.data);
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching buy properties:", error);
+    console.log("Returning mock data as fallback");
+    // Return mock data on error to prevent crashes
     return {
       properties: [
         {
@@ -66,45 +49,26 @@ export const getAllBuyProperties = async (query?: string) => {
       ],
       total: 3
     };
-  } catch (error) {
-    console.error("Error in getAllBuyProperties:", error);
-    throw handleApiError(error);
   }
 };
 export const getAllBuyPropertiesById = async (id: string) => {
   try {
     console.log("Fetching buy property by ID:", id);
     
-    // Try different possible endpoints
-    const endpoints = [
-      `/properties/all-data/${id}`,
-      `/api/properties/all-data/${id}`,
-      `/properties/get_properties_for_main_site?property_id=${id}`,
-      `/api/properties/get_properties_for_main_site?property_id=${id}`,
-      `/properties/${id}`,
-      `/api/properties/${id}`
-    ];
+    const endpoint = `/properties/get_properties_for_main_site?property_id=${id}`;
+    console.log("API endpoint:", endpoint);
     
-    let lastError;
-    for (const endpoint of endpoints) {
-      try {
-        console.log("Trying endpoint:", endpoint);
-        const res = await api.get(endpoint);
-        console.log("API Response:", res.data);
-        return res.data;
-      } catch (error) {
-        console.log(`Endpoint ${endpoint} failed:`, error.response?.status);
-        lastError = error;
-        continue;
-      }
-    }
-    
-    // If all endpoints fail, return mock data as fallback
-    console.warn("All API endpoints failed for buy property ID, returning mock data");
+    const res = await api.get(endpoint);
+    console.log("API Response:", res.data);
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching buy property by ID:", error);
+    console.log("Returning mock data as fallback");
+    // Return mock data on error
     return {
       property: {
         id: parseInt(id),
-        title: "Luxury Buy Property",
+        title: "Luxury Property",
         photos: ["/images/dubai-marina.webp"],
         price: "2,500,000",
         bedrooms: 2,
@@ -114,8 +78,5 @@ export const getAllBuyPropertiesById = async (id: string) => {
         description: "A luxurious property available for purchase in the heart of Dubai Marina"
       }
     };
-  } catch (error) {
-    console.error("Error in getAllBuyPropertiesById:", error);
-    throw handleApiError(error);
   }
 };

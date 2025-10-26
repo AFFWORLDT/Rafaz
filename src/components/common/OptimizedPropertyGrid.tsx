@@ -11,7 +11,7 @@ import InfiniteScroll from "./InfiniteScroll";
 interface Property {
   id: string;
   title: string;
-  location: string;
+  location: string | { community?: string; city?: string };
   price: number;
   bedrooms: number;
   bathrooms: number;
@@ -102,7 +102,9 @@ export default function OptimizedPropertyGrid({
           
           <div className="flex items-center text-sm text-gray-600 mb-3">
             <MapPin className="w-4 h-4 mr-1" />
-            {property.location}
+            {typeof property.location === 'string' ? property.location : 
+             property.location?.community ? `${property.location.community}, ${property.location.city}` :
+             'Dubai, UAE'}
           </div>
           
           <div className="text-2xl font-bold text-primary mb-4">

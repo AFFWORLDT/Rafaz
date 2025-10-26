@@ -6,6 +6,9 @@ import "../lib/crypto-polyfill";
 import Header from "@/src/components/common/header";
 import Footer from "@/src/components/common/footer";
 import { LanguageProvider } from "@/src/contexts/LanguageContext";
+import { LeadFormProvider } from "@/src/contexts/LeadFormContext";
+import GlobalLeadForm from "@/src/components/common/GlobalLeadForm";
+import LeadFormButton from "@/src/components/common/LeadFormButton";
 
 const trajanPro = localFont({
   src: [
@@ -70,11 +73,19 @@ export default function RootLayout({
       </head>
       <body className="luxury-bg">
         <LanguageProvider>
-          <main className="min-h-screen">
-            <Header />
-            {children}
-            <Footer />
-          </main>
+          <LeadFormProvider>
+            <main className="min-h-screen">
+              <Header />
+              {children}
+              <Footer />
+            </main>
+            
+            {/* Global Lead Form Popup */}
+            <GlobalLeadForm />
+            
+            {/* Floating Lead Form Button */}
+            <LeadFormButton variant="floating" source="Floating Button" />
+          </LeadFormProvider>
         </LanguageProvider>
       </body>
     </html>

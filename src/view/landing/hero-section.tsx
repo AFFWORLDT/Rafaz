@@ -14,6 +14,7 @@ import { motion } from "framer-motion";
 import { MapPin, Home, Bed, Search } from "lucide-react";
 import { useLanguage } from "@/src/contexts/LanguageContext";
 import { useRouter } from "next/navigation";
+import LeadFormButton from "@/src/components/common/LeadFormButton";
 // Removed BackgroundImageSlider import - using video instead
 
 export default function HeroSection() {
@@ -177,6 +178,7 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
+
       {/* Ultra-Luxury Search Form - Bottom */}
       <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-20 text-white px-4 sm:px-6 lg:px-8 container w-full max-w-6xl">
         <motion.div
@@ -287,6 +289,17 @@ export default function HeroSection() {
               >
                 <Search className="w-1.5 h-1.5 text-white cursor-pointer" />
               </Button>
+            </div>
+            
+            {/* Lead Form Button */}
+            <div className="lg:col-span-1 col-span-1 flex justify-center mt-2">
+              <LeadFormButton 
+                variant="compact" 
+                source="Hero Section"
+                className="w-full h-7 sm:h-8 text-xs sm:text-sm"
+              >
+                Get Consultation
+              </LeadFormButton>
             </div>
             </div>
           </div>

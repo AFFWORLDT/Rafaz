@@ -825,6 +825,7 @@ function Buy() {
               area={obj?.area ? `${obj.area} sq ft` : "N/A"}
               propertyId={obj?.id?.toString() || i.toString()}
               onClick={() => router.push(`/buy/details/${obj.id}`)}
+              showLeadButton={true}
             />
           ))}
         </div>

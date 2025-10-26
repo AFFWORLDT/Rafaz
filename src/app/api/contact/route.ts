@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { sendLeadEmail, LeadFormData } from '@/src/lib/email';
+import { sendContactEmail, ContactFormData } from '@/src/lib/email';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     
     // Validate required fields
-    if (!body.name || !body.email) {
+    if (!body.name || !body.email || !body.message) {
       return NextResponse.json(
-        { error: 'Name and email are required' },
+        { error: 'Name, email, and message are required' },
         { status: 400 }
       );
     }
@@ -22,38 +22,34 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const leadData: LeadFormData = {
+    const contactData: ContactFormData = {
       name: body.name.trim(),
       email: body.email.trim(),
       phone: body.phone?.trim(),
-      message: body.message?.trim(),
-      propertyType: body.propertyType?.trim(),
-      budget: body.budget?.trim(),
-      location: body.location?.trim(),
-      source: body.source || 'Website',
-      agentId: body.agentId?.trim(),
-      propertyId: body.propertyId?.trim(),
+      subject: body.subject?.trim(),
+      message: body.message.trim(),
+      service: body.service?.trim(),
     };
 
     // Send email
-    const emailSent = await sendLeadEmail(leadData);
+    const emailSent = await sendContactEmail(contactData);
 
     if (emailSent) {
       return NextResponse.json(
         { 
           success: true, 
-          message: 'Lead submitted successfully. We will contact you soon!' 
+          message: 'Message sent successfully. We will contact you soon!' 
         },
         { status: 200 }
       );
     } else {
       return NextResponse.json(
-        { error: 'Failed to send lead email. Please try again.' },
+        { error: 'Failed to send message. Please try again.' },
         { status: 500 }
       );
     }
   } catch (error) {
-    console.error('Error processing lead submission:', error);
+    console.error('Error processing contact submission:', error);
     return NextResponse.json(
       { error: 'Internal server error. Please try again later.' },
       { status: 500 }
@@ -63,7 +59,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   return NextResponse.json(
-    { message: 'Lead API endpoint is working' },
+    { message: 'Contact API endpoint is working' },
     { status: 200 }
   );
 }

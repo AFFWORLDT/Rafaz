@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/src/components/ui/card";
 import { Button } from "@/src/components/ui/button";
 import { Heart, Bed, Bath, SquareGanttChart, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
+import LeadFormButton from "./LeadFormButton";
 
 interface PropertyCardProps {
   photos: string;
@@ -15,6 +16,7 @@ interface PropertyCardProps {
   area: string;
   propertyId: string;
   onClick?: () => void;
+  showLeadButton?: boolean;
 }
 
 export function PropertyCard({
@@ -27,6 +29,7 @@ export function PropertyCard({
   area,
   propertyId,
   onClick,
+  showLeadButton = false,
 }: PropertyCardProps) {
   return (
     <Card 
@@ -88,6 +91,19 @@ export function PropertyCard({
             <span>{area}</span>
           </div>
         </div>
+        
+        {showLeadButton && (
+          <div className="mt-3" onClick={(e) => e.stopPropagation()}>
+            <LeadFormButton 
+              variant="compact" 
+              source="Property Card"
+              propertyId={propertyId}
+              className="w-full h-8 text-xs"
+            >
+              Enquire Now
+            </LeadFormButton>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

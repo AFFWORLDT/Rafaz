@@ -43,16 +43,35 @@ export default function LeadCaptureForm({
     setIsSubmitting(true);
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setIsSubmitted(true);
-      onSuccess?.();
-      
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        message: ""
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+          source: 'Lead Capture Form'
+        }),
       });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        onSuccess?.();
+        
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: ""
+        });
+      } else {
+        alert(result.error || 'There was an error submitting your form. Please try again.');
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('There was an error submitting your form. Please try again.');
@@ -63,16 +82,16 @@ export default function LeadCaptureForm({
 
   if (isSubmitted) {
     return (
-      <div className="text-center p-8">
-        <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-        <h3 className="text-2xl font-semibold text-gray-800 mb-2">Thank You!</h3>
-        <p className="text-gray-600 mb-4">
+      <div className="text-center p-4 sm:p-8">
+        <CheckCircle className="w-12 h-12 sm:w-16 sm:h-16 text-green-500 mx-auto mb-3 sm:mb-4" />
+        <h3 className="text-lg sm:text-2xl font-semibold text-gray-800 mb-2">Thank You!</h3>
+        <p className="text-gray-600 mb-4 text-sm sm:text-base leading-relaxed">
           We've received your inquiry and will contact you within 24 hours.
         </p>
         <Button 
           onClick={() => setIsSubmitted(false)}
           variant="outline"
-          className="rounded-lg"
+          className="rounded-lg h-9 sm:h-10 text-sm"
         >
           Submit Another Inquiry
         </Button>

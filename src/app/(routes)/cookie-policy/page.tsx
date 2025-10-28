@@ -196,9 +196,9 @@ export default function CookiePolicyPage() {
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4 font-serif">5. Managing Your Cookie Preferences</h2>
               
-              <h3 className="text-xl font-semibold text-gray-800 mb-3 font-serif">5.1 Cookie Consent</h3>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3 font-serif">5.1 Cookie Management</h3>
               <p className="text-gray-700 mb-4">
-                When you first visit our website, you will see a cookie consent banner. You can choose which types of cookies you want to accept. You can change your preferences at any time by clicking the "Cookie Settings" link in our website footer.
+                You can control cookies through your browser settings and manage your preferences at any time.
               </p>
 
               <h3 className="text-xl font-semibold text-gray-800 mb-3 font-serif">5.2 Browser Settings</h3>

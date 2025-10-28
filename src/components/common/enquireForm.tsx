@@ -145,15 +145,11 @@ function EnquireForm({ type, propertyId, agentId }: { type: string; propertyId?:
 
       <p className="text-xs text-gray-500 mt-3 sm:mt-4 font-mono leading-relaxed">
         By submitting this form you confirm that this website can store your
-        submitted information, agree to our{" "}
+        submitted information and agree to our{" "}
         <a href="/privacy-policy" className="text-brand-gold hover:underline font-mono">
           privacy policy
-        </a>{" "}
-        and consent to{" "}
-        <a href="/cookie-policy" className="text-brand-gold hover:underline font-mono">
-          cookies
-        </a>{" "}
-        being stored on your computer.
+        </a>
+        .
       </p>
       <Button
         type="submit"

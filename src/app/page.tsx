@@ -1,13 +1,13 @@
+import { Metadata } from "next";
 import HeroSection from "@/src/view/landing/hero-section";
+import PartnersSection from "@/src/view/landing/PartnersSection";
+import Solutions from "@/src/view/landing/solutions";
+import GoogleMapsSection from "@/src/components/common/GoogleMapsSection";
 import Feature from "@/src/view/landing/feature";
 import Communities from "@/src/view/landing/Communities";
 import Property from "@/src/view/landing/property";
 import { InsightsInspiration } from "@/src/view/landing/blog";
 import { CallToAction } from "@/src/view/landing/call-to-action";
-import PartnersSection from "../view/landing/PartnersSection";
-import Solutions from "../view/landing/solutions";
-import GoogleMapsSection from "@/src/components/common/GoogleMapsSection";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Rafaz Properties - Dubai's #1 Luxury Real Estate | Premium Properties & Off-Plan Projects",

@@ -18,7 +18,6 @@ import {
 import { Button } from "@/src/components/ui/button";
 import Link from "next/link";
 import { cn } from "@/src/lib/utils";
-import { Icon } from "@iconify/react";
 import {
   HoverCard,
   HoverCardContent,
@@ -120,18 +119,18 @@ export default function Header() {
   }, [isOverlayOpen]);
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-        isScrolled ? "bg-white/95 backdrop-blur-sm shadow-lg border-b border-gray-200" : "bg-white/95 backdrop-blur-sm"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-white/98 backdrop-blur-md shadow-sm border-b border-[#D4AF37]/10" : "bg-white/95 backdrop-blur-sm"
       }`}
     >
       
       <nav
         className={cn(
-          "w-full flex items-center justify-between relative z-10 pl-1 pr-4 md:px-6",
-          isScrolled ? "h-16 md:h-20" : "h-18 md:h-24"
+          "w-full flex items-center justify-between relative z-10 px-4 md:px-8 lg:px-12",
+          isScrolled ? "h-12 md:h-14" : "h-14 md:h-16"
         )}
       >
-        {/* Clean Logo - True Left Position */}
+        {/* Premium Logo - Thin and Elegant */}
         <div className="flex items-center">
           <Link href={"/"} className="transition-all duration-300 hover:scale-105">
             <Image
@@ -139,13 +138,13 @@ export default function Header() {
               alt="Rafaz Real Estate Logo"
               width={180}
               height={60}
-              className="object-contain w-40 h-12 sm:w-52 sm:h-16 md:w-60 md:h-20 lg:w-64 lg:h-22 xl:w-72 xl:h-24"
+              className="object-contain w-32 h-8 sm:w-36 sm:h-9 md:w-40 md:h-10 lg:w-44 lg:h-11 xl:w-48 xl:h-12"
             />
           </Link>
         </div>
 
-        {/* Desktop Nav - Right Position */}
-        <div className="hidden lg:flex items-center space-x-8 ml-auto mr-4">
+        {/* Premium Desktop Nav - Thin and Elegant */}
+        <div className="hidden lg:flex items-center space-x-6 ml-auto mr-4">
           {headerLink.map((link, i) => {
             if (link.hasDropdown) {
               return (
@@ -154,11 +153,11 @@ export default function Header() {
                     <Link
                       href={link.href}
                       className={cn(
-                        "relative pb-2 transition-all duration-300 font-serif text-[16px] font-medium tracking-[0.15em]",
-                        isScrolled && pathname === "/" ? "text-gray-900 hover:text-gray-600" : "text-gray-800 hover:text-gray-600",
-                        "after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0",
-                        "after:bg-gray-600 after:transition-all after:duration-300 hover:after:w-full",
-                        pathname === link.href && "after:w-full text-gray-900"
+                        "relative pb-1 transition-all duration-300 font-serif text-[13px] font-medium tracking-[0.2em] uppercase",
+                        isScrolled && pathname === "/" ? "text-gray-900 hover:text-[#D4AF37]" : "text-gray-800 hover:text-[#D4AF37]",
+                        "after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1.5px] after:w-0",
+                        "after:bg-[#D4AF37] after:transition-all after:duration-300 hover:after:w-full",
+                        pathname === link.href && "after:w-full text-[#D4AF37]"
                       )}
                     >
                       <span className="relative z-10">{link.label}</span>
@@ -237,31 +236,31 @@ export default function Header() {
               key={i}
               href={link.href}
               className={cn(
-                  "relative pb-2 transition-all duration-300 font-serif text-[16px] font-medium tracking-[0.15em]",
-                  isScrolled && pathname === "/" ? "text-gray-900 hover:text-gray-600" : "text-gray-800 hover:text-gray-600",
-                "after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0",
-                "after:bg-gray-600 after:transition-all after:duration-300 hover:after:w-full",
-                pathname === link.href && "after:w-full text-gray-900"
+                  "relative pb-1 transition-all duration-300 font-serif text-[13px] font-medium tracking-[0.2em] uppercase",
+                  isScrolled && pathname === "/" ? "text-gray-900 hover:text-[#D4AF37]" : "text-gray-800 hover:text-[#D4AF37]",
+                "after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1.5px] after:w-0",
+                "after:bg-[#D4AF37] after:transition-all after:duration-300 hover:after:w-full",
+                pathname === link.href && "after:w-full text-[#D4AF37]"
               )}
             >
               <span className="relative z-10">{link.label}</span>
             </Link>
             );
           })}
-          {/* Language Switcher - Right Corner */}
+          {/* Premium Language Switcher - Right Corner */}
           <SimpleLanguageSwitcher variant="compact" />
         </div>
 
-        {/* Right Side - Mobile Menu Only */}
-        <div className="flex items-center space-x-3 ml-auto lg:hidden">
+        {/* Right Side - Mobile Menu Only - Thin and Premium */}
+        <div className="flex items-center space-x-2 ml-auto lg:hidden">
           {/* Language Switcher for Mobile */}
           <SimpleLanguageSwitcher variant="minimal" />
-          {/* Clean Mobile Menu Button */}
+          {/* Premium Mobile Menu Button - Smaller */}
           <div
-            className="cursor-pointer transition-all duration-300 p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+            className="cursor-pointer transition-all duration-300 p-1.5 rounded-md text-gray-600 hover:text-[#D4AF37] hover:bg-[#D4AF37]/5"
             onClick={() => setIsOverlayOpen(true)}
           >
-            <Menu className="h-7 w-7" />
+            <Menu className="h-5 w-5" />
           </div>
         </div>
       </nav>

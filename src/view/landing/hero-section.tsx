@@ -85,14 +85,14 @@ export default function HeroSection() {
         isMobile ? 'h-screen' : 'h-screen md:h-[115vh]'
       }`}
     >
-      {/* Ultra-Luxury Background Effects */}
-      <div className="absolute inset-0 luxury-bg-pattern opacity-20"></div>
+      {/* Bright Background Effects - Reduced opacity for cleaner look */}
+      <div className="absolute inset-0 luxury-bg-pattern opacity-10"></div>
       
-      {/* Luxury Animated Background Elements */}
-      <div className="absolute top-10 left-10 w-32 h-32 luxury-bg-radial rounded-full animate-luxuryFloat opacity-30 blur-xl"></div>
-      <div className="absolute top-20 right-20 w-24 h-24 luxury-bg-gold rounded-full animate-luxuryBreathe opacity-20 blur-lg"></div>
-      <div className="absolute bottom-20 left-20 w-28 h-28 luxury-bg-bronze rounded-full animate-luxuryPulse opacity-25 blur-xl"></div>
-      <div className="absolute bottom-10 right-10 w-36 h-36 luxury-bg-radial rounded-full animate-luxuryFloat opacity-20 blur-2xl"></div>
+          {/* Bright Animated Background Elements - Increased opacity for brightness */}
+          <div className="absolute top-10 left-10 w-32 h-32 luxury-bg-radial rounded-full animate-luxuryFloat opacity-50 blur-xl"></div>
+          <div className="absolute top-20 right-20 w-24 h-24 luxury-bg-gold rounded-full animate-luxuryBreathe opacity-40 blur-lg"></div>
+          <div className="absolute bottom-20 left-20 w-28 h-28 luxury-bg-bronze rounded-full animate-luxuryPulse opacity-45 blur-xl"></div>
+          <div className="absolute bottom-10 right-10 w-36 h-36 luxury-bg-radial rounded-full animate-luxuryFloat opacity-40 blur-2xl"></div>
 
       {/* Hero Video Background - Mobile Optimized */}
       <div className="absolute inset-0 w-full h-full z-0">
@@ -103,10 +103,11 @@ export default function HeroSection() {
           playsInline
           className="w-full h-full object-cover"
           poster="/images/building.jpg"
-          preload={isMobile ? "none" : "metadata"}
+          preload={isMobile ? "none" : "auto"}
+          loading="lazy"
           style={{
-            // Mobile optimization: reduce quality for better performance
-            filter: isMobile ? "brightness(0.8) contrast(1.1)" : "none"
+            // Brighten the video for a lighter, more vibrant look
+            filter: "brightness(1.2) contrast(1.1) saturate(1.1)"
           }}
         >
           <source src="/herooo.mp4" type="video/mp4" />
@@ -116,19 +117,20 @@ export default function HeroSection() {
             style={{
               backgroundImage: "url('/images/building.jpg')",
               backgroundSize: "cover",
-              backgroundPosition: "center"
+              backgroundPosition: "center",
+              filter: "brightness(1.2) contrast(1.1)"
             }}
           />
         </video>
       </div>
 
-      {/* Ultra-Luxury Gradient Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40 z-15" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#D4AF37]/5 to-transparent z-16" />
+      {/* Bright Gradient Overlays - Reduced darkness for brighter appearance */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-black/10 z-15" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#D4AF37]/10 to-transparent z-16" />
       
-      {/* Luxury Cinematic Vignette */}
-      <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-black/50 z-17" />
+      {/* Light vignette for subtle edge darkening only */}
+      <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-black/15 z-17" />
 
       {/* Ultra-Luxury Hero Title - Center */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 text-white text-center max-w-6xl w-full px-4">

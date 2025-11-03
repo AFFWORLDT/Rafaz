@@ -136,6 +136,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${trajanPro.variable} antialiased`}>
       <head>
+        {/* Preconnect to external domains for faster loading */}
+        <link rel="preconnect" href="https://www.google.com" />
+        <link rel="preconnect" href="https://www.gstatic.com" />
+        <link rel="preconnect" href="https://maps.googleapis.com" />
+        <link rel="dns-prefetch" href="https://www.google.com" />
+        <link rel="dns-prefetch" href="https://www.gstatic.com" />
+        <link rel="dns-prefetch" href="https://maps.googleapis.com" />
+        
+        {/* Lazy load non-critical scripts */}
         <script 
           src="https://www.google.com/recaptcha/api.js" 
           async 

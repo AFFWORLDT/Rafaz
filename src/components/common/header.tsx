@@ -120,7 +120,11 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white/98 backdrop-blur-md shadow-sm border-b border-[#D4AF37]/10" : "bg-white/95 backdrop-blur-sm"
+        isScrolled 
+          ? "bg-white/98 backdrop-blur-md shadow-sm border-b border-[#D4AF37]/10" 
+          : pathname === "/" 
+            ? "bg-transparent backdrop-blur-none" 
+            : "bg-white/95 backdrop-blur-sm"
       }`}
     >
       
@@ -138,7 +142,10 @@ export default function Header() {
               alt="Rafaz Real Estate Logo"
               width={240}
               height={80}
-              className="object-contain w-48 h-12 sm:w-56 sm:h-14 md:w-64 md:h-16 lg:w-72 lg:h-20 xl:w-80 xl:h-24"
+              className={cn(
+                "object-contain w-48 h-12 sm:w-56 sm:h-14 md:w-64 md:h-16 lg:w-72 lg:h-20 xl:w-80 xl:h-24 transition-all duration-300",
+                !isScrolled && pathname === "/" && "drop-shadow-lg filter brightness-110"
+              )}
             />
           </Link>
         </div>
@@ -154,7 +161,11 @@ export default function Header() {
                       href={link.href}
                       className={cn(
                         "relative pb-1 transition-all duration-300 font-serif text-[13px] font-medium tracking-[0.2em] uppercase",
-                        isScrolled && pathname === "/" ? "text-gray-900 hover:text-[#D4AF37]" : "text-gray-800 hover:text-[#D4AF37]",
+                        isScrolled 
+                          ? "text-gray-900 hover:text-[#D4AF37]" 
+                          : pathname === "/" 
+                            ? "text-white hover:text-[#D4AF37]" 
+                            : "text-gray-800 hover:text-[#D4AF37]",
                         "after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1.5px] after:w-0",
                         "after:bg-[#D4AF37] after:transition-all after:duration-300 hover:after:w-full",
                         pathname === link.href && "after:w-full text-[#D4AF37]"
@@ -237,7 +248,11 @@ export default function Header() {
               href={link.href}
               className={cn(
                   "relative pb-1 transition-all duration-300 font-serif text-[13px] font-medium tracking-[0.2em] uppercase",
-                  isScrolled && pathname === "/" ? "text-gray-900 hover:text-[#D4AF37]" : "text-gray-800 hover:text-[#D4AF37]",
+                  isScrolled 
+                    ? "text-gray-900 hover:text-[#D4AF37]" 
+                    : pathname === "/" 
+                      ? "text-white hover:text-[#D4AF37]" 
+                      : "text-gray-800 hover:text-[#D4AF37]",
                 "after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1.5px] after:w-0",
                 "after:bg-[#D4AF37] after:transition-all after:duration-300 hover:after:w-full",
                 pathname === link.href && "after:w-full text-[#D4AF37]"
@@ -257,7 +272,12 @@ export default function Header() {
           <SimpleLanguageSwitcher variant="minimal" />
           {/* Premium Mobile Menu Button - Smaller */}
           <div
-            className="cursor-pointer transition-all duration-300 p-1.5 rounded-md text-gray-600 hover:text-[#D4AF37] hover:bg-[#D4AF37]/5"
+            className={cn(
+              "cursor-pointer transition-all duration-300 p-1.5 rounded-md hover:text-[#D4AF37] hover:bg-[#D4AF37]/5",
+              isScrolled || pathname !== "/" 
+                ? "text-gray-600" 
+                : "text-white"
+            )}
             onClick={() => setIsOverlayOpen(true)}
           >
             <Menu className="h-5 w-5" />

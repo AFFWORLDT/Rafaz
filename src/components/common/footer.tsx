@@ -194,6 +194,18 @@ export default function Footer() {
                   </svg>
                 </a>
 
+                {/* YouTube */}
+                <a
+                  href="https://youtube.com/@rafazproperties?si=lT7jhMOAQhPsKut7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group w-12 h-12 bg-white/8 hover:bg-[#dbbb90]/20 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg border border-white/10 hover:border-[#dbbb90]/30 luxury-hover"
+                  aria-label="YouTube"
+                >
+                  <svg className="w-5 h-5 text-white/70 group-hover:text-[#dbbb90] transition-colors duration-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M23.498 6.186a3.003 3.003 0 00-2.116-2.123C19.615 3.5 12 3.5 12 3.5s-7.615 0-9.382.563A3.003 3.003 0 00.502 6.186 31.27 31.27 0 000 12a31.27 31.27 0 00.502 5.814 3.003 3.003 0 002.116 2.123C4.385 20.5 12 20.5 12 20.5s7.615 0 9.382-.563a3.003 3.003 0 002.116-2.123A31.27 31.27 0 0024 12a31.27 31.27 0 00-.502-5.814zM9.75 15.568V8.432L15.818 12 9.75 15.568z"/>
+                  </svg>
+                </a>
 
                 {/* WhatsApp */}
                 <a

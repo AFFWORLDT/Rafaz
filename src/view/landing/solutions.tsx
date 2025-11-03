@@ -2,33 +2,43 @@
 
 import { ArrowRight, User, Building, Download, MapPin } from "lucide-react";
 import { useLanguage } from "@/src/contexts/LanguageContext";
+import Link from "next/link";
 
 function Solutions() {
   const { t } = useLanguage();
+  const whatsappBase = "https://wa.me/971507815384";
   const solutions = [
     {
       icon: <User className="h-12 w-12 text-[#dbbb90]" />,
       title: t('solutions.connect.title'),
       description: t('solutions.connect.description'),
       arrow: <ArrowRight className="h-6 w-6 text-white" />,
+      href: `${whatsappBase}?text=${encodeURIComponent('Hello, I would like to connect with a specialist about my property needs.')}`,
+      external: true,
     },
     {
       icon: <Building className="h-12 w-12 text-[#dbbb90]" />,
       title: t('solutions.list.title'),
       description: t('solutions.list.description'),
       arrow: <ArrowRight className="h-6 w-6 text-white" />,
+      href: `${whatsappBase}?text=${encodeURIComponent('Hello, I want to list my property. Please guide me through the process.')}`,
+      external: true,
     },
     {
       icon: <Download className="h-12 w-12 text-[#dbbb90]" />,
       title: t('solutions.download.title'),
       description: t('solutions.download.description'),
       arrow: <ArrowRight className="h-6 w-6 text-white" />,
+      href: '/offPlans',
+      external: false,
     },
     {
       icon: <MapPin className="h-12 w-12 text-[#dbbb90]" />,
       title: t('solutions.explore.title'),
       description: t('solutions.explore.description'),
       arrow: <ArrowRight className="h-6 w-6 text-white" />,
+      href: '/offPlans',
+      external: false,
     },
   ];
 
@@ -83,11 +93,9 @@ function Solutions() {
 
           {/* Ultra-Luxury Solutions Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-            {solutions.map((solution, index) => (
-              <div
-                key={index}
-                className="group relative bg-white/95 backdrop-blur-md border border-gray-200/30 rounded-3xl p-10 hover:shadow-3xl hover:shadow-[#dbbb90]/15 transition-all duration-700 cursor-pointer transform hover:-translate-y-4 hover:border-[#dbbb90]/40 hover:bg-white"
-              >
+            {solutions.map((solution, index) => {
+              const CardInner = (
+                <>
                 {/* Ultra-Luxury Decorative Elements */}
                 <div className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-[#dbbb90]/8 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
                 <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-gradient-to-tr from-[#C2A17B]/6 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
@@ -128,8 +136,25 @@ function Solutions() {
                 {/* Premium Corner Accents */}
                 <div className="absolute top-6 right-6 w-3 h-3 border-t-2 border-r-2 border-[#dbbb90]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="absolute bottom-6 left-6 w-3 h-3 border-b-2 border-l-2 border-[#dbbb90]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </div>
-            ))}
+                </>
+              );
+
+              const CardWrapperClasses = "group relative bg-white/95 backdrop-blur-md border border-gray-200/30 rounded-3xl p-10 hover:shadow-3xl hover:shadow-[#dbbb90]/15 transition-all duration-700 cursor-pointer transform hover:-translate-y-4 hover:border-[#dbbb90]/40 hover:bg-white";
+
+              return solution.external ? (
+                <a key={index} href={solution.href} target="_blank" rel="noopener noreferrer" className="block">
+                  <div className={CardWrapperClasses}>
+                    {CardInner}
+                  </div>
+                </a>
+              ) : (
+                <Link key={index} href={solution.href} className="block">
+                  <div className={CardWrapperClasses}>
+                    {CardInner}
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>

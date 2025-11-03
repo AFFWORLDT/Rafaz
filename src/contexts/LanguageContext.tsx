@@ -64,7 +64,7 @@ export const translations = {
     },
     solutions: {
       headline: {
-        part1: "Dubai real estate solutions",
+        part1: "Dubai Real Estate solutions",
         part2: "focused around",
         part3: "excellent customer service"
       },

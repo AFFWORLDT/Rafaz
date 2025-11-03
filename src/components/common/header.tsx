@@ -127,8 +127,8 @@ export default function Header() {
       
       <nav
         className={cn(
-          "w-full flex items-center relative z-10 px-4 md:px-6",
-          isScrolled ? "h-20" : "h-24"
+          "w-full flex items-center justify-between relative z-10 pl-1 pr-4 md:px-6",
+          isScrolled ? "h-16 md:h-20" : "h-18 md:h-24"
         )}
       >
         {/* Clean Logo - True Left Position */}
@@ -137,9 +137,9 @@ export default function Header() {
             <Image
               src="/images/logo.png"
               alt="Rafaz Real Estate Logo"
-              width={220}
-              height={80}
-              className="object-contain w-52 h-16 sm:w-56 sm:h-18 md:w-60 md:h-20 lg:w-64 lg:h-22 xl:w-72 xl:h-24"
+              width={180}
+              height={60}
+              className="object-contain w-40 h-12 sm:w-52 sm:h-16 md:w-60 md:h-20 lg:w-64 lg:h-22 xl:w-72 xl:h-24"
             />
           </Link>
         </div>
@@ -278,28 +278,28 @@ export default function Header() {
         <div className="absolute inset-0 luxury-bg-pattern opacity-3"></div>
         <div className="absolute top-0 left-0 w-full h-1 luxury-bg-gold animate-luxuryShimmer"></div>
         
-        <div className="flex items-center justify-between p-6 border-b-2 border-[#D4AF37]/20 relative z-10" style={{ backgroundColor: '#ffffff' }}>
+        <div className="flex items-center justify-between p-4 border-b-2 border-[#D4AF37]/20 relative z-10" style={{ backgroundColor: '#ffffff' }}>
           <div className="flex items-center space-x-3">
             {/* Circular Logo with Building Icon */}
             <div className="relative">
-              <div className="w-12 h-12 bg-gradient-to-br from-[#dbbb90] to-[#C2A17B] rounded-full flex items-center justify-center shadow-lg">
+              <div className="w-10 h-10 bg-gradient-to-br from-[#dbbb90] to-[#C2A17B] rounded-full flex items-center justify-center shadow-lg">
                 <Image
                   src="/favicon.png"
                   alt="Rafaz Properties Logo"
-                  width={24}
-                  height={24}
+                  width={20}
+                  height={20}
                   className="object-contain"
                 />
               </div>
-              <div className="absolute -top-1 -right-1 w-2 h-2 luxury-bg-gold rounded-full animate-luxurySparkle"></div>
+              <div className="absolute -top-1 -right-1 w-1.5 h-1.5 luxury-bg-gold rounded-full animate-luxurySparkle"></div>
             </div>
             
             {/* Company Name */}
             <div className="flex flex-col">
-              <span className="text-[#dbbb90] font-serif text-lg font-semibold tracking-wider">
+              <span className="text-[#dbbb90] font-serif text-base font-semibold tracking-wider">
                 Rafaz
               </span>
-              <span className="text-gray-600 text-xs font-medium tracking-wide">
+              <span className="text-gray-600 text-[10px] font-medium tracking-wide">
                 PROPERTIES
               </span>
             </div>
@@ -315,7 +315,7 @@ export default function Header() {
           </button>
         </div>
 
-        <nav className="flex flex-col p-6 space-y-3 relative z-10" style={{ backgroundColor: '#ffffff' }}>
+        <nav className="flex flex-col p-2 space-y-1 relative z-10" style={{ backgroundColor: '#ffffff' }}>
           {navLinks.map((link, i) => {
             if (link.href === "/service") {
               return (
@@ -323,11 +323,11 @@ export default function Header() {
                   <button
                     onClick={() => setIsServicesOpen(!isServicesOpen)}
                     className={cn(
-                      "flex items-center justify-between w-full text-left text-black hover:text-[#D4AF37] transition-all duration-300 py-4 px-5 rounded-2xl border border-transparent hover:border-[#D4AF37]/20 bg-white hover:bg-[#D4AF37]/5 font-serif tracking-wider",
+                      "flex items-center justify-between w-full text-left text-black hover:text-[#D4AF37] transition-all duration-300 py-2 px-3 rounded-2xl border border-transparent hover:border-[#D4AF37]/20 bg-white hover:bg-[#D4AF37]/5 font-serif tracking-wider",
                       pathname === link.href && "text-[#D4AF37] font-medium bg-[#D4AF37]/10 border-[#D4AF37]/30"
                     )}
                   >
-                    <span className="text-lg font-medium">{link.label}</span>
+                    <span className="text-sm font-medium">{link.label}</span>
                     <ChevronDown className={cn(
                       "h-5 w-5 transition-transform duration-300 text-[#D4AF37]",
                       isServicesOpen && "rotate-180"
@@ -339,7 +339,7 @@ export default function Header() {
                     "overflow-hidden transition-all duration-300",
                     isServicesOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                   )}>
-                    <div className="pl-4 space-y-2 border-l-2 border-[#D4AF37]/30 bg-[#D4AF37]/5 rounded-r-2xl p-3">
+                    <div className="pl-2 space-y-1 border-l-2 border-[#D4AF37]/30 bg-[#D4AF37]/5 rounded-r-2xl p-1">
                       {services.map((service, serviceIndex) => (
                         <Link
                           key={serviceIndex}
@@ -352,12 +352,12 @@ export default function Header() {
                             "/service"
                           }
                           onClick={() => setIsOverlayOpen(false)}
-                          className="flex items-center space-x-3 py-3 px-4 rounded-xl hover:bg-[#D4AF37]/10 transition-all duration-200 border border-transparent hover:border-[#D4AF37]/20"
+                          className="flex items-center space-x-2 py-1.5 px-2 rounded-xl hover:bg-[#D4AF37]/10 transition-all duration-200 border border-transparent hover:border-[#D4AF37]/20"
                         >
                           <div className="flex-shrink-0 text-[#D4AF37] transition-colors duration-200">
                             {service.icon}
                           </div>
-                          <span className="text-black text-sm hover:text-[#D4AF37] transition-colors duration-200 font-medium">
+                           <span className="text-black text-[11px] hover:text-[#D4AF37] transition-colors duration-200 font-medium">
                             {service.name}
                           </span>
                         </Link>
@@ -373,7 +373,7 @@ export default function Header() {
               key={i}
               href={link.href}
               className={cn(
-                  "text-black hover:text-[#D4AF37] transition-all duration-300 py-4 px-5 rounded-2xl border border-transparent hover:border-[#D4AF37]/20 bg-white hover:bg-[#D4AF37]/5 font-serif tracking-wider text-lg font-medium",
+                  "text-black hover:text-[#D4AF37] transition-all duration-300 py-2 px-3 rounded-2xl border border-transparent hover:border-[#D4AF37]/20 bg-white hover:bg-[#D4AF37]/5 font-serif tracking-wider text-sm font-medium",
                   pathname === link.href && "text-[#D4AF37] font-medium bg-[#D4AF37]/10 border-[#D4AF37]/30"
               )}
               onClick={() => setIsOverlayOpen(false)}
@@ -385,7 +385,7 @@ export default function Header() {
         </nav>
 
         {/* Luxury Footer Section */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 border-t-2 border-[#D4AF37]/20 relative z-10" style={{ backgroundColor: '#ffffff' }}>
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t-2 border-[#D4AF37]/20 relative z-10" style={{ backgroundColor: '#ffffff' }}>
           <div className="text-center">
             <div className="flex items-center justify-center space-x-3 mb-3">
               {/* Circular Logo */}

@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { getAllProperties } from "@/src/api/offPlans";
 import { useLanguage } from "@/src/contexts/LanguageContext";
+import Link from "next/link";
 
 interface ProjectLocation {
   id: number;
@@ -312,15 +313,15 @@ export default function GoogleMapsSection() {
               className="w-full h-[500px] md:h-[600px] lg:h-[700px]"
             />
             
-            {/* Map Overlay Info */}
-            <div className="absolute top-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-200/50">
+            {/* Map Overlay Info - clickable */}
+            <Link href="/offPlans" className="absolute top-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-200/50 cursor-pointer hover:shadow-xl transition-shadow">
               <div className="flex items-center space-x-3">
                 <div className="w-3 h-3 bg-[#dbbb90] rounded-full"></div>
                 <span className="text-sm font-medium text-gray-700 font-serif">
                   {projects.length} {t('map.properties')}
                 </span>
               </div>
-            </div>
+            </Link>
 
             {/* Loading State */}
             {!isLoaded && !hasError && (
@@ -357,14 +358,14 @@ export default function GoogleMapsSection() {
                   </div>
                   
                   {/* Overlay Message */}
-                  <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-200/50">
+                  <Link href="/offPlans" className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-200/50 cursor-pointer hover:shadow-xl transition-shadow">
                     <div className="flex items-center space-x-3">
                       <div className="w-3 h-3 bg-[#dbbb90] rounded-full"></div>
                       <span className="text-sm font-medium text-gray-700 font-serif">
                         {projects.length} {t('map.properties')}
                       </span>
                     </div>
-                  </div>
+                  </Link>
                   
                   {/* Retry Button */}
                   <div className="absolute top-6 right-6">

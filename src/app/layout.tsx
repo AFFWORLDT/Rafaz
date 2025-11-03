@@ -8,7 +8,7 @@ import Footer from "@/src/components/common/footer";
 import { LanguageProvider } from "@/src/contexts/LanguageContext";
 import { LeadFormProvider } from "@/src/contexts/LeadFormContext";
 import GlobalLeadForm from "@/src/components/common/GlobalLeadForm";
-import LeadFormButton from "@/src/components/common/LeadFormButton";
+import FloatingActions from "../components/common/FloatingActions";
 
 const trajanPro = localFont({
   src: [
@@ -213,8 +213,8 @@ export default function RootLayout({
             {/* Global Lead Form Popup */}
             <GlobalLeadForm />
             
-            {/* Floating Lead Form Button */}
-            <LeadFormButton variant="floating" source="Floating Button" />
+            {/* Floating Actions (Consultation + WhatsApp) */}
+            <FloatingActions phone="971507815384" />
           </LeadFormProvider>
         </LanguageProvider>
       </body>

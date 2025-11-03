@@ -127,7 +127,7 @@ export default function Header() {
       <nav
         className={cn(
           "w-full flex items-center justify-between relative z-10 px-4 md:px-8 lg:px-12",
-          isScrolled ? "h-12 md:h-14" : "h-14 md:h-16"
+          isScrolled ? "h-16 md:h-20 lg:h-24" : "h-20 md:h-24 lg:h-28"
         )}
       >
         {/* Premium Logo - Thin and Elegant */}
@@ -136,9 +136,9 @@ export default function Header() {
             <Image
               src="/images/logo.png"
               alt="Rafaz Real Estate Logo"
-              width={180}
-              height={60}
-              className="object-contain w-32 h-8 sm:w-36 sm:h-9 md:w-40 md:h-10 lg:w-44 lg:h-11 xl:w-48 xl:h-12"
+              width={240}
+              height={80}
+              className="object-contain w-48 h-12 sm:w-56 sm:h-14 md:w-64 md:h-16 lg:w-72 lg:h-20 xl:w-80 xl:h-24"
             />
           </Link>
         </div>

@@ -15,7 +15,7 @@ export const config = {
   
   // Site Configuration
   site: {
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://therafaz.ae',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://rafazproperties.ae',
     name: 'Rafaz Real Estate',
   },
   

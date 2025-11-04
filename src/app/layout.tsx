@@ -9,6 +9,7 @@ import { LanguageProvider } from "@/src/contexts/LanguageContext";
 import { LeadFormProvider } from "@/src/contexts/LeadFormContext";
 import GlobalLeadForm from "@/src/components/common/GlobalLeadForm";
 import FloatingActions from "../components/common/FloatingActions";
+import AutoPopupTrigger from "../components/common/AutoPopupTrigger";
 
 const trajanPro = localFont({
   src: [
@@ -218,6 +219,9 @@ export default function RootLayout({
               {children}
               <Footer />
             </main>
+            
+            {/* Auto Popup Trigger - Shows popup on page load */}
+            <AutoPopupTrigger />
             
             {/* Global Lead Form Popup */}
             <GlobalLeadForm />

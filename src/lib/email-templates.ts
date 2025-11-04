@@ -6,7 +6,7 @@ export const generateCustomerConfirmationEmail = (leadData: any): string => {
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f8f6f0;">
       <!-- Header -->
       <div style="background: linear-gradient(135deg, #dbbb90 0%, #C2A17B 100%); padding: 30px 20px; text-align: center;">
-        <img src="${config.site.url}/file.png" alt="Rafaz Properties" style="width: 60px; height: 60px; margin: 0 auto 15px; display: block; object-fit: contain;" />
+      
         <h1 style="color: white; font-size: 24px; margin: 0; font-weight: 300; letter-spacing: 1px; font-family: Arial, sans-serif;">RAFAZ PROPERTIES</h1>
         <p style="color: white; font-size: 14px; margin: 8px 0 0 0; opacity: 0.9; font-weight: 300; font-family: Arial, sans-serif;">Premium Real Estate in Dubai</p>
       </div>
@@ -169,7 +169,6 @@ export const generateContactConfirmationEmail = (contactData: any): string => {
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f8f6f0;">
       <!-- Header -->
       <div style="background: linear-gradient(135deg, #dbbb90 0%, #C2A17B 100%); padding: 30px 20px; text-align: center;">
-        <img src="${config.site.url}/file.png" alt="Rafaz Properties" style="width: 60px; height: 60px; margin: 0 auto 15px; display: block; object-fit: contain;" />
         <h1 style="color: white; font-size: 24px; margin: 0; font-weight: 300; letter-spacing: 1px; font-family: Arial, sans-serif;">RAFAZ PROPERTIES</h1>
         <p style="color: white; font-size: 14px; margin: 8px 0 0 0; opacity: 0.9; font-weight: 300; font-family: Arial, sans-serif;">Premium Real Estate in Dubai</p>
       </div>

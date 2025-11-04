@@ -33,7 +33,7 @@ interface PropertyData {
 export default function OffPlanCard({ data }: { data?: PropertyData }) {
     const router = useRouter();
   return (
-    <Card className="overflow-hidden border-none p-0 shadow-sm border-2 rounded-lg" onClick={() => router.push(`/offPlans/details/${data?.id}`)}>
+    <Card className="overflow-hidden border-none p-0 shadow-sm border-2 rounded-lg" onClick={() => router.push(`/off-plan-projects-in-dubai/details/${data?.id}`)}>
       <div className="relative w-full h-96 overflow-hidden group">
         <Image
           src={data?.photos?.[0] ?? "/placeholder.jpg"}

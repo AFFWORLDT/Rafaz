@@ -314,7 +314,7 @@ export default function GoogleMapsSection() {
             />
             
             {/* Map Overlay Info - clickable */}
-            <Link href="/offPlans" className="absolute top-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-200/50 cursor-pointer hover:shadow-xl transition-shadow">
+            <Link href="/off-plan-projects-in-dubai" className="absolute top-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-200/50 cursor-pointer hover:shadow-xl transition-shadow">
               <div className="flex items-center space-x-3">
                 <div className="w-3 h-3 bg-[#dbbb90] rounded-full"></div>
                 <span className="text-sm font-medium text-gray-700 font-serif">
@@ -358,7 +358,7 @@ export default function GoogleMapsSection() {
                   </div>
                   
                   {/* Overlay Message */}
-                  <Link href="/offPlans" className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-200/50 cursor-pointer hover:shadow-xl transition-shadow">
+                  <Link href="/off-plan-projects-in-dubai" className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-200/50 cursor-pointer hover:shadow-xl transition-shadow">
                     <div className="flex items-center space-x-3">
                       <div className="w-3 h-3 bg-[#dbbb90] rounded-full"></div>
                       <span className="text-sm font-medium text-gray-700 font-serif">

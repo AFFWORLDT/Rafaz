@@ -86,7 +86,7 @@
       "name": "Off-Plan Projects",
       "short_name": "Off-Plan", 
       "description": "Explore off-plan developments in Dubai",
-      "url": "/offPlans",
+      "url": "/off-plan-projects-in-dubai",
       "icons": [
         {
           "src": "/favicon-192x192.png",

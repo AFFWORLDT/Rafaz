@@ -7,7 +7,7 @@ import { useLanguage } from "@/src/contexts/LanguageContext";
 
 const sitemapLinks = [
   { href: "/buy", label: "Buy" },
-  { href: "/offPlans", label: "Off-Plan" },
+  { href: "/off-plan-projects-in-dubai", label: "Off-Plan" },
   { href: "/rent", label: "Rent" },
   { href: "/communities", label: "Communities" },
   { href: "/whyDubai", label: "Why Dubai" },

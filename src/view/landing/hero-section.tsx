@@ -57,7 +57,7 @@ export default function HeroSection() {
         router.push('/rent');
         return;
       } else if (listingType === 'projects') {
-        router.push('/offPlans');
+        router.push('/off-plan-projects-in-dubai');
         return;
       }
     }

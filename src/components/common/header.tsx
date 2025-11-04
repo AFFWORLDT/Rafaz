@@ -50,7 +50,7 @@ export default function Header() {
   const navLinks = [
     { href: "/buy", label: t('navigation.buy') },
     { href: "/rent", label: t('navigation.rent') },
-    { href: "/offPlans", label: t('navigation.projects') },
+    { href: "/off-plan-projects-in-dubai", label: t('navigation.projects') },
     { href: "/team", label: t('navigation.teams') },
     { href: "/communities", label: t('navigation.areas') },
     { href: "/service", label: t('navigation.services') },
@@ -92,7 +92,7 @@ export default function Header() {
   const headerLink = [
     { href: "/buy", label: t('navigation.buy') },
     { href: "/rent", label: t('navigation.rent') },
-    { href: "/offPlans", label: t('navigation.projects') },
+    { href: "/off-plan-projects-in-dubai", label: t('navigation.projects') },
     { href: "/team", label: t('navigation.teams') },
     { href: "/communities", label: t('navigation.areas') },
     { href: "/service", label: t('navigation.services'), hasDropdown: true },

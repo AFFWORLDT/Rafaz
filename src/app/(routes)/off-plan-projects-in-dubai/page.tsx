@@ -186,7 +186,7 @@ function OffPlansPage() {
       } else if (value === "rent") {
         router.push("/rent");
       } else if (value === "off_plan") {
-        router.push("/offPlans");
+        router.push("/off-plan-projects-in-dubai");
       }
     }
   }, [router]);
@@ -690,22 +690,9 @@ function OffPlansPage() {
       </Dialog>
 
       <div className="mx-auto px-4 py-12 max-w-5xl">
-        <h1 className="text-center text-4xl font-mono">The Art of Selection</h1>
+        <h1 className="text-center text-4xl font-mono">Our Off Plan Projects in Dubai</h1>
         <p className="text-center text-gray-600 mt-4">
           Curated off-plan investments for discerning investors.
-        </p>
-        <p className="text-center my-6">
-          <Link href={"/whyDubai#off-plan-investment"}>
-            <span
-              className={cn(
-                "relative pb-1 transition-all duration-300 text-primary uppercase",
-                "after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:h-[2px] after:w-0",
-                "after:-translate-x-1/2 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-              )}
-            >
-              Learn More
-            </span>
-          </Link>
         </p>
       </div>
 

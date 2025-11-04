@@ -25,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/offPlans`,
+      url: `${baseUrl}/off-plan-projects-in-dubai`,
       lastModified: new Date(),
       changeFrequency: 'daily' as const,
       priority: 0.9,
@@ -154,7 +154,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     // Off-plan properties
     ...Array.from({ length: 20 }, (_, i) => ({
-      url: `${baseUrl}/offPlans/details/${i + 1}`,
+      url: `${baseUrl}/off-plan-projects-in-dubai/details/${i + 1}`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.8,

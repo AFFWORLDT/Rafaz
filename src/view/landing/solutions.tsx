@@ -29,7 +29,7 @@ function Solutions() {
       title: t('solutions.download.title'),
       description: t('solutions.download.description'),
       arrow: <ArrowRight className="h-6 w-6 text-white" />,
-      href: '/offPlans',
+      href: '/off-plan-projects-in-dubai',
       external: false,
     },
     {
@@ -37,7 +37,7 @@ function Solutions() {
       title: t('solutions.explore.title'),
       description: t('solutions.explore.description'),
       arrow: <ArrowRight className="h-6 w-6 text-white" />,
-      href: '/offPlans',
+      href: '/off-plan-projects-in-dubai',
       external: false,
     },
   ];

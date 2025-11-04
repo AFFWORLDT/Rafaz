@@ -170,7 +170,7 @@ export default function RelatedProjectsSection({ property }: RelatedProjectsSect
                     </div>
                   </div>
 
-                  <Link href={`/offPlans/details/${project.id}`}>
+                  <Link href={`/off-plan-projects-in-dubai/details/${project.id}`}>
                     <Button className="w-full rounded-lg group-hover:bg-primary/90 transition-colors">
                       View Details
                       <ArrowRight className="w-4 h-4 ml-2" />
@@ -190,7 +190,7 @@ export default function RelatedProjectsSection({ property }: RelatedProjectsSect
           viewport={{ once: true }}
           className="text-center"
         >
-          <Link href="/offPlans">
+          <Link href="/off-plan-projects-in-dubai">
             <Button 
               variant="outline" 
               size="lg"
@@ -250,7 +250,7 @@ export default function RelatedProjectsSection({ property }: RelatedProjectsSect
                       </Badge>
                     </td>
                     <td className="py-4 px-2">
-                      <Link href={`/offPlans/details/${project.id}`}>
+                      <Link href={`/off-plan-projects-in-dubai/details/${project.id}`}>
                         <Button size="sm" variant="outline" className="rounded-lg">
                           View
                         </Button>

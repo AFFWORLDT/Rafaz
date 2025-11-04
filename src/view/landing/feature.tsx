@@ -47,7 +47,7 @@ export default function Feature() {
         ))}
       </div>
       <div className="w-full flex justify-center items-center my-11">
-        <Link href={"/offPlans"}>
+        <Link href={"/off-plan-projects-in-dubai"}>
          <Button className="w-48 h-11 bg-[#dbbb90] hover:bg-[#C2A17B] text-white font-semibold py-2 px-4 rounded-lg transition-colors uppercase">
           {t('featured.viewAll')}
         </Button>

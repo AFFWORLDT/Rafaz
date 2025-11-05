@@ -6,15 +6,15 @@ import EnquireForm from "@/src/components/common/enquireForm"
 function ContactUs() {
   return (
     <div className="luxury-bg">
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-32 pb-4 px-4">
         <div className="container mx-auto text-center">
-          <h1 className="text-6xl md:text-7xl font-light mb-8 text-gray-800 font-serif leading-tight">
+          <h1 className="text-6xl md:text-7xl font-light mb-4 text-gray-800 font-serif leading-tight">
             <span className="text-[#dbbb90] font-normal">Contact</span> Us
           </h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#dbbb90] to-[#C2A17B] mx-auto mb-8"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-[#dbbb90] to-[#C2A17B] mx-auto mb-4"></div>
         </div>
       </section>
-      <div className="flex flex-col lg:flex-row py-20 items-center justify-center container mx-auto max-w-7xl">
+      <div className="flex flex-col lg:flex-row py-8 items-center justify-center container mx-auto max-w-7xl">
         <div className="w-full lg:w-1/2 p-6 md:p-8 lg:pr-16 space-y-8 text-center lg:text-left">
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/20">
             <p className="text-[#dbbb90] text-sm font-medium uppercase tracking-widest font-serif mb-4">

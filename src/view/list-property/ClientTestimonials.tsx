@@ -65,7 +65,7 @@ function ClientTestimonials() {
 
         {/* Navigation Arrow */}
         <div className="flex justify-end mt-8">
-          <button className="w-12 h-12 bg-gray-200 hover:bg-gray-300 rounded-full flex items-center justify-center transition-colors duration-200">
+          <button className="w-12 h-12 bg-gray-200 hover:bg-gray-300 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer">
             <ChevronRight className="w-6 h-6 text-gray-600" />
           </button>
         </div>

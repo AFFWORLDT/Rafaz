@@ -134,10 +134,10 @@ export default function MortgageCalculator() {
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-between items-center">
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200">
+                <button className="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200 cursor-pointer">
                   Apply For Home Loan
                 </button>
-                <button className="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200 flex items-center">
+                <button className="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200 flex items-center cursor-pointer">
                   Contact us to get started with your mortgage..
                   <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

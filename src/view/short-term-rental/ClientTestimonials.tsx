@@ -40,7 +40,7 @@ export default function ClientTestimonials() {
             </p>
           </div>
           
-          <Button className="bg-primary hover:bg-primary text-white px-6 py-3 font-semibold rounded-lg transition-colors duration-200 mt-6 lg:mt-0">
+          <Button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 font-semibold rounded-lg transition-colors duration-200 mt-6 lg:mt-0">
             See all reviews
           </Button>
         </div>
@@ -60,7 +60,7 @@ export default function ClientTestimonials() {
               
               <div className="flex items-center mb-3">
                 {[...Array(testimonial.rating || 5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 text-primary fill-current" />
+                  <Star key={i} className="w-4 h-4 text-orange-500 fill-current" />
                 ))}
                 {testimonial.rating === 4 && (
                   <Star key={4} className="w-4 h-4 text-gray-300" />
@@ -80,7 +80,7 @@ export default function ClientTestimonials() {
 
         {/* Carousel Navigation */}
         <div className="flex justify-center mt-8">
-          <button className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition-colors duration-200">
+          <button className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition-colors duration-200 cursor-pointer">
             <ChevronRight className="w-5 h-5 text-gray-600" />
           </button>
         </div>

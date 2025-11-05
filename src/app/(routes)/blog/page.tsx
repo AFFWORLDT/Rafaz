@@ -20,7 +20,7 @@ function Blog() {
          Dive into our curated collection of articles, designed to enlighten, inspire, and guide you through Dubai&rsquo;s dynamic real estate market.
         </p>
       </div>
-      <InsightsInspiration/>
+      <InsightsInspiration showViewAllButton={false} />
     </div>
   );
 }

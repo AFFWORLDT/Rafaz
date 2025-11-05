@@ -67,7 +67,7 @@ export default function FAQTestimonials() {
               <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
+                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200 cursor-pointer"
                 >
                   <span className="text-lg font-semibold text-blue-900">
                     {faq.question}
@@ -143,7 +143,7 @@ export default function FAQTestimonials() {
           </div>
 
           <div className="flex justify-end">
-            <button className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition-colors duration-200">
+            <button className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition-colors duration-200 cursor-pointer">
               <ChevronRight className="w-6 h-6 text-gray-600" />
             </button>
           </div>

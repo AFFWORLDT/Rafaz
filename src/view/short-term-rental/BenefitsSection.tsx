@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Button } from '../../components/ui/button';
+import Link from 'next/link';
 import { 
   Home, 
   Camera, 
@@ -50,14 +51,14 @@ export default function BenefitsSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-blue-900 mb-8">
-            Why <span className="text-primary">holiday homes</span> in Dubai are a good <span className="text-primary">option?</span>
+            Why <span className="text-orange-500">holiday homes</span> in Dubai are a good <span className="text-orange-500">option?</span>
           </h2>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {benefits.map((benefit, index) => (
             <div key={index} className="bg-white rounded-lg p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 text-center">
-              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white mb-6 mx-auto">
+              <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center text-white mb-6 mx-auto">
                 {benefit.icon}
               </div>
               
@@ -73,9 +74,11 @@ export default function BenefitsSection() {
         </div>
 
         <div className="text-center">
-          <Button className="bg-primary hover:bg-primary text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-200">
-            Book Now
-          </Button>
+          <Link href="/list-your-property">
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-200">
+              Book Now
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

@@ -10,12 +10,13 @@ export default function JourneySection() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Image */}
           <div className="order-2 lg:order-1">
-            <div className="relative h-96 lg:h-[500px] rounded-lg overflow-hidden">
+            <div className="relative h-96 lg:h-[500px] rounded-lg overflow-hidden shadow-xl">
               <Image
                 src="/images/building.jpg"
                 alt="Happy family with smartphone"
                 fill
                 className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
           </div>

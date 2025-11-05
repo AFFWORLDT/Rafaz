@@ -35,41 +35,6 @@ export default function Footer() {
       
       <div className="relative z-10 py-12 px-6 md:px-8">
         <div className="container mx-auto max-w-7xl">
-          {/* Newsletter Section */}
-          <div className="mb-12">
-            <div className="relative bg-gradient-to-r from-[#dbbb90]/10 via-[#C2A17B]/8 to-[#dbbb90]/10 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-[#dbbb90]/20 shadow-xl">
-              {/* Premium Decorative Elements */}
-              <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-to-br from-[#dbbb90]/15 to-transparent rounded-full blur-xl"></div>
-              <div className="absolute bottom-4 left-4 w-12 h-12 bg-gradient-to-tr from-[#C2A17B]/15 to-transparent rounded-full blur-lg"></div>
-              
-              <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center gap-6">
-                <div className="flex-1">
-                  <h3 className="text-2xl md:text-3xl font-light tracking-widest leading-relaxed text-white font-serif mb-2">
-                    {t('footer.newsletter.title')}
-                    <span className="block text-[#dbbb90] font-normal">{t('footer.newsletter.subtitle')}</span>
-                  </h3>
-                  <p className="text-white/85 text-lg font-light leading-relaxed font-serif max-w-2xl">
-                    {t('footer.newsletter.description')}
-                  </p>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto lg:min-w-[400px]">
-                  <label htmlFor="email-subscribe" className="sr-only">
-                    Email address for newsletter subscription
-                  </label>
-                  <Input
-                    id="email-subscribe"
-                    type="email"
-                    placeholder="Enter your email address"
-                    className="flex-grow bg-white/8 text-white border-[#dbbb90]/40 placeholder:text-white/50 focus-visible:ring-offset-0 focus-visible:ring-[#dbbb90]/50 focus:border-[#dbbb90] rounded-xl h-12 backdrop-blur-sm font-serif text-base px-6 transition-all duration-300 hover:bg-white/12"
-                  />
-                  <Button className="bg-gradient-to-r from-[#dbbb90] to-[#C2A17B] hover:from-[#C2A17B] hover:to-[#B8956A] text-white font-light tracking-widest py-3 px-6 transition-all duration-300 uppercase h-12 rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 font-serif text-base min-w-[140px] border border-[#dbbb90]/20">
-                    Subscribe
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* Main Content Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             {/* Sitemap */}

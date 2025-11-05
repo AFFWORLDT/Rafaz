@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 
 export default function ProcessSection() {
   const steps = [
@@ -14,7 +15,7 @@ export default function ProcessSection() {
       number: 2,
       title: "Tailored Evaluation",
       description: "We assess your property to align with your financial goals.",
-      color: "bg-primary"
+      color: "bg-orange-500"
     },
     {
       number: 3,
@@ -26,7 +27,7 @@ export default function ProcessSection() {
       number: 4,
       title: "Global Exposure",
       description: "Our marketing expertise ensures your property stands out, featuring it on an extensive network of booking sites.",
-      color: "bg-primary"
+      color: "bg-orange-500"
     },
     {
       number: 5,
@@ -41,7 +42,7 @@ export default function ProcessSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-blue-900 mb-4">
-            Simplified Process for <span className="text-primary">Maximum Return</span>
+            Simplified Process for <span className="text-orange-500">Maximum Return</span>
           </h2>
         </div>
 
@@ -152,9 +153,11 @@ export default function ProcessSection() {
           
           {/* Bottom CTA Button */}
           <div className="text-center mt-12">
-            <button className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-base font-semibold rounded-md transition-colors duration-200">
-              List your Property
-            </button>
+            <Link href="/list-your-property">
+              <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 text-base font-semibold rounded-md transition-colors duration-200 cursor-pointer">
+                List your Property
+              </button>
+            </Link>
           </div>
         </div>
       </div>

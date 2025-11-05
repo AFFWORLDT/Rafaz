@@ -161,11 +161,7 @@ export default function Header() {
                       href={link.href}
                       className={cn(
                         "relative pb-1 transition-all duration-300 font-serif text-[13px] font-medium tracking-[0.2em] uppercase",
-                        isScrolled 
-                          ? "text-gray-900 hover:text-[#D4AF37]" 
-                          : pathname === "/" 
-                            ? "text-white hover:text-[#D4AF37]" 
-                            : "text-gray-800 hover:text-[#D4AF37]",
+                        "text-gray-900 hover:text-[#D4AF37]",
                         "after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1.5px] after:w-0",
                         "after:bg-[#D4AF37] after:transition-all after:duration-300 hover:after:w-full",
                         pathname === link.href && "after:w-full text-[#D4AF37]"
@@ -248,11 +244,7 @@ export default function Header() {
               href={link.href}
               className={cn(
                   "relative pb-1 transition-all duration-300 font-serif text-[13px] font-medium tracking-[0.2em] uppercase",
-                  isScrolled 
-                    ? "text-gray-900 hover:text-[#D4AF37]" 
-                    : pathname === "/" 
-                      ? "text-white hover:text-[#D4AF37]" 
-                      : "text-gray-800 hover:text-[#D4AF37]",
+                  "text-gray-900 hover:text-[#D4AF37]",
                 "after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1.5px] after:w-0",
                 "after:bg-[#D4AF37] after:transition-all after:duration-300 hover:after:w-full",
                 pathname === link.href && "after:w-full text-[#D4AF37]"
@@ -274,9 +266,7 @@ export default function Header() {
           <div
             className={cn(
               "cursor-pointer transition-all duration-300 p-1.5 rounded-md hover:text-[#D4AF37] hover:bg-[#D4AF37]/5",
-              isScrolled || pathname !== "/" 
-                ? "text-gray-600" 
-                : "text-white"
+              "text-gray-600"
             )}
             onClick={() => setIsOverlayOpen(true)}
           >

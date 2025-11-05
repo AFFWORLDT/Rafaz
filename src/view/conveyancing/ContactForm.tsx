@@ -1,34 +1,10 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Button } from '../../components/ui/button';
-import { Input } from '../../components/ui/input';
-import { Textarea } from '../../components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select';
+import React from 'react';
 import { MessageCircle, Phone, Mail } from 'lucide-react';
+import LeadCaptureForm from '../../components/common/leadCaptureForm';
 
 export default function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    language: 'English',
-    message: ''
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-  };
-
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
-  };
-
   return (
     <section className="py-20 bg-gray-100">
       <div className="container mx-auto px-4">
@@ -85,110 +61,12 @@ export default function ContactForm() {
 
           {/* Right Form */}
           <div className="bg-white rounded-2xl p-8 shadow-lg">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Name
-                </label>
-                <Input
-                  type="text"
-                  placeholder="Name"
-                  value={formData.name}
-                  onChange={(e) => handleInputChange('name', e.target.value)}
-                  className="w-full"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email
-                </label>
-                <Input
-                  type="email"
-                  placeholder="Email"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                  className="w-full"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone
-                </label>
-                <div className="flex">
-                  <Select defaultValue="+91">
-                    <SelectTrigger className="w-24">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="+91">🇮🇳 +91</SelectItem>
-                      <SelectItem value="+971">🇦🇪 +971</SelectItem>
-                      <SelectItem value="+1">🇺🇸 +1</SelectItem>
-                      <SelectItem value="+44">🇬🇧 +44</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Input
-                    type="tel"
-                    placeholder="Phone Number"
-                    value={formData.phone}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
-                    className="flex-1 ml-2"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Preferred Language
-                </label>
-                <Select value={formData.language} onValueChange={(value) => handleInputChange('language', value)}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="English">English</SelectItem>
-                    <SelectItem value="Arabic">Arabic</SelectItem>
-                    <SelectItem value="Hindi">Hindi</SelectItem>
-                    <SelectItem value="Urdu">Urdu</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Message
-                </label>
-                <Textarea
-                  placeholder="Share any additional information"
-                  value={formData.message}
-                  onChange={(e) => handleInputChange('message', e.target.value)}
-                  className="w-full min-h-[120px]"
-                />
-              </div>
-
-              <Button
-                type="submit"
-                className="w-full bg-primary hover:bg-primary text-white py-4 text-lg font-semibold rounded-lg transition-colors duration-200"
-              >
-                Submit Details
-              </Button>
-
-              <p className="text-sm text-gray-500 text-center">
-                By clicking Submit, you agree to our{' '}
-                <a href="#" className="text-primary underline hover:text-primary/80">
-                  Terms & Conditions
-                </a>{' '}
-                and{' '}
-                <a href="#" className="text-primary underline hover:text-primary/80">
-                  Privacy Policy
-                </a>
-                .
-              </p>
-            </form>
+            <LeadCaptureForm
+              title="Get Free Consultation"
+              subtitle="Fill out the form below and we'll get back to you soon"
+              variant="modal"
+              className="p-0"
+            />
           </div>
         </div>
       </div>

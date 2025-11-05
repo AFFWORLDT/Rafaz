@@ -28,7 +28,7 @@ export default function ForGuestsSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-blue-900 mb-6">
-            <span className="text-primary">For Guests:</span> Discover Unparalleled Holiday Homes. Luxury, Comfort, and Convenience
+            <span className="text-orange-500">For Guests:</span> Discover Unparalleled Holiday Homes. Luxury, Comfort, and Convenience
           </h2>
           
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
@@ -45,6 +45,7 @@ export default function ForGuestsSection() {
                 alt={property.alt}
                 fill
                 className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
               />
             </div>
           ))}

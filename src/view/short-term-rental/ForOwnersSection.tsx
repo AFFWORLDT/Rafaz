@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Button } from '../../components/ui/button';
+import Link from 'next/link';
 
 export default function ForOwnersSection() {
   return (
@@ -11,12 +12,13 @@ export default function ForOwnersSection() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Image */}
           <div className="order-2 lg:order-1">
-            <div className="relative h-96 lg:h-[500px] rounded-lg overflow-hidden">
+            <div className="relative h-96 lg:h-[500px] rounded-lg overflow-hidden shadow-xl">
               <Image
                 src="/images/building.jpg"
                 alt="Happy couple with property keys"
                 fill
                 className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
           </div>
@@ -24,7 +26,7 @@ export default function ForOwnersSection() {
           {/* Right Content */}
           <div className="order-1 lg:order-2">
             <h2 className="text-4xl font-bold text-blue-900 mb-4">
-              Looking to transform your home into A <span className="text-primary">short-term rental in Dubai?</span>
+              Looking to transform your home into A <span className="text-orange-500">short-term rental in Dubai?</span>
             </h2>
             
             <h3 className="text-xl font-bold text-blue-900 mb-4">
@@ -39,9 +41,11 @@ export default function ForOwnersSection() {
               Leverage our expertise in converting properties into profitable short-term rentals. Our dedicated team specializes in managing every aspect of the transformation process, ensuring your property not only attracts guests but also generates significant returns. From comprehensive property management to global marketing, we position your home on the world stage, listing it across more than 150 platforms, including Airbnb, Booking.com, and Expedia.
             </p>
 
-            <Button className="bg-primary hover:bg-primary text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-200">
-              Book Now
-            </Button>
+            <Link href="/list-your-property">
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-200">
+                Book Now
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

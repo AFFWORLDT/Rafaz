@@ -8,8 +8,9 @@ import Footer from "@/src/components/common/footer";
 import { LanguageProvider } from "@/src/contexts/LanguageContext";
 import { LeadFormProvider } from "@/src/contexts/LeadFormContext";
 import GlobalLeadForm from "@/src/components/common/GlobalLeadForm";
-import FloatingActions from "../components/common/FloatingActions";
-import AutoPopupTrigger from "../components/common/AutoPopupTrigger";
+import ConditionalFloatingActions from "../components/common/ConditionalFloatingActions";
+import PromoPopup from "../components/common/PromoPopup";
+// AutoPopupTrigger removed per request (no consultation popup on load)
 
 const trajanPro = localFont({
   src: [
@@ -220,14 +221,23 @@ export default function RootLayout({
               <Footer />
             </main>
             
-            {/* Auto Popup Trigger - Shows popup on page load */}
-            <AutoPopupTrigger />
-            
+            {/* Promotional popup (image-style) - session based */}
+            <PromoPopup
+              // If you have a creative image, place it under public/promo/popup.jpg and set imageSrc
+              imageSrc="/727476354.jpg"
+              title="Discover Our Off Plan Projects in Dubai"
+              subtitle="Premium developments with flexible payment plans"
+              ctaLabel="View Projects"
+              ctaHref="/off-plan-projects-in-dubai"
+              startingFrom="AED 2.5M"
+              delayMs={400}
+            />
+
             {/* Global Lead Form Popup */}
             <GlobalLeadForm />
             
-            {/* Floating Actions (Consultation + WhatsApp) */}
-            <FloatingActions phone="971507815384" />
+            {/* Floating Actions (Consultation + WhatsApp) - Hidden on service page */}
+            <ConditionalFloatingActions />
           </LeadFormProvider>
         </LanguageProvider>
       </body>

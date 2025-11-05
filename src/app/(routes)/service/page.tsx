@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const servicesData = [
   {
@@ -58,11 +59,14 @@ export default function Services() {
                 {/* Image Section */}
                 <div className="w-full lg:w-1/2 mb-8 lg:mb-0">
                   <div className={`${isEven ? "lg:pl-8" : "lg:pr-8"}`}>
-                    <div className="relative overflow-hidden rounded-none shadow-none">
-                      <img
+                    <div className="relative overflow-hidden rounded-none shadow-none w-full h-[400px] sm:h-[500px] lg:h-[600px]">
+                      <Image
                         src={service.imageUrl}
                         alt={service.title}
-                        className="w-full  sm:h-[600px] object-cover"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        priority={index === 0}
                       />
                     </div>
                   </div>
@@ -71,15 +75,15 @@ export default function Services() {
                 {/* Text Section */}
                 <div className="w-full lg:w-1/2">
                   <div className={`${isEven ? "lg:pl-8" : "lg:pr-8"}`}>
-                    <h2 className="text-3xl sm:text-4xl  font-mono text-gray-700 mb-6">
+                    <h2 className="text-5xl font-mono text-gray-700 mb-6">
                       {service.title}
                     </h2>
 
-                    <p className="text-sm text-neutral-500 mb-6 ">
+                    <p className="text-lg text-neutral-500 mb-6 leading-relaxed">
                       {service.description}
                     </p>
 
-                    <p className="text-sm text-neutral-500 mb-8 ">
+                    <p className="text-lg text-neutral-500 mb-8 leading-relaxed">
                       {service.additionalInfo}
                     </p>
                   </div>

@@ -8,7 +8,6 @@ import WhyUsSection from '@/src/view/property-management/WhyUsSection';
 import FAQTestimonials from '@/src/view/property-management/FAQTestimonials';
 import ContactForm from '@/src/view/list-property/ContactForm';
 import ClientTestimonials from '@/src/view/list-property/ClientTestimonials';
-import NewsletterSection from '@/src/view/list-property/NewsletterSection';
 
 export default function PropertyManagementPage() {
   return (
@@ -20,7 +19,6 @@ export default function PropertyManagementPage() {
       <FAQTestimonials />
       <ClientTestimonials />
       <ContactForm />
-      <NewsletterSection />
     </div>
   );
 }

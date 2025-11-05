@@ -29,10 +29,6 @@ export default function MainContent() {
               </p>
             </div>
 
-            <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-200">
-              Learn more →
-            </Button>
-
             <div className="pt-8">
               <h3 className="text-3xl md:text-4xl font-bold text-blue-900 leading-tight">
                 Explore what we do as your trusted property manager
@@ -44,10 +40,11 @@ export default function MainContent() {
           <div className="relative">
             <div className="relative h-[500px] rounded-lg overflow-hidden shadow-2xl">
               <Image
-                src="/images/team-consultation.jpg"
+                src="/images/building.jpg"
                 alt="Property Management Team Consultation"
                 fill
                 className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
           </div>

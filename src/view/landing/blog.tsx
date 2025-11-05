@@ -29,7 +29,7 @@ const blogPosts = [
   },
 ]
 
-export function InsightsInspiration() {
+export function InsightsInspiration({ showViewAllButton = true }: { showViewAllButton?: boolean }) {
   const { t } = useLanguage();
   
   return (
@@ -64,20 +64,22 @@ export function InsightsInspiration() {
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-       <Link href={"/blog"} passHref>
-        <Button className="w-48 h-11 bg-[#dbbb90] hover:bg-[#C2A17B] text-white font-extralight tracking-wider py-2 px-4 rounded-lg transition-colors uppercase">
-       {t('blog.viewAll')}
-          </Button>
-       </Link>
-        </motion.div>
+        {showViewAllButton && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Link href={"/blog"} passHref>
+              <Button className="w-48 h-11 bg-[#dbbb90] hover:bg-[#C2A17B] text-white font-extralight tracking-wider py-2 px-4 rounded-lg transition-colors uppercase">
+                {t('blog.viewAll')}
+              </Button>
+            </Link>
+          </motion.div>
+        )}
       </div>
     </section>
   )

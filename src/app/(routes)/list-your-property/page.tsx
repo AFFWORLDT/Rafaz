@@ -5,7 +5,6 @@ import WhyProvident from '../../../view/list-property/WhyProvident';
 import HowItWorks from '../../../view/list-property/HowItWorks';
 import ClientTestimonials from '../../../view/list-property/ClientTestimonials';
 import ContactForm from '../../../view/list-property/ContactForm';
-import NewsletterSection from '../../../view/list-property/NewsletterSection';
 
 export default function ListYourPropertyPage() {
   return (
@@ -15,7 +14,6 @@ export default function ListYourPropertyPage() {
       <HowItWorks />
       <ClientTestimonials />
       <ContactForm />
-      <NewsletterSection />
     </div>
   );
 }

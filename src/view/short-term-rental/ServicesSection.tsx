@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Button } from '../../components/ui/button';
+import Link from 'next/link';
 
 export default function ServicesSection() {
   const services = [
@@ -45,9 +46,11 @@ export default function ServicesSection() {
       <div className="container mx-auto px-4">
         {/* Top Button */}
         <div className="text-center mb-16">
-          <Button className="bg-primary hover:bg-primary text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-200">
-            List your Property
-          </Button>
+          <Link href="/list-your-property">
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-200">
+              List your Property
+            </Button>
+          </Link>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -64,7 +67,7 @@ export default function ServicesSection() {
             <div className="space-y-4">
               {services.map((service, index) => (
                 <div key={index} className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></div>
+                  <div className="w-2 h-2 bg-orange-500 rounded-full flex-shrink-0"></div>
                   <span className="text-lg text-gray-700 font-medium">
                     {service}
                   </span>
@@ -86,6 +89,7 @@ export default function ServicesSection() {
                     alt={image.alt}
                     fill
                     className="object-cover"
+                    sizes="(max-width: 1024px) 50vw, 25vw"
                   />
                 </div>
               ))}

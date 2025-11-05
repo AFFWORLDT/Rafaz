@@ -124,7 +124,7 @@ export default function Component() {
         {/* View All Button - Compact */}
         <div className="w-full flex justify-center items-center mt-6">
           <Link href={"/communities"}>
-            <Button className="w-40 h-10 bg-[#dbbb90] hover:bg-[#C2A17B] text-white font-light tracking-wider py-2 px-4 rounded-lg transition-colors uppercase text-sm">
+            <Button className="min-w-[200px] h-auto bg-[#dbbb90] hover:bg-[#C2A17B] text-white font-light tracking-wider py-3 px-6 rounded-lg transition-colors uppercase text-sm whitespace-nowrap">
               View All Communities
             </Button>
           </Link>

@@ -57,7 +57,7 @@ export default function QuoteSection() {
               ))}
             </div>
 
-            <button className="bg-primary hover:bg-primary text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-200">
+            <button className="bg-primary hover:bg-primary text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-200 cursor-pointer">
               Find out more →
             </button>
           </div>

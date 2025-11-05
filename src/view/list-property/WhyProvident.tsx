@@ -1,5 +1,6 @@
 import React from 'react';
 import { Check } from 'lucide-react';
+import Link from 'next/link';
 
 function WhyProvident() {
   const benefits = [
@@ -31,10 +32,12 @@ function WhyProvident() {
               ))}
             </div>
 
-            <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors duration-200 flex items-center">
-              List Your Property
-              <span className="ml-2">→</span>
-            </button>
+            <Link href="/list-your-property">
+              <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors duration-200 flex items-center cursor-pointer">
+                List Your Property
+                <span className="ml-2">→</span>
+              </button>
+            </Link>
           </div>
 
           {/* Right Content - 3D House Graphic */}

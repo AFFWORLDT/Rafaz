@@ -12,6 +12,7 @@ interface LeadCaptureFormProps {
   variant?: "default" | "compact" | "modal";
   className?: string;
   onSuccess?: () => void;
+  buttonColor?: "primary" | "orange";
 }
 
 export default function LeadCaptureForm({
@@ -19,7 +20,8 @@ export default function LeadCaptureForm({
   subtitle = "Speak with our expert agents and discover your perfect property today",
   variant = "default",
   className = "",
-  onSuccess
+  onSuccess,
+  buttonColor = "primary"
 }: LeadCaptureFormProps) {
   const [formData, setFormData] = useState({
     name: "",
@@ -156,7 +158,7 @@ export default function LeadCaptureForm({
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className={`w-full ${buttonColor === "orange" ? "bg-orange-500 hover:bg-orange-600" : "bg-primary hover:bg-primary/90"} text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed`}
       >
         {isSubmitting ? (
           <div className="flex items-center justify-center">

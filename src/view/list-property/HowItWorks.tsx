@@ -56,7 +56,7 @@ function HowItWorks() {
           <p className="text-xl text-gray-600 mb-8">
             Discover what our customers are saying about their experiences.
           </p>
-          <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-200">
+          <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-200 cursor-pointer">
             See all reviews
           </button>
         </div>

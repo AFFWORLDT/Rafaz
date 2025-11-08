@@ -79,6 +79,7 @@ export default function DetailPage({ id }: any) {
                 key={index}
                 src={photo}
                 alt="Luxury Living in Dubai"
+                unoptimized
                 layout="fill"
                 objectFit="cover"
                 quality={85}
@@ -142,6 +143,7 @@ export default function DetailPage({ id }: any) {
                         <Image
                           src={property.agent.avatar}
                           alt={property.agent.name}
+                          unoptimized
                           width={48}
                           height={48}
                           className="w-full h-full object-cover"
@@ -306,6 +308,7 @@ export default function DetailPage({ id }: any) {
                         alt={`${property.name} - Image ${
                           selectedImageIndex + 1
                         }`}
+                        unoptimized
                         layout="fill"
                         objectFit="cover"
                         quality={90}
@@ -349,6 +352,7 @@ export default function DetailPage({ id }: any) {
                           <Image
                             src={photo || "/placeholder.svg"}
                             alt={`${property.name} thumbnail ${index + 1}`}
+                            unoptimized
                             layout="fill"
                             objectFit="cover"
                             quality={75}
@@ -387,6 +391,7 @@ export default function DetailPage({ id }: any) {
                   <Image
                     src={property?.newParam?.permitQRCode}
                     alt="QR Code"
+                    unoptimized
                     width={64}
                     height={64}
                     className="w-full h-full object-cover"
@@ -475,6 +480,7 @@ export default function DetailPage({ id }: any) {
                               <Image
                                 src={agent.avatar}
                                 alt={agent.name}
+                                unoptimized
                                 width={128}
                                 height={128}
                                 className="w-full h-full object-cover"

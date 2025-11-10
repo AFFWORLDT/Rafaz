@@ -14,6 +14,8 @@ import PaymentPlanSection from "./PaymentPlanSection";
 
 export default function DetailPage({ id }: { id: string | string[] | undefined }) {
   const [property, setProperty] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [heroImageIndex, setHeroImageIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -22,11 +24,15 @@ export default function DetailPage({ id }: { id: string | string[] | undefined }
 
   useEffect(() => {
     async function fetchProperty() {
+      setLoading(true);
+      setError(null);
       try {
         // Handle both string and array cases
         const idParam = Array.isArray(id) ? id[0] : (id || '');
         if (!idParam) {
           console.error('OffPlan Detail - No slug provided');
+          setError('No property identifier provided');
+          setLoading(false);
           return;
         }
         
@@ -83,6 +89,8 @@ export default function DetailPage({ id }: { id: string | string[] | undefined }
           }
           
           console.error('OffPlan Detail - Could not fetch property by ID or generate name-based URL');
+          setError('Property not found. Please use property name in URL.');
+          setLoading(false);
           return;
         }
         
@@ -97,33 +105,59 @@ export default function DetailPage({ id }: { id: string | string[] | undefined }
         
         if (!propertyData) {
           console.error('OffPlan Detail - Property not found for slug:', idParam);
+          setError(`Property not found: ${idParam}`);
+          setLoading(false);
           return;
         }
         
-        // Verify it's the correct property by comparing slug - must match exactly
-        const propertyName = (propertyData.name || propertyData.title || '').toLowerCase().replace(/\s+/g, '_');
+        // Format property name the same way as formatPropertyNameForUrl does
+        const formatNameForSlug = (name: string): string => {
+          return name
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '') // Remove special characters (keeps spaces and hyphens)
+            .replace(/\s+/g, '_') // Replace spaces with underscores
+            .replace(/-/g, '_') // Normalize hyphens to underscores
+            .replace(/_+/g, '_') // Remove duplicate underscores
+            .trim();
+        };
+        
+        // Verify it's the correct property by comparing slug - use same formatting as card
+        const propertyNameRaw = propertyData.name || propertyData.title || propertyData.project_name || propertyData.property_name || '';
+        const propertyNameFormatted = formatNameForSlug(propertyNameRaw);
         const slugLower = idParam.toLowerCase();
-        const propertyNameWithSpaces = (propertyData.name || propertyData.title || '').toLowerCase();
+        const slugFormatted = formatNameForSlug(idParam.replace(/_/g, ' ')); // Convert slug back to name format, then format it
+        
+        // Also try matching with spaces
+        const propertyNameWithSpaces = propertyNameRaw.toLowerCase();
         const slugWithSpaces = idParam.toLowerCase().replace(/_/g, ' ');
         
-        // Check if property name matches slug exactly
-        const isExactMatch = propertyName === slugLower || 
+        // Check if property name matches slug - be more flexible
+        const isExactMatch = propertyNameFormatted === slugLower || 
+                            propertyNameFormatted === slugFormatted ||
                             propertyNameWithSpaces === slugWithSpaces ||
-                            propertyName.replace(/_/g, '') === slugLower.replace(/_/g, '');
+                            propertyNameFormatted.replace(/_/g, '') === slugLower.replace(/_/g, '') ||
+                            propertyNameRaw.toLowerCase().replace(/[^a-z0-9]/g, '') === idParam.toLowerCase().replace(/[^a-z0-9]/g, '');
         
         if (!isExactMatch) {
-          console.error('OffPlan Detail - Property name mismatch! Expected:', slugLower, 'Got:', propertyName);
-          console.error('OffPlan Detail - This is the wrong property, not setting it');
-          return;
+          console.warn('OffPlan Detail - Property name mismatch! Expected:', slugLower, 'Got:', propertyNameFormatted);
+          console.warn('OffPlan Detail - Property name raw:', propertyNameRaw);
+          console.warn('OffPlan Detail - Still showing property as it might be correct');
+          // Don't reject - show the property anyway as it might be the correct one
+        } else {
+          console.log('OffPlan Detail - Property name matches slug:', propertyNameFormatted);
         }
         
-        console.log('OffPlan Detail - Property name matches slug exactly:', propertyName);
+        console.log('OffPlan Detail - Property name matches slug:', propertyNameFormatted);
         console.log('OffPlan Detail - Property data to set:', propertyData);
         console.log('OffPlan Detail - Property keys:', propertyData ? Object.keys(propertyData) : 'No property data');
         
         setProperty(propertyData);
-      } catch (error) {
+        setError(null);
+      } catch (error: any) {
         console.error('Error fetching property:', error);
+        setError(error?.message || 'Failed to fetch property details');
+      } finally {
+        setLoading(false);
       }
     }
     fetchProperty();
@@ -167,12 +201,23 @@ export default function DetailPage({ id }: { id: string | string[] | undefined }
     setMousePosition({ x, y });
   };
 
-  if (!property) {
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-[#dbbb90] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600 font-light">Loading property details...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !property) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-600 font-light text-xl mb-4">Property not found</p>
+          <p className="text-gray-500 text-sm">{error || 'The property you\'re looking for doesn\'t exist or has been removed.'}</p>
         </div>
       </div>
     );

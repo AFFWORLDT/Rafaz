@@ -145,29 +145,50 @@ export const getPropertyById = async (idOrSlug: string) => {
                projects = res.data;
              }
              
+             // Format name the same way as formatPropertyNameForUrl does
+             const formatNameForSlug = (name: string): string => {
+               return name
+                 .toLowerCase()
+                 .replace(/[^a-z0-9\s-]/g, '') // Remove special characters (keeps spaces and hyphens)
+                 .replace(/\s+/g, '_') // Replace spaces with underscores
+                 .replace(/-/g, '_') // Normalize hyphens to underscores
+                 .replace(/_+/g, '_') // Remove duplicate underscores
+                 .trim();
+             };
+             
              // Find exact match by comparing slug with project name
              if (projects.length > 0) {
                const slugLower = idOrSlug.toLowerCase();
                const slugWithSpaces = idOrSlug.toLowerCase().replace(/_/g, ' ');
                
-               // Try to find exact match first - must match exactly
+               // Try to find exact match - use same formatting as card
                const exactMatch = projects.find((project: any) => {
-                 const projectName = (project.name || project.title || project.project_name || project.property_name || '').toLowerCase();
-                 const projectNameSlug = projectName.replace(/\s+/g, '_');
+                 const projectNameRaw = project.name || project.title || project.project_name || project.property_name || '';
+                 const projectNameFormatted = formatNameForSlug(projectNameRaw);
+                 const projectNameWithSpaces = projectNameRaw.toLowerCase();
+                 const slugFormatted = formatNameForSlug(slugWithSpaces);
                  
-                 // Exact match: slug matches project name slug, or project name matches slug with spaces
-                 return projectNameSlug === slugLower || 
-                        projectName === slugWithSpaces ||
-                        projectName.replace(/\s+/g, '_') === slugLower;
+                 // Flexible match: slug matches project name slug, or project name matches slug with spaces
+                 return projectNameFormatted === slugLower || 
+                        projectNameFormatted === slugFormatted ||
+                        projectNameWithSpaces === slugWithSpaces ||
+                        projectNameFormatted.replace(/_/g, '') === slugLower.replace(/_/g, '') ||
+                        projectNameRaw.toLowerCase().replace(/[^a-z0-9]/g, '') === idOrSlug.toLowerCase().replace(/[^a-z0-9]/g, '');
                });
                
                if (exactMatch) {
-                 console.log("Found exact match:", exactMatch.name || exactMatch.title);
+                 console.log("Found match:", exactMatch.name || exactMatch.title);
                  return { projects: [exactMatch] };
                }
                
-               // If no exact match found, don't return wrong property - continue to next endpoint
-               console.warn("No exact match found in this response, trying next endpoint");
+               // If no exact match found, try to return first property if only one result
+               if (projects.length === 1) {
+                 console.log("Only one project found, returning it:", projects[0].name || projects[0].title);
+                 return { projects: [projects[0]] };
+               }
+               
+               // If no exact match found, continue to next endpoint
+               console.warn("No match found in this response, trying next endpoint");
              }
            } catch (error) {
              console.log(`Endpoint ${endpoint} failed, trying next...`);

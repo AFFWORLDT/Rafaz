@@ -20,12 +20,19 @@ interface CommunityData {
 
 export default function CommunitiesCard({ data }: { data: CommunityData }) {
   const router = useRouter();
+  
+  const handleCardClick = () => {
+    // Navigate to off-plan page with area filter applied
+    const areaName = data?.name || '';
+    if (areaName) {
+      router.push(`/off-plan-projects-in-dubai?area=${encodeURIComponent(areaName)}`);
+    }
+  };
+  
   return (
     <Card
       className="relative w-[95%] h-[380px] rounded-2xl overflow-hidden shadow-xl group border border-white/20 cursor-pointer luxury-hover"
-      onClick={() =>
-        router.push(`/communities/details/${encodeURIComponent(data?.name)}`)
-      }
+      onClick={handleCardClick}
     >
       <CardContent className="p-0 h-full">
         <Image

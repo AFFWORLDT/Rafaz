@@ -24,7 +24,7 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import { api } from "@/src/lib/axios";
 import Link from "next/link";
 // import LeadCaptureForm from "@/src/components/common/LeadCaptureForm";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 // URL Formatting Function
 // Converts project names to URL-friendly slugs with underscores
@@ -101,6 +101,7 @@ const HANDOVER_YEAR_OPTIONS = [
 
 function OffPlansPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [property, setProperty] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
@@ -115,6 +116,7 @@ function OffPlansPage() {
   const [filters, setFilters] = useState({
     type: "off_plan",
     title: "",
+    community: "", // Add community filter parameter
     property_type: "any",
     min_price: "any",
     max_price: "any",
@@ -124,6 +126,7 @@ function OffPlansPage() {
     bathrooms: "any",
     handover_year: "any",
   });
+  
 
   const fetchproperty = useCallback(async (page = 1) => {
     setLoading(true);
@@ -137,10 +140,13 @@ function OffPlansPage() {
 
     // Add filter parameters
     Object.entries(filters).forEach(([key, value]) => {
-      if (value && value !== "any" && value !== "all") {
+      if (value && value !== "any" && value !== "all" && value !== "") {
         queryParams.append(key, value);
       }
     });
+    
+    // Log the query parameters for debugging
+    console.log('OffPlan Page - Query parameters:', queryParams.toString());
 
     try {
       const res = await getAllProperties(queryParams.toString());
@@ -249,13 +255,39 @@ function OffPlansPage() {
     setShowFilters((prev) => !prev);
   }, []);
 
+  // Track if filters have been initialized from URL
+  const [filtersInitialized, setFiltersInitialized] = useState(false);
+  
+  // Initialize filters from URL on mount
   useEffect(() => {
-    fetchproperty(currentPage);
-  }, [fetchproperty, currentPage]);
-
+    const areaParam = searchParams.get('area');
+    if (areaParam && !filtersInitialized) {
+      const decodedArea = decodeURIComponent(areaParam);
+      setFilters((prev) => ({
+        ...prev,
+        title: decodedArea,
+        community: decodedArea
+      }));
+      setFiltersInitialized(true);
+    } else if (!areaParam) {
+      setFiltersInitialized(true);
+    }
+  }, [searchParams, filtersInitialized]);
+  
+  // Automatically fetch properties when filters change (including from URL)
   useEffect(() => {
-    setCurrentPage(1);
-  }, [filters]);
+    if (filtersInitialized) {
+      setCurrentPage(1);
+      fetchproperty(1);
+    }
+  }, [filters, fetchproperty, filtersInitialized]);
+  
+  // Fetch properties when page changes
+  useEffect(() => {
+    if (filtersInitialized) {
+      fetchproperty(currentPage);
+    }
+  }, [currentPage, fetchproperty, filtersInitialized]);
 
   useEffect(() => {
     searchDevelopers(developerSearch);

@@ -7,9 +7,26 @@ import {
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+// URL Formatting Function
+// Converts project names to URL-friendly slugs with underscores
+function formatPropertyNameForUrl(name: string): string {
+  if (!name) return '';
+  
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters (keeps spaces and hyphens)
+    .replace(/\s+/g, '_') // Replace spaces with underscores
+    .replace(/-/g, '_') // Normalize hyphens to underscores
+    .replace(/_+/g, '_') // Remove duplicate underscores
+    .trim();
+}
+
 interface PropertyData {
   id?: string | number;
   name?: string;
+  title?: string;
+  project_name?: string;
+  property_name?: string;
   location?: {
     city?: string;
     community?: string;
@@ -26,8 +43,18 @@ interface PropertyData {
 
 export default function PropertyCard({ data }: { data?: PropertyData }) {
     const router = useRouter();
+    
+    const handleCardClick = () => {
+      // Use name first (as API returns name, not project_name)
+      const projectName = data?.name || data?.title || data?.project_name || data?.property_name || `Property ${data?.id || 'Unknown'}`;
+      const projectSlug = formatPropertyNameForUrl(projectName);
+      // Always use slug, never fall back to ID
+      const url = `/off-plan-projects-in-dubai/details/${projectSlug}`;
+      router.push(url);
+    };
+    
   return (
-    <Card className="overflow-hidden border-none p-0 shadow-sm border-2 rounded-lg" onClick={() => router.push(`/off-plan-projects-in-dubai/details/${data?.id}`)}>
+    <Card className="overflow-hidden border-none p-0 shadow-sm border-2 rounded-lg" onClick={handleCardClick}>
       <div className="relative w-full h-96 overflow-hidden group">
         <Image
           src={data?.photos?.[0] ?? "/placeholder.jpg"}

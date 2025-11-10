@@ -1,6 +1,7 @@
 "use client";
 
 import { getPropertyById } from "@/src/api/offPlans";
+import { api } from "@/src/lib/axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import moment from "moment";
@@ -11,7 +12,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import LocationSection from "./Location";
 import PaymentPlanSection from "./PaymentPlanSection";
 
-export default function DetailPage({ id }: any) {
+export default function DetailPage({ id }: { id: string | string[] | undefined }) {
   const [property, setProperty] = useState<any>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [heroImageIndex, setHeroImageIndex] = useState(0);
@@ -21,18 +22,120 @@ export default function DetailPage({ id }: any) {
 
   useEffect(() => {
     async function fetchProperty() {
-      const data = await getPropertyById(id);
-      setProperty(data?.projects?.[0]);
+      try {
+        // Handle both string and array cases
+        const idParam = Array.isArray(id) ? id[0] : (id || '');
+        if (!idParam) {
+          console.error('OffPlan Detail - No slug provided');
+          return;
+        }
+        
+        console.log('OffPlan Detail - Fetching property with slug/ID:', idParam);
+        
+        // Check if it's a numeric ID - if so, fetch by ID first, then redirect to name-based URL
+        if (/^\d+$/.test(idParam)) {
+          console.log('OffPlan Detail - Numeric ID detected, fetching property by ID first:', idParam);
+          try {
+            // Fetch by ID to get the property name
+            const res = await api.get(`/properties/all-data/${idParam}`);
+            const propertyData = res?.data?.projects?.[0] || res?.data?.project || res?.data;
+            
+            if (!propertyData) {
+              // Try alternative endpoint
+              const res2 = await api.get(`/properties/projects?project_id=${idParam}`);
+              const propertyData2 = res2?.data?.projects?.[0] || res2?.data?.project || res2?.data;
+              
+              if (propertyData2) {
+                const propertyName = propertyData2.name || propertyData2.title || propertyData2.project_name || propertyData2.property_name;
+                if (propertyName) {
+                  const slug = propertyName
+                    .toLowerCase()
+                    .replace(/[^a-z0-9\s-]/g, '')
+                    .replace(/\s+/g, '_')
+                    .replace(/-/g, '_')
+                    .replace(/_+/g, '_')
+                    .trim();
+                  
+                  console.log('OffPlan Detail - Redirecting to name-based URL:', `/off-plan-projects-in-dubai/details/${slug}`);
+                  window.location.href = `/off-plan-projects-in-dubai/details/${slug}`;
+                  return;
+                }
+              }
+            } else {
+              // Get the property name and redirect to name-based URL
+              const propertyName = propertyData.name || propertyData.title || propertyData.project_name || propertyData.property_name;
+              if (propertyName) {
+                const slug = propertyName
+                  .toLowerCase()
+                  .replace(/[^a-z0-9\s-]/g, '')
+                  .replace(/\s+/g, '_')
+                  .replace(/-/g, '_')
+                  .replace(/_+/g, '_')
+                  .trim();
+                
+                console.log('OffPlan Detail - Redirecting to name-based URL:', `/off-plan-projects-in-dubai/details/${slug}`);
+                window.location.href = `/off-plan-projects-in-dubai/details/${slug}`;
+                return;
+              }
+            }
+          } catch (error) {
+            console.error('OffPlan Detail - Error fetching property by ID:', error);
+          }
+          
+          console.error('OffPlan Detail - Could not fetch property by ID or generate name-based URL');
+          return;
+        }
+        
+        console.log('OffPlan Detail - Fetching property with slug:', idParam);
+        // The API function now handles only name-based lookups
+        const data = await getPropertyById(idParam as string);
+        console.log('OffPlan Detail - Full API Response:', data);
+        console.log('OffPlan Detail - Projects array:', data?.projects);
+        
+        // Get the exact property from response
+        const propertyData = data?.projects?.[0];
+        
+        if (!propertyData) {
+          console.error('OffPlan Detail - Property not found for slug:', idParam);
+          return;
+        }
+        
+        // Verify it's the correct property by comparing slug - must match exactly
+        const propertyName = (propertyData.name || propertyData.title || '').toLowerCase().replace(/\s+/g, '_');
+        const slugLower = idParam.toLowerCase();
+        const propertyNameWithSpaces = (propertyData.name || propertyData.title || '').toLowerCase();
+        const slugWithSpaces = idParam.toLowerCase().replace(/_/g, ' ');
+        
+        // Check if property name matches slug exactly
+        const isExactMatch = propertyName === slugLower || 
+                            propertyNameWithSpaces === slugWithSpaces ||
+                            propertyName.replace(/_/g, '') === slugLower.replace(/_/g, '');
+        
+        if (!isExactMatch) {
+          console.error('OffPlan Detail - Property name mismatch! Expected:', slugLower, 'Got:', propertyName);
+          console.error('OffPlan Detail - This is the wrong property, not setting it');
+          return;
+        }
+        
+        console.log('OffPlan Detail - Property name matches slug exactly:', propertyName);
+        console.log('OffPlan Detail - Property data to set:', propertyData);
+        console.log('OffPlan Detail - Property keys:', propertyData ? Object.keys(propertyData) : 'No property data');
+        
+        setProperty(propertyData);
+      } catch (error) {
+        console.error('Error fetching property:', error);
+      }
     }
     fetchProperty();
   }, [id]);
 
   useEffect(() => {
-    if (!property?.photos || property.photos.length <= 1) return;
+    const photos = property?.photos || [];
+    if (photos.length <= 1) return;
 
     const interval = setInterval(() => {
       setHeroImageIndex(
-        (prevIndex) => (prevIndex + 1) % property.photos.length
+        (prevIndex) => (prevIndex + 1) % photos.length
       );
     }, 3000);
 
@@ -40,14 +143,16 @@ export default function DetailPage({ id }: any) {
   }, [property?.photos]);
 
   const nextImage = () => {
+    const photos = property?.photos || ['/images/building.jpg'];
     setSelectedImageIndex((prev) =>
-      prev === property.photos.length - 1 ? 0 : prev + 1
+      prev === photos.length - 1 ? 0 : prev + 1
     );
   };
 
   const prevImage = () => {
+    const photos = property?.photos || ['/images/building.jpg'];
     setSelectedImageIndex((prev) =>
-      prev === 0 ? property.photos.length - 1 : prev - 1
+      prev === 0 ? photos.length - 1 : prev - 1
     );
   };
 
@@ -62,8 +167,31 @@ export default function DetailPage({ id }: any) {
     setMousePosition({ x, y });
   };
 
+  if (!property) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-[#dbbb90] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600 font-light">Loading property details...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Log property data for debugging
+  console.log('OffPlan Detail - Current property state:', property);
+  console.log('OffPlan Detail - Property name:', property?.name);
+  console.log('OffPlan Detail - Property location:', property?.location);
+  console.log('OffPlan Detail - Property photos:', property?.photos);
+  console.log('OffPlan Detail - Property description:', property?.description);
+  
+  // Use placeholder if no photos
+  const displayPhotos = property?.photos && property.photos.length > 0 
+    ? property.photos 
+    : ['/images/building.jpg'];
+  
   if (!property?.photos || property.photos.length === 0) {
-    return <div>Loading...</div>;
+    console.warn('OffPlan Detail - No photos found, using placeholder');
   }
   
   return (
@@ -74,7 +202,7 @@ export default function DetailPage({ id }: any) {
       >
         <div className="absolute inset-0 w-full h-full">
           <div className="relative w-full h-full">
-            {property?.photos?.map((photo: string, index: number) => (
+            {displayPhotos.map((photo: string, index: number) => (
               <Image
                 key={index}
                 src={photo}
@@ -100,7 +228,7 @@ export default function DetailPage({ id }: any) {
           </div>
           <div className="absolute inset-0 bg-black/20 z-20" />
           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-30">
-            {property?.photos?.map((_: any, index: number) => (
+            {displayPhotos.map((_: any, index: number) => (
               <button
                 key={index}
                 onClick={() => setHeroImageIndex(index)}
@@ -115,11 +243,12 @@ export default function DetailPage({ id }: any) {
         </div>
         <div className="relative z-30 text-white px-4 sm:px-6 md:px-8 mt-[50vh] md:mt-[60vh]">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-3 md:mb-4 leading-tight tracking-wide">
-            {property?.name}
+            {property?.name || property?.project_name || property?.property_name || property?.title || 'Property Name'}
           </h1>
           <p className="text-sm sm:text-base md:text-lg font-light mb-8 md:mb-12 tracking-wider uppercase text-primary max-w-4xl mx-auto">
-            {property?.location?.community}, {property?.location?.sub_community}
-            , {property?.location?.city}
+            {property?.location?.community || property?.location?.city 
+              ? `${property?.location?.community || ''}${property?.location?.community && property?.location?.sub_community ? ', ' : ''}${property?.location?.sub_community || ''}${(property?.location?.community || property?.location?.sub_community) && property?.location?.city ? ', ' : ''}${property?.location?.city || ''}`.replace(/^,\s*|,\s*$/g, '')
+              : property?.location || 'Dubai, UAE'}
           </p>
         </div>
       </section>
@@ -246,7 +375,7 @@ export default function DetailPage({ id }: any) {
               <p className={`text-sm md:text-base font-light text-gray-600 leading-relaxed mb-6 transition-all duration-500 text-left md:text-center ${
                 isDescriptionExpanded ? '' : 'line-clamp-4'
               }`}>
-                {property?.description}
+                {property?.description || property?.remarks || property?.about || 'No description available for this property.'}
               </p>
               
               {/* Luxury Read More Button */}
@@ -288,7 +417,7 @@ export default function DetailPage({ id }: any) {
       {/* Image Carousel Section */}
       <section className="bg-white py-8 md:py-16 px-2 md:px-4 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          {property?.photos && property.photos.length > 0 && (
+          {displayPhotos && displayPhotos.length > 0 && (
             <div className="mb-8 md:mb-16">
               {/* Main Carousel Container */}
               <div className="relative group">
@@ -304,8 +433,8 @@ export default function DetailPage({ id }: any) {
                       className="absolute inset-0"
                     >
                       <Image
-                        src={property.photos[selectedImageIndex]}
-                        alt={`${property.name} - Image ${
+                        src={displayPhotos[selectedImageIndex] || '/images/building.jpg'}
+                        alt={`${property?.name || property?.project_name || 'Property'} - Image ${
                           selectedImageIndex + 1
                         }`}
                         unoptimized
@@ -317,7 +446,7 @@ export default function DetailPage({ id }: any) {
                   </AnimatePresence>
 
                   {/* Navigation Arrows */}
-                  {property.photos.length > 1 && (
+                  {displayPhotos.length > 1 && (
                     <>
                       <button
                         onClick={prevImage}
@@ -339,7 +468,7 @@ export default function DetailPage({ id }: any) {
                 <div className="relative">
                   <div className="flex gap-2 md:gap-4 overflow-x-auto scrollbar-hide pb-2 px-2 md:px-0">
                     <div className="flex gap-2 md:gap-4 min-w-max">
-                      {property.photos.map((photo: string, index: number) => (
+                      {displayPhotos.map((photo: string, index: number) => (
                         <button
                           key={index}
                           onClick={() => goToImage(index)}
@@ -365,7 +494,7 @@ export default function DetailPage({ id }: any) {
                   {/* Scroll Indicators for Thumbnails */}
                   <div className="flex justify-center mt-4 space-x-1">
                     {Array.from({
-                      length: Math.ceil(property.photos.length / 5),
+                      length: Math.ceil(displayPhotos.length / 5),
                     }).map((_, pageIndex) => (
                       <div
                         key={pageIndex}
@@ -621,7 +750,7 @@ export default function DetailPage({ id }: any) {
         </div>
 
         {/* Payment Plans Section */}
-        <PaymentPlanSection property={property} />
+        {/* <PaymentPlanSection property={property} /> */}
 
 
 

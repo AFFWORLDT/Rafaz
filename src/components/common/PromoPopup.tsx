@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 
 type PromoPopupProps = {
   imageSrc?: string; // optional promo image
@@ -52,7 +51,7 @@ export default function PromoPopup({
         role="button"
         aria-label="Open WhatsApp"
       >
-        {/* Close */}
+        {/* Close - Bigger button */}
         <button
           aria-label="Close promotional popup"
           onClick={(e) => {
@@ -61,7 +60,7 @@ export default function PromoPopup({
             sessionStorage.setItem(SESSION_FLAG, "1");
             setOpen(false);
           }}
-          className="absolute right-3 top-3 z-[20] rounded-full bg-white/95 p-2 text-gray-700 shadow hover:bg-white"
+          className="absolute right-4 top-4 z-[20] rounded-full bg-white/95 p-3 text-gray-700 shadow-lg hover:bg-white text-xl font-bold w-10 h-10 flex items-center justify-center"
         >
           ✕
         </button>
@@ -78,21 +77,13 @@ export default function PromoPopup({
         {/* Gradient overlay for readability (ensure above image) */}
         <div className="pointer-events-none absolute inset-0 z-[5] rounded-2xl bg-gradient-to-b from-black/60 via-black/35 to-black/60" />
 
-        {/* Text + 'Starting From' button (routes to off-plan) */}
-        <div className="absolute inset-0 z-[10] flex items-center justify-center p-8 text-center text-white md:p-10">
+        {/* Text only - clicking popup goes to WhatsApp */}
+        <div className="absolute inset-0 z-[10] flex items-center justify-center p-8 text-center text-white md:p-10 cursor-pointer">
           <div className="max-w-[85%] rounded-xl bg-black/30 px-5 py-4 shadow-lg">
             <h2 className="text-2xl font-semibold tracking-wide md:text-3xl drop-shadow">
               {title}
             </h2>
             <p className="mt-2 opacity-95 md:text-lg drop-shadow">{subtitle}</p>
-            <Link
-              href={ctaHref}
-              prefetch={false}
-              onClick={(e) => e.stopPropagation()}
-              className="mt-6 inline-block rounded-xl bg-[#0b1d2e]/95 px-6 py-3 text-sm font-semibold text-white shadow-md ring-1 ring-white/30"
-            >
-              STARTING FROM {startingFrom}
-            </Link>
           </div>
         </div>
       </div>

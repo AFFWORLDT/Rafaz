@@ -10,6 +10,9 @@ import { useRouter } from "next/navigation";
 interface PropertyData {
   id?: string | number;
   name?: string;
+  title?: string;
+  project_name?: string;
+  property_name?: string;
   location?: {
     city?: string;
     community?: string;
@@ -30,10 +33,46 @@ interface PropertyData {
   };
 }
 
+// URL Formatting Function
+// Converts project names to URL-friendly slugs with underscores
+function formatPropertyNameForUrl(name: string): string {
+  if (!name) return '';
+  
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters (keeps spaces and hyphens)
+    .replace(/\s+/g, '_') // Replace spaces with underscores
+    .replace(/-/g, '_') // Normalize hyphens to underscores
+    .replace(/_+/g, '_') // Remove duplicate underscores
+    .trim();
+}
+
 export default function OffPlanCard({ data }: { data?: PropertyData }) {
     const router = useRouter();
+    
+    const handleCardClick = () => {
+      // Use name first (as API returns name, not project_name)
+      // Ensure we always have a name, even if we have to generate one
+      const projectName = data?.name || data?.title || data?.project_name || data?.property_name || `Property ${data?.id || 'Unknown'}`;
+      console.log('OffPlanCard - Project data:', { 
+        id: data?.id, 
+        name: data?.name, 
+        title: data?.title,
+        project_name: data?.project_name, 
+        property_name: data?.property_name,
+        projectName 
+      });
+      const projectSlug = formatPropertyNameForUrl(projectName);
+      console.log('OffPlanCard - Formatted slug:', projectSlug);
+      
+      // Always use slug, never fall back to ID
+      const url = `/off-plan-projects-in-dubai/details/${projectSlug}`;
+      console.log('OffPlanCard - Final URL:', url);
+      router.push(url);
+    };
+    
   return (
-    <Card className="overflow-hidden border-none p-0 shadow-sm border-2 rounded-lg" onClick={() => router.push(`/off-plan-projects-in-dubai/details/${data?.id}`)}>
+    <Card className="overflow-hidden border-none p-0 shadow-sm border-2 rounded-lg" onClick={handleCardClick}>
       <div className="relative w-full h-96 overflow-hidden group">
         <Image
           src={data?.photos?.[0] ?? "/placeholder.jpg"}

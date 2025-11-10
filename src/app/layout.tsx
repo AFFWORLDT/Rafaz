@@ -225,7 +225,7 @@ export default function RootLayout({
             <PromoPopup
               // If you have a creative image, place it under public/promo/popup.jpg and set imageSrc
               imageSrc="/727476354.jpg"
-              title="Discover Our Off Plan Projects in Dubai"
+              title="Enquire now for more details."
               subtitle="Premium developments with flexible payment plans"
               ctaLabel="View Projects"
               ctaHref="/off-plan-projects-in-dubai"

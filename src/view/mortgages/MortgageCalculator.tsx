@@ -145,7 +145,7 @@ export default function MortgageCalculator() {
                 </button>
               </div>
               
-              <Button className="bg-primary hover:bg-primary text-white px-8 py-3 font-semibold rounded-lg transition-colors duration-200">
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 font-semibold rounded-lg transition-colors duration-200">
                 Get a free consultation
               </Button>
             </div>

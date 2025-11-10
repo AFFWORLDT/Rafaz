@@ -289,18 +289,15 @@ export default function Header() {
         
         <div className="flex items-center justify-between p-4 border-b-2 border-[#D4AF37]/20 relative z-10" style={{ backgroundColor: '#ffffff' }}>
           <div className="flex items-center space-x-3">
-            {/* Circular Logo with Building Icon */}
+            {/* Logo without circular background */}
             <div className="relative">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#dbbb90] to-[#C2A17B] rounded-full flex items-center justify-center shadow-lg">
-                <Image
-                  src="/favicon.png"
-                  alt="Rafaz Properties Logo"
-                  width={20}
-                  height={20}
-                  className="object-contain"
-                />
-              </div>
-              <div className="absolute -top-1 -right-1 w-1.5 h-1.5 luxury-bg-gold rounded-full animate-luxurySparkle"></div>
+              <Image
+                src="/favicon.png"
+                alt="Rafaz Properties Logo"
+                width={40}
+                height={40}
+                className="object-contain"
+              />
             </div>
             
             {/* Company Name */}
@@ -397,16 +394,14 @@ export default function Header() {
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t-2 border-[#D4AF37]/20 relative z-10" style={{ backgroundColor: '#ffffff' }}>
           <div className="text-center">
             <div className="flex items-center justify-center space-x-3 mb-3">
-              {/* Circular Logo */}
-              <div className="w-10 h-10 bg-gradient-to-br from-[#dbbb90] to-[#C2A17B] rounded-full flex items-center justify-center shadow-lg">
-                <Image
-                  src="/favicon.png"
-                  alt="Rafaz Properties Logo"
-                  width={20}
-                  height={20}
-                  className="object-contain"
-                />
-              </div>
+              {/* Logo without circular background */}
+              <Image
+                src="/favicon.png"
+                alt="Rafaz Properties Logo"
+                width={40}
+                height={40}
+                className="object-contain"
+              />
               
               {/* Company Name */}
               <div className="flex flex-col items-start">

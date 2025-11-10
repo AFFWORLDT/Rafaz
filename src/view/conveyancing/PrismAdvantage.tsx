@@ -44,7 +44,7 @@ export default function PrismAdvantage() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {advantages.map((advantage, index) => (
             <div key={index} className="bg-white rounded-lg p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 text-center">
-              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white mb-6 mx-auto">
+              <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center text-white mb-6 mx-auto">
                 {advantage.icon}
               </div>
               

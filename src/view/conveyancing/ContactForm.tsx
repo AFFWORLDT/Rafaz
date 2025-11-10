@@ -27,7 +27,7 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900">WhatsApp</div>
-                  <a href="#" className="text-primary hover:text-primary/80 transition-colors duration-200">
+                  <a href="#" className="text-orange-500 hover:text-orange-600 transition-colors duration-200">
                     Click to WhatsApp
                   </a>
                 </div>
@@ -51,7 +51,7 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900">Email</div>
-                  <a href="mailto:info@rafazproperties.com" className="text-primary hover:text-primary/80 transition-colors duration-200">
+                  <a href="mailto:info@rafazproperties.com" className="text-orange-500 hover:text-orange-600 transition-colors duration-200">
                     info@rafazproperties.com
                   </a>
                 </div>

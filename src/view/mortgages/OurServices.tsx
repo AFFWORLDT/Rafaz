@@ -42,8 +42,7 @@ export default function OurServices() {
             <div className="space-y-4 mb-8">
               {services.map((service, index) => (
                 <div key={index} className="flex items-center space-x-3">
-                  <div className="w-6 h-6 bg-
-                  ry rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
                     <Check className="w-4 h-4 text-white" />
                   </div>
                   <span className="text-lg text-gray-700 font-medium">
@@ -53,7 +52,7 @@ export default function OurServices() {
               ))}
             </div>
 
-              <Button className="bg-primary hover:bg-primary text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-200">
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-200">
               Get a free consultation →
             </Button>
           </div>

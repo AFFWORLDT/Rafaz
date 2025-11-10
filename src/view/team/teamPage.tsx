@@ -222,7 +222,7 @@ export default function TeamPage() {
                         {agent.name}
                       </h3>
                       <p className="text-[#dbbb90] font-medium text-xs sm:text-sm uppercase tracking-wider mb-1">
-                        {agent.role_name || agent.role || 'Real Estate Agent'}
+                        {agent.designation || 'Real Estate Agent'}
                       </p>
                       {agent.team_name && agent.team_name !== 'No team assigned' && (
                         <p className="text-[#dbbb90] font-medium text-xs uppercase tracking-wider mb-1">

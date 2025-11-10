@@ -15,6 +15,20 @@ import {
   ArrowRight
 } from "lucide-react";
 
+// URL Formatting Function
+// Converts project names to URL-friendly slugs with underscores
+function formatPropertyNameForUrl(name: string): string {
+  if (!name) return '';
+  
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters (keeps spaces and hyphens)
+    .replace(/\s+/g, '_') // Replace spaces with underscores
+    .replace(/-/g, '_') // Normalize hyphens to underscores
+    .replace(/_+/g, '_') // Remove duplicate underscores
+    .trim();
+}
+
 interface RelatedProjectsSectionProps {
   property: any;
 }
@@ -170,7 +184,7 @@ export default function RelatedProjectsSection({ property }: RelatedProjectsSect
                     </div>
                   </div>
 
-                  <Link href={`/off-plan-projects-in-dubai/details/${project.id}`}>
+                  <Link href={`/off-plan-projects-in-dubai/details/${formatPropertyNameForUrl(project.project_name || project.property_name || project.name || '') || project.id}`}>
                     <Button className="w-full rounded-lg group-hover:bg-primary/90 transition-colors">
                       View Details
                       <ArrowRight className="w-4 h-4 ml-2" />
@@ -250,7 +264,7 @@ export default function RelatedProjectsSection({ property }: RelatedProjectsSect
                       </Badge>
                     </td>
                     <td className="py-4 px-2">
-                      <Link href={`/off-plan-projects-in-dubai/details/${project.id}`}>
+                      <Link href={`/off-plan-projects-in-dubai/details/${formatPropertyNameForUrl(project.project_name || project.property_name || project.name || '') || project.id}`}>
                         <Button size="sm" variant="outline" className="rounded-lg">
                           View
                         </Button>

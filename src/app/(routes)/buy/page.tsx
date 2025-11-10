@@ -27,6 +27,20 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 // import LeadCaptureForm from "@/src/components/common/LeadCaptureForm";
 
+// URL Formatting Function
+// Converts property titles to URL-friendly slugs with underscores
+function formatPropertyNameForUrl(name: string): string {
+  if (!name) return '';
+  
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters (keeps spaces and hyphens)
+    .replace(/\s+/g, '_') // Replace spaces with underscores
+    .replace(/-/g, '_') // Normalize hyphens to underscores
+    .replace(/_+/g, '_') // Remove duplicate underscores
+    .trim();
+}
+
 // Constants
 const COMPLETION_STATUS_OPTIONS = [
   { label: "Completion Status", value: "all" },
@@ -138,9 +152,17 @@ function Buy() {
       const properties = res?.properties || [];
       
       // Transform the properties to match OptimizedPropertyGrid expectations
-      const transformedProperties = properties.map((prop: any) => ({
-        id: prop.id?.toString() || prop.propertyId,
-        title: prop.title,
+      const transformedProperties = properties.map((prop: any) => {
+        // Use name first (as API returns name, not project_name)
+        // Ensure we always have a name field for URL generation
+        const nameField = prop.name || prop.title || prop.project_name || prop.property_name || `Property ${prop.id || prop.propertyId || 'Unknown'}`;
+        const transformed = {
+          id: prop.id?.toString() || prop.propertyId,
+          title: prop.title || nameField,
+          // Preserve name as primary field, with fallbacks
+          name: prop.name || prop.title || nameField,
+          project_name: prop.project_name || prop.property_name || prop.name || prop.title || nameField,
+          property_name: prop.property_name || prop.name || prop.title || nameField,
         location: prop.location ? 
           `${prop.location.community || ''}, ${prop.location.city || 'Dubai'}`.replace(/^,\s*|,\s*$/g, '') :
           prop.location || 'Dubai, UAE',
@@ -148,11 +170,20 @@ function Buy() {
         bedrooms: parseInt(prop.bedRooms || prop.bedrooms || 0),
         bathrooms: parseInt(prop.bathrooms || 0),
         area: prop.size || prop.area || 0,
-        property_type: prop.property_type,
-        photos: prop.photos || [],
-        developer: prop.developer?.name,
-        status: prop.status
-      }));
+          property_type: prop.property_type,
+          photos: prop.photos || [],
+          developer: prop.developer?.name,
+          status: prop.status
+        };
+        console.log('Buy - Transformed property:', { 
+          id: transformed.id, 
+          title: transformed.title,
+          name: transformed.name, 
+          project_name: transformed.project_name, 
+          property_name: transformed.property_name 
+        });
+        return transformed;
+      });
       
       setProperty(transformedProperties);
       setTotalPages(Math.ceil((res?.totalProperties || res?.total || 0) / 9));
@@ -381,7 +412,7 @@ function Buy() {
                   "@type": "RealEstateListing",
                   "name": prop.title || "Luxury Property",
                   "description": `Luxury ${prop.property_type?.toLowerCase() || 'property'} for sale in ${prop.location}`,
-                  "url": `https://rafazproperties.ae/buy/details/${prop.id}`,
+                  "url": `https://rafazproperties.ae/buy/details/${formatPropertyNameForUrl(prop.project_name || prop.property_name || prop.title || prop.name || '') || prop.id}`,
                   "image": prop.photos?.[0] || "/images/building.jpg",
                   "price": prop.price ? `AED ${prop.price.toLocaleString()}` : "Price on request",
                   "address": {
@@ -886,7 +917,25 @@ function Buy() {
               bathrooms={obj?.bathrooms || 0}
               area={obj?.area ? `${obj.area} sq ft` : "N/A"}
               propertyId={obj?.id?.toString() || i.toString()}
-              onClick={() => router.push(`/buy/details/${obj.id}`)}
+              onClick={() => {
+                // Use name first (as API returns name, not project_name)
+                // Ensure we always have a name, even if we have to generate one
+                const propertyName = obj?.name || obj?.title || obj?.project_name || obj?.property_name || `Property ${obj?.id || 'Unknown'}`;
+                console.log('Buy - Property data:', { 
+                  id: obj?.id, 
+                  title: obj?.title,
+                  name: obj?.name, 
+                  project_name: obj?.project_name, 
+                  property_name: obj?.property_name,
+                  propertyName 
+                });
+                const propertySlug = formatPropertyNameForUrl(propertyName);
+                console.log('Buy - Formatted slug:', propertySlug);
+                // Always use slug, never fall back to ID
+                const url = `/buy/details/${propertySlug}`;
+                console.log('Buy - Final URL:', url);
+                router.push(url);
+              }}
               showLeadButton={true}
             />
           ))}

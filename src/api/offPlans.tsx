@@ -80,52 +80,114 @@ export const getAllProperties = async (querry?:string) => {
     throw handleApiError(error)
    }
 }
-export const getPropertyById = async (id:string) => {
+// Helper function to check if a string is a numeric ID
+function isNumericId(value: string): boolean {
+  return /^\d+$/.test(value);
+}
+
+// Helper function to convert URL slug back to project name format
+function slugToProjectName(slug: string): string {
+  // Replace underscores with spaces and capitalize first letter of each word
+  return slug
+    .replace(/_/g, ' ')
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+export const getPropertyById = async (idOrSlug: string) => {
    try {
-     console.log("Fetching property by ID:", id);
+     console.log("Fetching property by ID or slug:", idOrSlug);
      
-    // Try different possible endpoints
-    const endpoints = [
-      `/properties/all-data/${id}`,
-      `/api/properties/all-data/${id}`,
-      `/properties/projects?project_id=${id}`,
-      `/api/properties/projects?project_id=${id}`,
-      `/properties/${id}`,
-      `/api/properties/${id}`
-    ];
-     
-     let lastError;
-     for (const endpoint of endpoints) {
+     // Try fetching by project name first (if it's not a numeric ID)
+     if (!isNumericId(idOrSlug)) {
        try {
-         console.log("Trying endpoint:", endpoint);
-         const res = await api.get(endpoint);
-         console.log("API Response:", res.data);
-         return res.data;
+         const projectName = slugToProjectName(idOrSlug);
+         const projectNameLower = idOrSlug.replace(/_/g, ' ').toLowerCase();
+         const projectNameOriginal = idOrSlug.replace(/_/g, ' ');
+         
+         console.log("Trying to fetch by project name:", projectName);
+         console.log("Also trying lowercase:", projectNameLower);
+         console.log("Also trying original:", projectNameOriginal);
+         
+         // Try different possible endpoints for name-based lookup with multiple name variations
+         const nameVariations = [projectName, projectNameLower, projectNameOriginal];
+         const nameEndpoints: string[] = [];
+         
+         // Generate endpoints for each name variation
+         // Try name first (as API returns name, not project_name)
+         for (const name of nameVariations) {
+           nameEndpoints.push(
+             `/properties/all-data?name=${encodeURIComponent(name)}`,
+             `/properties/projects?name=${encodeURIComponent(name)}`,
+             `/properties/all-data?title=${encodeURIComponent(name)}`,
+             `/properties/projects?title=${encodeURIComponent(name)}`,
+             `/properties/all-data?project_name=${encodeURIComponent(name)}`,
+             `/properties/all-data?property_name=${encodeURIComponent(name)}`,
+             `/properties/projects?project_name=${encodeURIComponent(name)}`,
+             `/properties/projects?property_name=${encodeURIComponent(name)}`,
+           );
+         }
+         
+         for (const endpoint of nameEndpoints) {
+           try {
+             console.log("Trying endpoint:", endpoint);
+             const res = await api.get(endpoint);
+             console.log("API Response:", res.data);
+             
+             // Get all projects from response
+             let projects: any[] = [];
+             if (res.data?.projects && Array.isArray(res.data.projects)) {
+               projects = res.data.projects;
+             } else if (res.data?.project) {
+               projects = [res.data.project];
+             } else if (Array.isArray(res.data)) {
+               projects = res.data;
+             }
+             
+             // Find exact match by comparing slug with project name
+             if (projects.length > 0) {
+               const slugLower = idOrSlug.toLowerCase();
+               const slugWithSpaces = idOrSlug.toLowerCase().replace(/_/g, ' ');
+               
+               // Try to find exact match first - must match exactly
+               const exactMatch = projects.find((project: any) => {
+                 const projectName = (project.name || project.title || project.project_name || project.property_name || '').toLowerCase();
+                 const projectNameSlug = projectName.replace(/\s+/g, '_');
+                 
+                 // Exact match: slug matches project name slug, or project name matches slug with spaces
+                 return projectNameSlug === slugLower || 
+                        projectName === slugWithSpaces ||
+                        projectName.replace(/\s+/g, '_') === slugLower;
+               });
+               
+               if (exactMatch) {
+                 console.log("Found exact match:", exactMatch.name || exactMatch.title);
+                 return { projects: [exactMatch] };
+               }
+               
+               // If no exact match found, don't return wrong property - continue to next endpoint
+               console.warn("No exact match found in this response, trying next endpoint");
+             }
+           } catch (error) {
+             console.log(`Endpoint ${endpoint} failed, trying next...`);
+             continue;
+           }
+         }
        } catch (error) {
-         console.log(`Endpoint ${endpoint} failed:`, error.response?.status);
-         lastError = error;
-         continue;
+         console.log("Name-based lookup failed, falling back to ID lookup");
        }
      }
      
-     // If all endpoints fail, return mock data as fallback
-     console.warn("All API endpoints failed for property ID, returning mock data");
-     return {
-       project: {
-         id: parseInt(id),
-         name: "Luxury Property",
-         location: {
-           community: "Dubai Marina",
-           city: "Dubai"
-         },
-         photos: ["/images/dubai-marina.webp"],
-         price: "2,500,000",
-         bedrooms: 2,
-         bathrooms: 2,
-         area: "1200 sq ft",
-         description: "A luxurious property in the heart of Dubai Marina"
-       }
-     };
+     // If it's a numeric ID, we should not allow it - throw error
+     if (isNumericId(idOrSlug)) {
+       console.error("Numeric ID not allowed - only name-based slugs are supported");
+       throw new Error("Property not found. Please use property name in URL.");
+     }
+     
+     // If name-based lookup failed, throw error
+     console.error("Property not found with name:", idOrSlug);
+     throw new Error(`Property not found: ${idOrSlug}`);
    } catch (error) {
     console.error("Error in getPropertyById:", error);
     throw handleApiError(error)

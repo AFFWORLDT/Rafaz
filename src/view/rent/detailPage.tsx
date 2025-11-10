@@ -1,4 +1,5 @@
 import { getAllBuyPropertiesById } from "@/src/api/buy";
+import { api } from "@/src/lib/axios";
 import EnquireForm from "@/src/components/common/enquireForm";
 import { Badge } from "@/src/components/ui/badge";
 import { Card } from "@/src/components/ui/card";
@@ -10,7 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Dialog, DialogContent, DialogTitle } from "@/src/components/ui/dialog";
 
-export default function DetailPage({ id }: any) {
+export default function DetailPage({ id }: { id: string | string[] | undefined }) {
   const [property, setProperty] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -21,8 +22,85 @@ export default function DetailPage({ id }: any) {
   const fetchPropertyDetails = async () => {
     setLoading(true);
     try {
-      const res = await getAllBuyPropertiesById(id);
-      setProperty(res?.properties?.[0]);
+      // Handle both string and array cases
+      const idParam = Array.isArray(id) ? id[0] : (id || '');
+      if (!idParam) {
+        console.error('Rent Detail - No ID provided');
+        setLoading(false);
+        return;
+      }
+      
+      console.log('Rent Detail - Fetching property with slug/ID:', idParam);
+      
+      // Check if it's a numeric ID - if so, fetch by ID first, then redirect to name-based URL
+      if (/^\d+$/.test(idParam)) {
+        console.log('Rent Detail - Numeric ID detected, fetching property by ID first:', idParam);
+        try {
+          // Fetch by ID to get the property name
+          const res = await api.get(`/properties/get_properties_for_main_site?property_id=${idParam}`);
+          const propertyData = res?.data?.properties?.[0] || res?.data?.property || res?.data;
+          
+          if (propertyData) {
+            // Get the property name and redirect to name-based URL
+            const propertyName = propertyData.name || propertyData.title || propertyData.project_name || propertyData.property_name;
+            if (propertyName) {
+              const slug = propertyName
+                .toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '_')
+                .replace(/-/g, '_')
+                .replace(/_+/g, '_')
+                .trim();
+              
+              console.log('Rent Detail - Redirecting to name-based URL:', `/rent/details/${slug}`);
+              window.location.href = `/rent/details/${slug}`;
+              return;
+            }
+          }
+        } catch (error) {
+          console.error('Rent Detail - Error fetching property by ID:', error);
+        }
+        
+        console.error('Rent Detail - Could not fetch property by ID or generate name-based URL');
+        setLoading(false);
+        return;
+      }
+      
+      // The API function now handles only name-based lookups
+      // Note: Rent uses the same API endpoint as buy, but with different query params
+      const res = await getAllBuyPropertiesById(idParam as string);
+      console.log('Rent Detail - API Response:', res);
+      
+      // Get the exact property from response
+      const propertyData = res?.properties?.[0];
+      
+      if (!propertyData) {
+        console.error('Rent Detail - Property not found for slug:', idParam);
+        setLoading(false);
+        return;
+      }
+      
+      // Verify it's the correct property by comparing slug - must match exactly
+      const propertyName = (propertyData.name || propertyData.title || '').toLowerCase().replace(/\s+/g, '_');
+      const slugLower = idParam.toLowerCase();
+      const propertyNameWithSpaces = (propertyData.name || propertyData.title || '').toLowerCase();
+      const slugWithSpaces = idParam.toLowerCase().replace(/_/g, ' ');
+      
+      // Check if property name matches slug exactly
+      const isExactMatch = propertyName === slugLower || 
+                          propertyNameWithSpaces === slugWithSpaces ||
+                          propertyName.replace(/_/g, '') === slugLower.replace(/_/g, '');
+      
+      if (!isExactMatch) {
+        console.error('Rent Detail - Property name mismatch! Expected:', slugLower, 'Got:', propertyName);
+        console.error('Rent Detail - This is the wrong property, not setting it');
+        setLoading(false);
+        return;
+      }
+      
+      console.log('Rent Detail - Property name matches slug exactly:', propertyName);
+      console.log('Rent Detail - Property data:', propertyData);
+      setProperty(propertyData);
     } catch (error) {
       console.error("Error fetching property details:", error);
     } finally {

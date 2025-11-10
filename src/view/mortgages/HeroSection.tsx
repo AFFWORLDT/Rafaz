@@ -45,7 +45,7 @@ export default function HeroSection() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 text-left">
-            <Button className="bg-primary hover:bg-primary text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-200">
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-200">
               Get pre-approved now!
             </Button>
             <Button variant="outline" className="bg-white hover:bg-gray-50 text-gray-800 border-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-200">

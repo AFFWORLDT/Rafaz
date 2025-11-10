@@ -26,6 +26,20 @@ import Link from "next/link";
 // import LeadCaptureForm from "@/src/components/common/LeadCaptureForm";
 import { useRouter } from "next/navigation";
 
+// URL Formatting Function
+// Converts project names to URL-friendly slugs with underscores
+function formatPropertyNameForUrl(name: string): string {
+  if (!name) return '';
+  
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters (keeps spaces and hyphens)
+    .replace(/\s+/g, '_') // Replace spaces with underscores
+    .replace(/-/g, '_') // Normalize hyphens to underscores
+    .replace(/_+/g, '_') // Remove duplicate underscores
+    .trim();
+}
+
 // Constants
 const COMPLETION_STATUS_OPTIONS = [
   { label: "Completion Status", value: "all" },
@@ -138,7 +152,33 @@ function OffPlansPage() {
       // For testing: if total is less than 50, assume there are more properties
       const adjustedTotal = (res?.total || 0) < 50 ? 54 : (res?.total || 0);
       
-      setProperty(res?.projects || []);
+      // Handle the new API response structure
+      const projects = res?.projects || [];
+      
+      // Transform the projects to preserve project_name, property_name, and name fields
+      const transformedProjects = projects.map((project: any) => {
+        // Use name first (as API returns name, not project_name)
+        // Ensure we always have a name field for URL generation
+        const nameField = project.name || project.title || project.project_name || project.property_name || `Property ${project.id}`;
+        const transformed = {
+          ...project,
+          // Preserve name as primary field, with fallbacks
+          name: project.name || project.title || nameField,
+          title: project.title || project.name || nameField,
+          project_name: project.project_name || project.property_name || project.name || project.title || nameField,
+          property_name: project.property_name || project.name || project.title || nameField,
+        };
+        console.log('Transformed project:', { 
+          id: transformed.id, 
+          name: transformed.name, 
+          title: transformed.title,
+          project_name: transformed.project_name, 
+          property_name: transformed.property_name 
+        });
+        return transformed;
+      });
+      
+      setProperty(transformedProjects);
       setTotalPages(Math.ceil(adjustedTotal / 9));
       setTotalProperties(adjustedTotal);
       

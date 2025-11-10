@@ -12,6 +12,7 @@ export interface Agent {
   role: string;
   role_id: number;
   role_name: string;
+  designation?: string;
   team?: number;
   team_name: string;
   gender: string;

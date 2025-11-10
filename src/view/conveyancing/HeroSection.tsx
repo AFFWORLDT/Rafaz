@@ -45,7 +45,7 @@ export default function HeroSection() {
 
           {/* CTA Button */}
           <div className="text-left">
-            <Button className="bg-primary hover:bg-primary text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-200">
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-200">
               Get expert assistance
             </Button>
           </div>

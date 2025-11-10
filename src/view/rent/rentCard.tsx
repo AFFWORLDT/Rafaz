@@ -9,6 +9,9 @@ import { useRouter } from "next/navigation";
 interface PropertyData {
   id?: string | number;
   title?: string;
+  project_name?: string;
+  property_name?: string;
+  name?: string;
   price?: number;
   bedRooms?: number;
   bathrooms?: number | string;
@@ -33,6 +36,20 @@ interface PropertyData {
 interface RentCardProps {
   data?: PropertyData;
   onFavorite?: (item: PropertyData) => void;
+}
+
+// URL Formatting Function
+// Converts property titles to URL-friendly slugs with underscores
+function formatPropertyNameForUrl(name: string): string {
+  if (!name) return '';
+  
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters (keeps spaces and hyphens)
+    .replace(/\s+/g, '_') // Replace spaces with underscores
+    .replace(/-/g, '_') // Normalize hyphens to underscores
+    .replace(/_+/g, '_') // Remove duplicate underscores
+    .trim();
 }
 
 export function RentCard({ data, onFavorite }: RentCardProps) {
@@ -62,10 +79,30 @@ export function RentCard({ data, onFavorite }: RentCardProps) {
     ? `AED ${data.price.toLocaleString()}`
     : "Price on request";
 
+  const handleCardClick = () => {
+    // Use name first (as API returns name, not project_name)
+    // Ensure we always have a name, even if we have to generate one
+    const propertyName = data?.name || data?.title || data?.project_name || data?.property_name || `Property ${data?.id || 'Unknown'}`;
+    console.log('Rent - Property data:', { 
+      id: data?.id, 
+      title: data?.title,
+      name: data?.name, 
+      project_name: data?.project_name, 
+      property_name: data?.property_name,
+      propertyName 
+    });
+    const propertySlug = formatPropertyNameForUrl(propertyName);
+    console.log('Rent - Formatted slug:', propertySlug);
+    // Always use slug, never fall back to ID
+    const url = `/rent/details/${propertySlug}`;
+    console.log('Rent - Final URL:', url);
+    router.push(url);
+  };
+
   return (
     <Card
       className="relative overflow-hidden rounded-lg shadow-sm bg-white p-0 border cursor-pointer"
-      onClick={() => router.push(`/buy/details/${data.id}`)}
+      onClick={handleCardClick}
     >
       <div className="relative w-full h-80">
         <Image

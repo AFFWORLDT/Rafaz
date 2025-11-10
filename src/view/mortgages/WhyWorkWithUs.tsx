@@ -59,7 +59,7 @@ export default function WhyWorkWithUs() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <div key={index} className="bg-white rounded-lg p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
-              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white mb-6">
+              <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white mb-6">
                 {feature.icon}
               </div>
               

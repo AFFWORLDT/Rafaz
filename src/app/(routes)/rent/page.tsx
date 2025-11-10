@@ -27,6 +27,20 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 // import LeadCaptureForm from "@/src/components/common/LeadCaptureForm";
 
+// URL Formatting Function
+// Converts property titles to URL-friendly slugs with underscores
+function formatPropertyNameForUrl(name: string): string {
+  if (!name) return '';
+  
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters (keeps spaces and hyphens)
+    .replace(/\s+/g, '_') // Replace spaces with underscores
+    .replace(/-/g, '_') // Normalize hyphens to underscores
+    .replace(/_+/g, '_') // Remove duplicate underscores
+    .trim();
+}
+
 // Constants
 const COMPLETION_STATUS_OPTIONS = [
   { label: "Completion Status", value: "all" },
@@ -101,9 +115,56 @@ function Rent() {
     
     try {
       const res = await getAllBuyProperties(queryParams.toString());
-      setProperty(res?.properties || []);
-      setTotalPages(Math.ceil((res?.total || 0) / 9));
-      setTotalProperties(res?.total || 0);
+      console.log("API Response:", res);
+      
+      // Handle the new API response structure
+      const properties = res?.properties || [];
+      
+      // Transform the properties to match RentCard expectations
+      const transformedProperties = properties.map((prop: any) => {
+        // Use name first (as API returns name, not project_name)
+        // Ensure we always have a name field for URL generation
+        const nameField = prop.name || prop.title || prop.project_name || prop.property_name || `Property ${prop.id || prop.propertyId || 'Unknown'}`;
+        const transformed = {
+          id: prop.id?.toString() || prop.propertyId,
+          title: prop.title || nameField,
+          // Preserve name as primary field, with fallbacks
+          name: prop.name || prop.title || nameField,
+          project_name: prop.project_name || prop.property_name || prop.name || prop.title || nameField,
+          property_name: prop.property_name || prop.name || prop.title || nameField,
+        location: prop.location ? 
+          typeof prop.location === 'object' && prop.location !== null
+            ? {
+                city: prop.location.city || 'Dubai',
+                community: prop.location.community || '',
+                sub_community: prop.location.sub_community || ''
+              }
+            : { city: 'Dubai', community: prop.location || '' }
+          : { city: 'Dubai', community: '' },
+        price: prop.price || 0,
+        bedRooms: parseInt(prop.bedRooms || prop.bedrooms || 0),
+        bathrooms: parseInt(prop.bathrooms || 0),
+        size: prop.size || prop.area || 0,
+        property_type: prop.property_type,
+        photos: prop.photos || [],
+        priceType: prop.priceType || 'year',
+          developer: prop.developer?.name,
+          status: prop.status,
+          agent: prop.agent
+        };
+        console.log('Rent - Transformed property:', { 
+          id: transformed.id, 
+          title: transformed.title,
+          name: transformed.name, 
+          project_name: transformed.project_name, 
+          property_name: transformed.property_name 
+        });
+        return transformed;
+      });
+      
+      setProperty(transformedProperties);
+      setTotalPages(Math.ceil((res?.totalProperties || res?.total || 0) / 9));
+      setTotalProperties(res?.totalProperties || res?.total || 0);
     } catch (error) {
       console.error("Error fetching properties:", error);
     } finally {

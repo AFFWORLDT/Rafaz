@@ -79,19 +79,29 @@ export default function DetailPage({ id }: { id: string | string[] | undefined }
         return;
       }
       
-      // Verify it's the correct property by comparing slug - must match exactly
-      const propertyName = (propertyData.name || propertyData.title || '').toLowerCase().replace(/\s+/g, '_');
-      const slugLower = idParam.toLowerCase();
-      const propertyNameWithSpaces = (propertyData.name || propertyData.title || '').toLowerCase();
-      const slugWithSpaces = idParam.toLowerCase().replace(/_/g, ' ');
+      // Verify it's the correct property by comparing slug - normalize both for comparison
+      const normalizeForComparison = (str: string): string => {
+        return str
+          .toLowerCase()
+          .replace(/[^a-z0-9\s]/g, ' ') // Replace special chars with spaces
+          .replace(/\s+/g, '_') // Normalize spaces to underscores
+          .replace(/_+/g, '_') // Remove multiple underscores
+          .replace(/^_+|_+$/g, ''); // Remove leading/trailing underscores
+      };
       
-      // Check if property name matches slug exactly
-      const isExactMatch = propertyName === slugLower || 
-                          propertyNameWithSpaces === slugWithSpaces ||
-                          propertyName.replace(/_/g, '') === slugLower.replace(/_/g, '');
+      const propertyName = (propertyData.name || propertyData.title || '').toLowerCase();
+      const slugLower = idParam.toLowerCase();
+      
+      const normalizedPropertyName = normalizeForComparison(propertyName);
+      const normalizedSlug = normalizeForComparison(slugLower);
+      
+      // Check if normalized property name matches slug (handle truncation)
+      const isExactMatch = normalizedPropertyName === normalizedSlug || 
+                          normalizedPropertyName.startsWith(normalizedSlug) ||
+                          normalizedSlug.startsWith(normalizedPropertyName);
       
       if (!isExactMatch) {
-        console.error('Buy Detail - Property name mismatch! Expected:', slugLower, 'Got:', propertyName);
+        console.error('Buy Detail - Property name mismatch! Expected:', normalizedSlug, 'Got:', normalizedPropertyName);
         console.error('Buy Detail - This is the wrong property, not setting it');
         setLoading(false);
         return;
@@ -144,8 +154,17 @@ export default function DetailPage({ id }: { id: string | string[] | undefined }
     const y = ((e.clientY - rect.top) / rect.height) * 100;
     setMousePosition({ x, y });
   };
+  
+  if (loading) {
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+  }
+  
+  if (!property) {
+    return <div className="flex items-center justify-center min-h-screen">Property not found</div>;
+  }
+  
   if (!property?.photos || property.photos.length === 0) {
-    return <div>Loading...</div>;
+    return <div className="flex items-center justify-center min-h-screen">No photos available</div>;
   }
   
   return (

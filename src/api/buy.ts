@@ -86,13 +86,17 @@ export const getAllBuyPropertiesById = async (idOrSlug: string) => {
         const nameEndpoints: string[] = [];
         
         // Generate endpoints for each name variation
-        // Try name first (as API returns name, not project_name)
+        // Try title first with slug directly (with underscores) as per API requirement
+        // Then try other variations as fallbacks
+        nameEndpoints.push(
+          `/properties/get_properties_for_main_site?title=${encodeURIComponent(idOrSlug)}`,
+        );
+        
         for (const name of nameVariations) {
           nameEndpoints.push(
             `/properties/get_properties_for_main_site?name=${encodeURIComponent(name)}`,
             `/properties/get_properties_for_main_site?title=${encodeURIComponent(name)}`,
             `/properties/get_properties_for_main_site?project_name=${encodeURIComponent(name)}`,
-            `/properties/get_properties_for_main_site?property_name=${encodeURIComponent(name)}`,
           );
         }
         
@@ -115,17 +119,29 @@ export const getAllBuyPropertiesById = async (idOrSlug: string) => {
             // Find exact match by comparing slug with property name
             if (properties.length > 0) {
               const slugLower = idOrSlug.toLowerCase();
-              const slugWithSpaces = idOrSlug.toLowerCase().replace(/_/g, ' ');
+              
+              // Normalize slug for comparison (remove special chars, normalize separators)
+              const normalizeForComparison = (str: string): string => {
+                return str
+                  .toLowerCase()
+                  .replace(/[^a-z0-9\s]/g, ' ') // Replace special chars with spaces
+                  .replace(/\s+/g, '_') // Normalize spaces to underscores
+                  .replace(/_+/g, '_') // Remove multiple underscores
+                  .replace(/^_+|_+$/g, ''); // Remove leading/trailing underscores
+              };
+              
+              const normalizedSlug = normalizeForComparison(slugLower);
               
               // Try to find exact match first - must match exactly
               const exactMatch = properties.find((prop: any) => {
                 const propName = (prop.name || prop.title || prop.project_name || prop.property_name || '').toLowerCase();
-                const propNameSlug = propName.replace(/\s+/g, '_');
+                const normalizedPropName = normalizeForComparison(propName);
                 
-                // Exact match: slug matches property name slug, or property name matches slug with spaces
-                return propNameSlug === slugLower || 
-                       propName === slugWithSpaces ||
-                       propName.replace(/\s+/g, '_') === slugLower;
+                // Check if normalized versions match
+                // Also check if slug starts with normalized property name (to handle truncation)
+                return normalizedPropName === normalizedSlug || 
+                       normalizedPropName.startsWith(normalizedSlug) ||
+                       normalizedSlug.startsWith(normalizedPropName);
               });
               
               if (exactMatch) {

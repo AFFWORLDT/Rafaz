@@ -1,5 +1,6 @@
 "use client";
 import { getAllBuyProperties } from "@/src/api/buy";
+import { getAllProperties } from "@/src/api/offPlans";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import {
@@ -145,14 +146,30 @@ function Buy() {
     });
     
     try {
-      const res = await getAllBuyProperties(queryParams.toString());
-      console.log("API Response:", res);
+      // Fetch both regular buy properties and off-plan project properties
+      const [buyPropertiesRes, offPlanPropertiesRes] = await Promise.allSettled([
+        getAllBuyProperties(queryParams.toString()),
+        getAllProperties(queryParams.toString())
+      ]);
       
-      // Handle the new API response structure
-      const properties = res?.properties || [];
+      console.log("Buy Properties API Response:", buyPropertiesRes);
+      console.log("Off-Plan Properties API Response:", offPlanPropertiesRes);
+      
+      // Extract properties from buy properties response
+      const buyProperties = buyPropertiesRes.status === 'fulfilled' 
+        ? (buyPropertiesRes.value?.properties || [])
+        : [];
+      
+      // Extract properties from off-plan properties response
+      const offPlanProperties = offPlanPropertiesRes.status === 'fulfilled'
+        ? (offPlanPropertiesRes.value?.projects || offPlanPropertiesRes.value?.properties || [])
+        : [];
+      
+      // Combine both property types
+      const allProperties = [...buyProperties, ...offPlanProperties];
       
       // Transform the properties to match OptimizedPropertyGrid expectations
-      const transformedProperties = properties.map((prop: any) => {
+      const transformedProperties = allProperties.map((prop: any) => {
         // Use name first (as API returns name, not project_name)
         // Ensure we always have a name field for URL generation
         const nameField = prop.name || prop.title || prop.project_name || prop.property_name || `Property ${prop.id || prop.propertyId || 'Unknown'}`;
@@ -164,30 +181,44 @@ function Buy() {
           project_name: prop.project_name || prop.property_name || prop.name || prop.title || nameField,
           property_name: prop.property_name || prop.name || prop.title || nameField,
         location: prop.location ? 
-          `${prop.location.community || ''}, ${prop.location.city || 'Dubai'}`.replace(/^,\s*|,\s*$/g, '') :
-          prop.location || 'Dubai, UAE',
+          (typeof prop.location === 'object' 
+            ? `${prop.location.community || ''}, ${prop.location.city || 'Dubai'}`.replace(/^,\s*|,\s*$/g, '')
+            : prop.location)
+          : 'Dubai, UAE',
         price: prop.price || 0,
         bedrooms: parseInt(prop.bedRooms || prop.bedrooms || 0),
         bathrooms: parseInt(prop.bathrooms || 0),
         area: prop.size || prop.area || 0,
           property_type: prop.property_type,
           photos: prop.photos || [],
-          developer: prop.developer?.name,
-          status: prop.status
+          developer: prop.developer?.name || prop.developer,
+          status: prop.status,
+          // Mark if it's an off-plan property
+          isOffPlan: offPlanProperties.some((op: any) => op.id === prop.id || op.name === prop.name)
         };
         console.log('Buy - Transformed property:', { 
           id: transformed.id, 
           title: transformed.title,
           name: transformed.name, 
           project_name: transformed.project_name, 
-          property_name: transformed.property_name 
+          property_name: transformed.property_name,
+          isOffPlan: transformed.isOffPlan
         });
         return transformed;
       });
       
+      // Calculate total from both sources
+      const buyTotal = buyPropertiesRes.status === 'fulfilled'
+        ? (buyPropertiesRes.value?.totalProperties || buyPropertiesRes.value?.total || 0)
+        : 0;
+      const offPlanTotal = offPlanPropertiesRes.status === 'fulfilled'
+        ? (offPlanPropertiesRes.value?.total || offPlanPropertiesRes.value?.totalProperties || 0)
+        : 0;
+      const combinedTotal = buyTotal + offPlanTotal;
+      
       setProperty(transformedProperties);
-      setTotalPages(Math.ceil((res?.totalProperties || res?.total || 0) / 9));
-      setTotalProperties(res?.totalProperties || res?.total || 0);
+      setTotalPages(Math.ceil(combinedTotal / 9));
+      setTotalProperties(combinedTotal);
     } catch (error) {
       console.error("Error fetching properties:", error);
       setProperty([]);
@@ -412,7 +443,7 @@ function Buy() {
                   "@type": "RealEstateListing",
                   "name": prop.title || "Luxury Property",
                   "description": `Luxury ${prop.property_type?.toLowerCase() || 'property'} for sale in ${prop.location}`,
-                  "url": `https://rafazproperties.ae/buy/details/${formatPropertyNameForUrl(prop.project_name || prop.property_name || prop.title || prop.name || '') || prop.id}`,
+                  "url": `https://rafazproperties.ae${prop.isOffPlan ? '/off-plan-projects-in-dubai/details' : '/buy/details'}/${formatPropertyNameForUrl(prop.project_name || prop.property_name || prop.title || prop.name || '') || prop.id}`,
                   "image": prop.photos?.[0] || "/images/building.jpg",
                   "price": prop.price ? `AED ${prop.price.toLocaleString()}` : "Price on request",
                   "address": {
@@ -927,12 +958,15 @@ function Buy() {
                   name: obj?.name, 
                   project_name: obj?.project_name, 
                   property_name: obj?.property_name,
-                  propertyName 
+                  propertyName,
+                  isOffPlan: obj?.isOffPlan
                 });
                 const propertySlug = formatPropertyNameForUrl(propertyName);
                 console.log('Buy - Formatted slug:', propertySlug);
-                // Always use slug, never fall back to ID
-                const url = `/buy/details/${propertySlug}`;
+                // Route to off-plan details if it's an off-plan property, otherwise buy details
+                const url = obj?.isOffPlan 
+                  ? `/off-plan-projects-in-dubai/details/${propertySlug}`
+                  : `/buy/details/${propertySlug}`;
                 console.log('Buy - Final URL:', url);
                 router.push(url);
               }}

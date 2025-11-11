@@ -19,14 +19,29 @@ const FROM_EMAIL = 'info@rafazproperties.ae';
 // Create transporter
 const transporter = nodemailer.createTransport(emailConfig);
 
-// Verify connection configuration
-transporter.verify((error, success) => {
-  if (error) {
-    console.error('Email configuration error:', error);
-  } else {
-    console.log('Email server is ready to take our messages');
-  }
-});
+// Verify connection configuration (only in runtime, not during build)
+// Skip verification during build time to prevent build failures
+if (typeof window === 'undefined' && !process.env.NEXT_PHASE) {
+  // Use setTimeout to defer verification and prevent blocking the build
+  setTimeout(() => {
+    try {
+      transporter.verify((error, success) => {
+        if (error) {
+          // Only log error in development, don't throw
+          if (process.env.NODE_ENV === 'development') {
+            console.error('Email configuration error:', error);
+          }
+        } else {
+          if (process.env.NODE_ENV === 'development') {
+            console.log('Email server is ready to take our messages');
+          }
+        }
+      });
+    } catch (error) {
+      // Silently catch errors - don't block builds
+    }
+  }, 0);
+}
 
 export interface LeadFormData {
   name: string;

@@ -20,7 +20,7 @@ import { cn } from "@/src/lib/utils";
 import OffPlanCard from "@/src/view/offPlans/offPlanCard";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Loader, X, Search } from "lucide-react";
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useState, useCallback, useMemo, Suspense } from "react";
 import { api } from "@/src/lib/axios";
 import Link from "next/link";
 // import LeadCaptureForm from "@/src/components/common/LeadCaptureForm";
@@ -99,7 +99,7 @@ const HANDOVER_YEAR_OPTIONS = [
   "2035",
 ];
 
-function OffPlansPage() {
+function OffPlansPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [property, setProperty] = useState([]);
@@ -829,6 +829,18 @@ function OffPlansPage() {
         </section>
       </div>
     </div>
+  );
+}
+
+function OffPlansPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader className="h-8 w-8 animate-spin text-dbbb90" />
+      </div>
+    }>
+      <OffPlansPageContent />
+    </Suspense>
   );
 }
 

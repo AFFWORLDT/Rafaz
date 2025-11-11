@@ -152,11 +152,27 @@ export const sendLeadEmail = async (leadData: LeadFormData): Promise<boolean> =>
     console.log('Internal lead email sent successfully:', internalInfo.messageId);
 
     // Send confirmation email to customer
+    const messageId = `<${Date.now()}-${Math.random().toString(36).substring(2, 15)}@rafazproperties.ae>`;
     const customerMailOptions = {
       from: FROM_EMAIL,
       to: leadData.email,
       subject: `Thank You for Your Interest - Rafaz Properties`,
-      html: generateCustomerConfirmationEmail(leadData)
+      html: generateCustomerConfirmationEmail(leadData),
+      messageId: messageId,
+      headers: {
+        'Message-ID': messageId,
+        'X-Priority': '1',
+        'X-MSMail-Priority': 'High',
+        'Importance': 'high',
+        'X-Auto-Response-Suppress': 'All',
+        'Auto-Submitted': 'auto-generated',
+        'Precedence': 'bulk',
+        'List-Unsubscribe': '<mailto:unsubscribe@rafazproperties.ae>',
+        'Thread-Topic': 'Thank You for Your Interest - Rafaz Properties',
+        'Thread-Index': '',
+        'In-Reply-To': '',
+        'References': ''
+      }
     };
 
     const customerInfo = await transporter.sendMail(customerMailOptions);
@@ -236,11 +252,27 @@ export const sendContactEmail = async (contactData: ContactFormData): Promise<bo
     console.log('Internal contact email sent successfully:', internalInfo.messageId);
 
     // Send confirmation email to customer
+    const messageId = `<${Date.now()}-${Math.random().toString(36).substring(2, 15)}@rafazproperties.ae>`;
     const customerMailOptions = {
       from: FROM_EMAIL,
       to: contactData.email,
       subject: `Thank You for Contacting Us - Rafaz Properties`,
-      html: generateContactConfirmationEmail(contactData)
+      html: generateContactConfirmationEmail(contactData),
+      messageId: messageId,
+      headers: {
+        'Message-ID': messageId,
+        'X-Priority': '1',
+        'X-MSMail-Priority': 'High',
+        'Importance': 'high',
+        'X-Auto-Response-Suppress': 'All',
+        'Auto-Submitted': 'auto-generated',
+        'Precedence': 'bulk',
+        'List-Unsubscribe': '<mailto:unsubscribe@rafazproperties.ae>',
+        'Thread-Topic': 'Thank You for Contacting Us - Rafaz Properties',
+        'Thread-Index': '',
+        'In-Reply-To': '',
+        'References': ''
+      }
     };
 
     const customerInfo = await transporter.sendMail(customerMailOptions);

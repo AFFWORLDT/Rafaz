@@ -58,7 +58,7 @@ export default function TermsConditionsPage() {
                   </h2>
                   <div className="space-y-4 text-gray-700 leading-relaxed">
                     <p className="font-serif text-lg">
-                      Welcome to Rafaz Realestate. These Terms and Conditions ("Terms") govern your use of our website <a href="https://therafaz.ae" className="text-[#D4AF37] hover:text-[#B8941F] underline transition-colors">therafaz.ae</a> and our services. By accessing or using our website, you agree to be bound by these Terms.
+                      Welcome to Rafaz Realestate. These Terms and Conditions ("Terms") govern your use of our website <a href="https://rafazproperties.ae" className="text-[#D4AF37] hover:text-[#B8941F] underline transition-colors">rafazproperties.ae</a> and our services. By accessing or using our website, you agree to be bound by these Terms.
                     </p>
                     <p className="font-serif text-lg">
                       If you do not agree to these Terms, please do not use our website or services.
@@ -291,7 +291,7 @@ export default function TermsConditionsPage() {
                 <p className="text-gray-700 mb-2">Silver Tower - Business Bay - Dubai - United Arab Emirates</p>
                 <p className="text-gray-700 mb-2">Dubai, UAE</p>
                 <p className="text-gray-700 mb-2">Phone: <a href="tel:+97143307959" className="text-blue-600 hover:underline">+971 43 307 959</a></p>
-                <p className="text-gray-700 mb-2">Email: <a href="mailto:legal@therafaz.ae" className="text-blue-600 hover:underline">legal@therafaz.ae</a></p>
+                <p className="text-gray-700 mb-2">Email: <a href="mailto:legal@rafazproperties.ae" className="text-blue-600 hover:underline">legal@rafazproperties.ae</a></p>
                   <p className="text-gray-700">General Email: <a href="mailto:info@rafazproperties.com" className="text-[#D4AF37] hover:text-[#B8941F] font-medium transition-colors">info@rafazproperties.com</a></p>
                 </div>
               </section>

@@ -265,7 +265,7 @@ export default function CookiePolicyPage() {
                 <p className="text-gray-700 mb-2">Silver Tower - Business Bay - Dubai - United Arab Emirates</p>
                 <p className="text-gray-700 mb-2">Dubai, UAE</p>
                 <p className="text-gray-700 mb-2">Phone: <a href="tel:+97143307959" className="text-blue-600 hover:underline">+971 43 307 959</a></p>
-                <p className="text-gray-700 mb-2">Email: <a href="mailto:privacy@therafaz.ae" className="text-blue-600 hover:underline">privacy@therafaz.ae</a></p>
+                <p className="text-gray-700 mb-2">Email: <a href="mailto:privacy@rafazproperties.ae" className="text-blue-600 hover:underline">privacy@rafazproperties.ae</a></p>
                 <p className="text-gray-700">General Email: <a href="mailto:info@rafazproperties.com" className="text-blue-600 hover:underline">info@rafazproperties.com</a></p>
               </div>
             </section>

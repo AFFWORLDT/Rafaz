@@ -11,7 +11,7 @@ type PromoPopupProps = {
   ctaHref?: string;
   delayMs?: number; // show after delay
   startingFrom?: string; // e.g., "AED 2.5M"
-  whatsappPhone?: string; // e.g., 971507815384
+  whatsappPhone?: string; // e.g., 971501608106
   whatsappMessage?: string; // pre-filled message
 };
 

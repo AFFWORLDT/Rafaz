@@ -27,8 +27,8 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900">WhatsApp</div>
-                  <a href="#" className="text-orange-500 hover:text-orange-600 transition-colors duration-200">
-                    Click to WhatsApp
+                  <a href="https://wa.me/971501608106" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:text-orange-600 transition-colors duration-200">
+                    +971 50 160 8106
                   </a>
                 </div>
               </div>

@@ -46,7 +46,7 @@ export function CallToAction() {
               </Link>
             </motion.div>
             <a
-              href={`https://wa.me/971507815384?text=${encodeURIComponent('Hello, I would like to know more about your properties.')}`}
+              href={`https://wa.me/971501608106?text=${encodeURIComponent('Hello, I would like to know more about your properties.')}`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Chat on WhatsApp"

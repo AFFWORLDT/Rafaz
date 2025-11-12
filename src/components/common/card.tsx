@@ -55,6 +55,10 @@ export function PropertyCard({
           variant="ghost"
           size="icon"
           className="absolute top-4 right-4 text-white rounded-full"
+          onClick={(e) => {
+            e.stopPropagation();
+            // Add favorite logic here
+          }}
         >
           <Heart className="w-7 h-7 " />
           <span className="sr-only">Add to favorites</span>

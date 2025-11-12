@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/src/components/ui/button";
 import { Card, CardContent } from "@/src/components/ui/card";
 import { getAllCommunities } from "@/src/api/communities";
@@ -51,6 +52,7 @@ const communities = [
 export default function Component() {
   const [communities, setCommunities] = useState<any[]>([]);
   const { t } = useLanguage();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchCommunities = async () => {
@@ -64,6 +66,11 @@ export default function Component() {
     };
     fetchCommunities();
   }, []);
+
+  const handleCardClick = (communityName: string) => {
+    // Navigate to off-plan page with area filter applied
+    router.push(`/off-plan-projects-in-dubai?area=${encodeURIComponent(communityName)}`);
+  };
   return (
     <div className="bg-white text-gray-900">
       {/* Hero Section - Compact */}
@@ -86,7 +93,8 @@ export default function Component() {
             {communities?.slice(0, 4).map((community: any, idx: number) => (
               <Card 
                 key={`${community.id ?? idx}-${idx}`}
-                className="relative w-full h-[400px] md:h-[450px] rounded-lg overflow-hidden shadow-md hover:shadow-lg group border-none transition-all duration-300"
+                className="relative w-full h-[400px] md:h-[450px] rounded-lg overflow-hidden shadow-md hover:shadow-lg group border-none transition-all duration-300 cursor-pointer"
+                onClick={() => handleCardClick(community.name)}
               >
                 <CardContent className="p-0 h-full">
                   <Image
@@ -105,7 +113,8 @@ export default function Component() {
                     </p>
                     <div className="w-full border-[0.5px] border-white/30 mb-3" />
                     <Link
-                      href={"/communities"}
+                      href={`/off-plan-projects-in-dubai?area=${encodeURIComponent(community.name)}`}
+                      onClick={(e) => e.stopPropagation()}
                       className={cn(
                         "relative pb-1 transition-all duration-300 text-primary uppercase text-xs md:text-sm font-light",
                         "after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:w-0",

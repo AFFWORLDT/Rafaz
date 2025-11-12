@@ -6,7 +6,7 @@ import Link from "next/link";
 
 function Solutions() {
   const { t } = useLanguage();
-  const whatsappBase = "https://wa.me/971507815384";
+  const whatsappBase = "https://wa.me/971501608106";
   const solutions = [
     {
       icon: <User className="h-12 w-12 text-[#dbbb90]" />,

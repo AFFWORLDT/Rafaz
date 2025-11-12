@@ -8,7 +8,7 @@ type WhatsAppWidgetProps = {
 }
 
 export default function WhatsAppWidget({
-  phone = '971507815384',
+  phone = '971501608106',
   message = 'Hello, I would like to know more about your properties.'
 }: WhatsAppWidgetProps) {
   const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`

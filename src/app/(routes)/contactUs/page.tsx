@@ -62,10 +62,10 @@ function ContactUs() {
                       +971 43 307 959
                     </a>
                     <a
-                      href="tel:+971507815384"
+                      href="tel:+971501608106"
                       className="block text-[#dbbb90] hover:text-[#C2A17B] transition-colors font-serif"
                     >
-                      +971 50 781 5384
+                      +971 50 160 8106
                     </a>
                   </div>
                 </div>
@@ -80,10 +80,10 @@ function ContactUs() {
                 <div>
                   <p className="text-gray-800 font-medium font-serif">Email</p>
                   <a
-                    href="mailto:info@rafazproperties.com"
+                    href="mailto:info@rafazproperties.ae"
                     className="text-[#dbbb90] hover:text-[#C2A17B] transition-colors font-serif"
                   >
-                    info@rafazproperties.com
+                    info@rafazproperties.ae
                   </a>
                 </div>
               </div>

@@ -10,7 +10,7 @@ type FloatingActionsProps = {
 };
 
 export default function FloatingActions({
-  phone = "971507815384",
+  phone = "971501608106",
   message = "Hello, I would like to know more about your properties.",
 }: FloatingActionsProps) {
   const { openLeadForm } = useLeadForm();

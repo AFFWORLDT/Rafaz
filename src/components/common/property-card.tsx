@@ -45,22 +45,44 @@ export default function PropertyCard({ data }: { data?: PropertyData }) {
     const router = useRouter();
     
     const handleCardClick = () => {
+      if (!data) return;
+      
       // Use name first (as API returns name, not project_name)
       const projectName = data?.name || data?.title || data?.project_name || data?.property_name || `Property ${data?.id || 'Unknown'}`;
+      
+      if (!projectName || projectName.startsWith('Property ')) {
+        console.warn('PropertyCard - Property missing name field:', data);
+      }
+      
       const projectSlug = formatPropertyNameForUrl(projectName);
-      // Always use slug, never fall back to ID
+      
+      console.log('PropertyCard - Card clicked:', {
+        id: data?.id,
+        name: data?.name,
+        title: data?.title,
+        project_name: data?.project_name,
+        property_name: data?.property_name,
+        finalName: projectName,
+        slug: projectSlug,
+        url: `/off-plan-projects-in-dubai/details/${projectSlug}`
+      });
+      
+      // Always route to off-plan details page (this component is used for off-plan properties)
       const url = `/off-plan-projects-in-dubai/details/${projectSlug}`;
       router.push(url);
     };
     
   return (
-    <Card className="overflow-hidden border-none p-0 shadow-sm border-2 rounded-lg" onClick={handleCardClick}>
+    <Card 
+      className="overflow-hidden border-none p-0 shadow-sm border-2 rounded-lg cursor-pointer hover:shadow-lg transition-shadow duration-300" 
+      onClick={handleCardClick}
+    >
       <div className="relative w-full h-96 overflow-hidden group">
         <Image
           src={data?.photos?.[0] ?? "/placeholder.jpg"}
           alt={`Image of ${data?.name}`}
           fill
-          className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-110 cursor-pointer"
+          className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           priority
         />

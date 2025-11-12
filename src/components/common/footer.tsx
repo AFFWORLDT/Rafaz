@@ -96,13 +96,13 @@ export default function Footer() {
                       +971 43 307 959
                     </a> &nbsp;
                     <a
-                      href="tel:+971507815384"
+                      href="tel:+971501608106"
                       className="relative inline-block hover:text-white transition-all duration-300 font-serif text-base
                                  after:content-[''] after:absolute after:left-0 after:bottom-0
                                  after:h-[1px] after:w-0 after:bg-[#dbbb90]
                                  after:transition-all after:duration-300 hover:after:w-full"
                     >
-                      +971 50 781 5384
+                      +971 50 160 8106
                     </a> 
                   </div>
                 </div>
@@ -114,13 +114,13 @@ export default function Footer() {
                     </svg>
                   </div>
                   <a
-                    href="mailto:info@rafazproperties.com"
+                    href="mailto:info@rafazproperties.ae"
                     className="relative inline-block hover:text-white transition-all duration-300 font-serif text-base
                                after:content-[''] after:absolute after:left-0 after:bottom-0
                                after:h-[1px] after:w-0 after:bg-[#dbbb90]
                                after:transition-all after:duration-300 hover:after:w-full"
                   >
-                    info@rafazproperties.com
+                    info@rafazproperties.ae
                   </a>
                 </div>
               </address>
@@ -174,7 +174,7 @@ export default function Footer() {
 
                 {/* WhatsApp */}
                 <a
-                  href="https://wa.me/97143307959"
+                  href="https://wa.me/971501608106"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group w-12 h-12 bg-white/8 hover:bg-[#dbbb90]/20 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg border border-white/10 hover:border-[#dbbb90]/30 luxury-hover"
@@ -201,7 +201,7 @@ export default function Footer() {
                   <div className="w-12 h-12 rounded-xl overflow-hidden border-2 border-[#dbbb90]/30 flex items-center justify-center bg-white/8 backdrop-blur-sm">
                     <Image
                       src="/images/logo.png"
-                      alt="Rafaz Real Estate Logo"
+                      alt="Rafaz Properties LLC Logo"
                       width={48}
                       height={48}
                       className="w-full h-full object-contain"
@@ -209,7 +209,7 @@ export default function Footer() {
                   </div>
                   <div>
                     <p className="font-serif font-medium text-white text-lg">Rafaz</p>
-                    <p className="text-base text-white/60 font-serif">Real Estate</p>
+                    <p className="text-base text-white/60 font-serif">Properties LLC</p>
                   </div>
                 </div>
               </div>
@@ -253,18 +253,18 @@ export default function Footer() {
                 <div className="w-10 h-10 rounded-xl overflow-hidden border-2 border-[#dbbb90]/30 flex items-center justify-center bg-white/8 backdrop-blur-sm">
                   <Image
                     src="/images/logo.png"
-                    alt="Rafaz Real Estate Logo"
+                    alt="Rafaz Properties LLC Logo"
                     width={40}
                     height={40}
                     className="w-full h-full object-contain"
                   />
                 </div>
                 <p className="font-serif font-light text-white/75 tracking-widest text-base">
-                  &copy; 2025 Rafaz Real Estate. All Rights Reserved.
+                  &copy; 2025 Rafaz Properties LLC. All Rights Reserved.
                 </p>
               </div>
               <div className="text-[#D4AF37] text-sm font-serif font-medium tracking-widest luxury-text-shadow">
-                Dubai's NO 1 Luxury Real Estate
+                Dubai's NO 1 Luxury Rafaz Properties LLC
               </div>
             </div>
           </div>

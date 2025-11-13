@@ -763,7 +763,7 @@ export const generateContactConfirmationEmail = (contactData: any): string => {
                     </tr>
                   </table>
         <h1 style="color: white; font-size: 24px; margin: 0; font-weight: 300; letter-spacing: 1px; font-family: Arial, sans-serif;">RAFAZ PROPERTIES</h1>
-        <p style="color: white; font-size: 14px; margin: 8px 0 0 0; opacity: 0.9; font-weight: 300; font-family: Arial, sans-serif;">Premium Real Estate in Dubai</p>
+        <p style="color: white; font-size: 14px; margin: 8px 0 0 0; opacity: 0.9; font-weight: 300; font-family: Arial, sans-serif;">Premium Properties in Dubai</p>
                 </td>
               </tr>
 
